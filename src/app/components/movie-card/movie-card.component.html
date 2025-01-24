@@ -1,0 +1,15 @@
+ <p-card appTendances >
+        <ng-template #content>
+            <img alt="Card" class="w-full" (click)="goToDetailPage(movieId())"
+            src="https://image.tmdb.org/t/p/{{poster_width()}}{{poster_path()}}" />
+        </ng-template>
+</p-card>
+ 
+    <!--
+     <p-card >
+            <ng-template #content>
+                <img (click)=" goToDetailPage(movie.id)"
+                alt="Card" class="w-full" src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}" />
+            </ng-template>
+        </p-card>
+    -->

@@ -1,0 +1,24 @@
+.mg{
+  margin: 10px 0 10px 2em ;
+}
+.container-mg{
+  margin: 1.2em 2em 10px 1.8em ;
+  padding: 0 12px 0 12px;
+}
+.container{
+  height: 100%;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+}
+
+.title{
+  text-transform: capitalize;
+  color:#FFCC00;
+  margin: 1.2em 2em 10px 0 ;
+}
+div >img {
+  cursor: pointer;
+}
+
+ 

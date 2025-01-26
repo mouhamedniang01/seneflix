@@ -16,12 +16,13 @@ import { Credits} from '../../models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import {Carousel} from 'primeng/carousel';
 import {Tag} from 'primeng/tag';
+import {Skeleton} from 'primeng/skeleton';
 
 
 @Component({
   selector: 'app-movie-details',
-  imports: [CardModule, AsyncPipe, CardModule,AnimateOnScrollModule,
-    GalleriaModule, Button, DialogWidgetComponent, FormsModule, Rating, Carousel, Tag],
+  imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
+    GalleriaModule, Button, DialogWidgetComponent, FormsModule, Rating, Carousel,  Skeleton],
   templateUrl: './movie-details.component.html',
   standalone: true,
   providers: [MovieService,LoggingInterceptor],

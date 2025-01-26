@@ -1,15 +1,75 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {  Component, OnInit,} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 import {LoggingInterceptor} from './interceptors/logging.interceptor';
-import { NavbarComponent } from "./components/navbar/navbar.component";
+import {NavbarComponent} from "./components/navbar/navbar.component";
+import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
+import {Menubar} from 'primeng/menubar';
+import {MenuItem} from 'primeng/api';
+import {LocalStorageService} from './services/local-storage/local-storage.service';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent,  LanguageSelectorComponent, Menubar],
   templateUrl: './app.component.html',
-  providers:[LoggingInterceptor],
+  providers:[LoggingInterceptor,LocalStorageService],
   standalone: true,
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  title = 'seneflix';
+export class AppComponent implements  OnInit{
+  title:string = 'prime wideo';
+  items: MenuItem[] | undefined;
+  lastTemplateUpdate: string   = 'en-EN';
+  constructor(public localStorageService:LocalStorageService) {}
+
+
+  ngOnInit(): void {
+    this.setItems();
+  }
+
+
+
+  //set menu item
+  setItems(){
+    this.items = [
+      {
+        label: 'Home',
+        icon: 'pi pi-home',
+      },
+      {
+        label: 'Projects',
+        icon: 'pi pi-search',
+        badge: '3',
+        items: [
+          {
+            label: 'Core',
+            icon: 'pi pi-bolt',
+            shortcut: '⌘+S',
+          },
+          {
+            label: 'Blocks',
+            icon: 'pi pi-server',
+            shortcut: '⌘+B',
+          },
+          {
+            separator: true,
+          },
+          {
+            label: 'UI Kit',
+            icon: 'pi pi-pencil',
+            shortcut: '⌘+U',
+          },
+        ],
+      },
+    ];
+  }
+
+
+  // Gestion via stockage local
+  handleLanguageUpdate(language: string):void {
+    this.lastTemplateUpdate = language;
+     this.localStorageService.setLanguage('language', language);
+     const v = this.localStorageService.getLanguage('language')
+    alert(v)
+  }
+
 }

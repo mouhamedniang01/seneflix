@@ -1,2 +1,15 @@
 <app-movie-carousel/>
-<app-upcoming-movies></app-upcoming-movies>
+<div id="grid-container">
+
+  <!-- trending movies swiper-->
+  @if (trending$ | async ; as  trending){
+    <app-swiper-category [movies]="trending" categoryTitle="trending"  />
+  }
+  <!-- end trending movies swiper-->
+
+  <!-- upcoming movies -->
+  @if (upcomingMovies$ | async ; as  upcomingMovies){
+    <app-swiper-category [movies]="upcomingMovies" categoryTitle="upcoming"/>
+  }
+  <!-- end upcoming movies -->
+</div>

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UpcomingMoviesComponent } from './upcoming-movies.component';
+import { SwiperCategoryComponent } from './swiper-category.component';
 
-describe('UpcomingMoviesComponent', () => {
-  let component: UpcomingMoviesComponent;
-  let fixture: ComponentFixture<UpcomingMoviesComponent>;
+describe('SwiperCategoryComponent', () => {
+  let component: SwiperCategoryComponent;
+  let fixture: ComponentFixture<SwiperCategoryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UpcomingMoviesComponent]
+      imports: [SwiperCategoryComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UpcomingMoviesComponent);
+    fixture = TestBed.createComponent(SwiperCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

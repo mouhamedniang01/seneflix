@@ -1,0 +1,29 @@
+<p-select [options]="languagies" [(ngModel)]="selectedLanguage" optionLabel="name"
+          placeholder="Select a language" class="mr-2 w-full md:w-60" (onChange)="updateLanguage()" >
+  <ng-template #selectedItem let-selectedOption>
+    <div class="flex items-center gap-2" *ngIf="selectedOption" >
+      <img
+        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+        [class]="'flag flag-' + selectedOption.code.toLowerCase()"
+        style="width: 18px"
+      />
+        <div>{{ selectedOption.value }}</div>
+    </div>
+  </ng-template>
+  <ng-template let-country #item>
+    <div class="flex items-center gap-2" style="max-width: 230px">
+      <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+           [class]="'flag flag-' + country.code.toLowerCase()"
+           style="width: 18px"
+      />
+      {{ country.name }}
+    </div>
+  </ng-template>
+  <ng-template #dropdownicon>
+    <i class="pi pi-map"></i>
+  </ng-template>
+  <ng-template #footer>
+    <div class="font-medium p-3 " style="text-align: center">Available Languages</div>
+  </ng-template>
+
+</p-select>

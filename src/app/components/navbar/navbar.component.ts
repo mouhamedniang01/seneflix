@@ -1,53 +1,20 @@
-import { MenuItem } from 'primeng/api';
-import { Component, OnInit } from '@angular/core'; 
-import { Menubar } from 'primeng/menubar';
-import { BadgeModule } from 'primeng/badge';
-import { AvatarModule } from 'primeng/avatar';
-import { InputTextModule } from 'primeng/inputtext';
-import { CommonModule } from '@angular/common';
-import { Ripple } from 'primeng/ripple';
+import {MenuItem} from 'primeng/api';
+import {Component, input, InputSignal, OnInit} from '@angular/core';
+import {Menubar} from 'primeng/menubar';
+import {LanguageSelectorComponent} from '../language-selector/language-selector.component';
+import {NgClass, NgIf} from '@angular/common';
+import {Badge} from 'primeng/badge';
+import {Ripple} from 'primeng/ripple';
+
 @Component({
   selector: 'app-navbar',
-  imports: [Menubar, BadgeModule, AvatarModule, InputTextModule, Ripple, CommonModule],
+  imports: [ NgClass, NgIf, Badge, Ripple],
   standalone:true,
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit {
-  items: MenuItem[] | undefined;
+export class NavbarComponent {
+  items: InputSignal<MenuItem[] | undefined> = input.required<MenuItem[] | undefined>();
 
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Home',
-                icon: 'pi pi-home',
-            },
-            {
-                label: 'Projects',
-                icon: 'pi pi-search',
-                badge: '3',
-                items: [
-                    {
-                        label: 'Core',
-                        icon: 'pi pi-bolt',
-                        shortcut: '⌘+S',
-                    },
-                    {
-                        label: 'Blocks',
-                        icon: 'pi pi-server',
-                        shortcut: '⌘+B',
-                    },
-                    {
-                        separator: true,
-                    },
-                    {
-                        label: 'UI Kit',
-                        icon: 'pi pi-pencil',
-                        shortcut: '⌘+U',
-                    },
-                ],
-            },
-        ];
-    }
 
 }

@@ -1,1 +1,460 @@
-<p>movie-details works!</p>
+@if (movie$ | async; as movie){
+  <main class="hero main"
+        style.background-image='url(https://image.tmdb.org/t/p/original{{movie.backdrop_path}})'
+        xmlns="http://www.w3.org/1999/html">
+    <div class="hero-content">
+      <h1>✨{{movie.title}}</h1>
+      <p class="thumbnail">
+        {{movie.overview}}
+      </p>
+      <div class="cta-container">
+        Release date : {{movie.release_date | date:'dd-MM-yyyy'}}<br/>
+        <div class="mt-2">
+          <p-rating  [(ngModel)]="movie.vote_average" [stars]="10" [iconOnStyle]="{color:'#0F93F6'}" [disabled]="true"/>
+        </div>
+        <div class="btn">
+          <p-button (click)="showDialog()" label="Play now" icon="pi pi-play" style.color="#0F93F6" />
+        </div>
+      </div>
+    </div>
+  </main>
+  <section class="difference-section">
+    <div class="features-header">
+      <span class="features-label">
+        <div class="flex flex-col items-center gap-2">
+            <span class="text-xl font-medium">Scroll Down</span>
+            <span class="slidedown-icon h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
+                <i class="pi pi-arrow-down"></i>
+            </span>
+      </div>
+      </span>
+      <h2 class="features-title">
+        <span class="decorative-dash">~</span>
+        Casting
+        <span class="decorative-dash">~</span>
+      </h2>
+    </div>
+
+    <!-- credits actors carousel here-->
+    @if (credits$ | async; as credit){
+      <p-carousel [value]="credit.cast" [numVisible]="3" autoplayInterval="3000" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions()">
+        <ng-template let-actor #item>
+
+          <div class="border border-surface-200 dark:border-surface-700 rounded mt-2 align-center">
+            <div class="mb-5">
+              <div class="relative mx-auto">
+                <!--show actor image if exist -->
+                <img *ngIf="actor.profile_path"  src="https://image.tmdb.org/t/p/original{{actor.profile_path}}" [alt]="actor.name" class="carousel-content rounded-border" />
+                <img *ngIf="!actor.profile_path" src="https://placehold.co/600x600"  [alt]="actor.name" class="carousel-content rounded-border" />
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-2 font-medium">{{ actor.name }}</div>
+          <div class="flex gap-4 mt-1 mb-3">
+            <div class="flex justify-between items-center">
+              <div class="mt-2 mb-3 ">Role : {{actor.character}}</div>
+
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+    }
+  </section>
+  <section class="constr-services">
+    <div class="features-header">
+      <span class="features-label">NEED TO KNOW</span>
+      <h2 class="features-title">
+        <span class="decorative-dash">~</span>
+        Our Services
+        <span class="decorative-dash">~</span>
+      </h2>
+    </div>
+
+    <div class="constr-grid">
+      <div class="constr-card">
+        <div class="constr-blob constr-blob-1"></div>
+        <div class="constr-content">
+          <h3>General Contracting</h3>
+          <p>General contracting refers to a construction a single contractor.</p>
+        </div>
+      </div>
+
+      <div class="constr-card">
+        <div class="constr-blob constr-blob-2"></div>
+        <div class="constr-content">
+          <h3>Special Projects</h3>
+          <p>broad term that can refer to unique or non-routine</p>
+        </div>
+      </div>
+
+      <div class="constr-card">
+        <div class="constr-blob constr-blob-3"></div>
+        <div class="constr-content">
+          <h3>House Renovation</h3>
+          <p>House renovation, alsoas home renovation or remodeling</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="features-header">
+      <span class="features-label">SEE</span>
+      <h2 class="features-title">
+        <span class="decorative-dash">~</span>
+        Our Projects
+        <span class="decorative-dash">~</span>
+      </h2>
+    </div>
+    <div class="hero-section">
+      <div class="hero-container">
+        <div class="hero-slide active">
+          <div class="one">
+            <div class="oneImg">
+
+            </div>
+            <div class="oneTxt">
+              <h2>1304<br /> Carolyn Way</h2>
+              <div>
+                <div>
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 8V3H3V9L5 12V21M7 3V5M11 3V5M10 16L14.4237 11.9784C14.8038 11.6329 14.9938 11.4601 15.2091 11.3947C15.3988 11.337 15.6012 11.337 15.7909 11.3947C16.0062 11.4601 16.1962 11.6329 16.5763 11.9784L21 16M12 14.1818V19.4C12 19.9601 12 20.2401 12.109 20.454C12.2049 20.6422 12.3578 20.7951 12.546 20.891C12.7599 21 13.0399 21 13.6 21H17.4C17.9601 21 18.2401 21 18.454 20.891C18.6422 20.7951 18.7951 20.6422 18.891 20.454C19 20.2401 19 19.9601 19 19.4V14.1818M11 9H7" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  House Type<br>
+                </div>
+                <div>
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9928 6.6967L17.1747 3.51472L20.3567 6.6967L19.2961 7.75736L17.9247 6.38604L17.9247 17.614L19.2961 16.2426L20.3567 17.3033L17.1747 20.4853L13.9928 17.3033L15.0534 16.2426L16.4247 17.614V6.38604L15.0534 7.75736L13.9928 6.6967Z" fill="#080341" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 4.5L4.5 3.75H12L12.75 4.5V19.5L12 20.25H4.5L3.75 19.5V4.5ZM5.25 5.25V18.75H11.25V17.25H8.25V15.75H11.25V14.25H8.25V12.75H11.25V11.25H7.5V9.75H11.25V8.25H8.25V6.75H11.25V5.25H5.25Z" fill="#080341" />
+                  </svg>
+                  2890 sqft
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="two">
+            <div class="oneImg twoImg">
+
+            </div>
+            <div class="twoTxt">
+              <h2>2376<br />
+                Kimridge Rd</h2>
+              <div class="ab">
+                <div>
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 8V3H3V9L5 12V21M7 3V5M11 3V5M10 16L14.4237 11.9784C14.8038 11.6329 14.9938 11.4601 15.2091 11.3947C15.3988 11.337 15.6012 11.337 15.7909 11.3947C16.0062 11.4601 16.1962 11.6329 16.5763 11.9784L21 16M12 14.1818V19.4C12 19.9601 12 20.2401 12.109 20.454C12.2049 20.6422 12.3578 20.7951 12.546 20.891C12.7599 21 13.0399 21 13.6 21H17.4C17.9601 21 18.2401 21 18.454 20.891C18.6422 20.7951 18.7951 20.6422 18.891 20.454C19 20.2401 19 19.9601 19 19.4V14.1818M11 9H7" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  House Type<br>
+                </div>
+                <div>
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9928 6.6967L17.1747 3.51472L20.3567 6.6967L19.2961 7.75736L17.9247 6.38604L17.9247 17.614L19.2961 16.2426L20.3567 17.3033L17.1747 20.4853L13.9928 17.3033L15.0534 16.2426L16.4247 17.614V6.38604L15.0534 7.75736L13.9928 6.6967Z" fill="#080341" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 4.5L4.5 3.75H12L12.75 4.5V19.5L12 20.25H4.5L3.75 19.5V4.5ZM5.25 5.25V18.75H11.25V17.25H8.25V15.75H11.25V14.25H8.25V12.75H11.25V11.25H7.5V9.75H11.25V8.25H8.25V6.75H11.25V5.25H5.25Z" fill="#080341" />
+                  </svg>
+                  2890 sqft
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="three">
+            <div class="threeTxt">
+              <h2>9376<br />
+                Kimridge</h2>
+              <div class="ab">
+                <div>
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 8V3H3V9L5 12V21M7 3V5M11 3V5M10 16L14.4237 11.9784C14.8038 11.6329 14.9938 11.4601 15.2091 11.3947C15.3988 11.337 15.6012 11.337 15.7909 11.3947C16.0062 11.4601 16.1962 11.6329 16.5763 11.9784L21 16M12 14.1818V19.4C12 19.9601 12 20.2401 12.109 20.454C12.2049 20.6422 12.3578 20.7951 12.546 20.891C12.7599 21 13.0399 21 13.6 21H17.4C17.9601 21 18.2401 21 18.454 20.891C18.6422 20.7951 18.7951 20.6422 18.891 20.454C19 20.2401 19 19.9601 19 19.4V14.1818M11 9H7" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  House Type<br>
+                </div>
+                <div>
+                  <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M13.9928 6.6967L17.1747 3.51472L20.3567 6.6967L19.2961 7.75736L17.9247 6.38604L17.9247 17.614L19.2961 16.2426L20.3567 17.3033L17.1747 20.4853L13.9928 17.3033L15.0534 16.2426L16.4247 17.614V6.38604L15.0534 7.75736L13.9928 6.6967Z" fill="#080341" />
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 4.5L4.5 3.75H12L12.75 4.5V19.5L12 20.25H4.5L3.75 19.5V4.5ZM5.25 5.25V18.75H11.25V17.25H8.25V15.75H11.25V14.25H8.25V12.75H11.25V11.25H7.5V9.75H11.25V8.25H8.25V6.75H11.25V5.25H5.25Z" fill="#080341" />
+                  </svg>
+                  2890 sqft
+                </div>
+              </div>
+            </div>
+            <div class="oneImg twoImg threeImg">
+            </div>
+          </div>
+        </div>
+        <div class="hero-slide">
+          <h1>Explore the Second Slide</h1>
+          <p>This is the second division.</p>
+        </div>
+        <div class="hero-slide">
+          <h1>Discover the Third Slide</h1>
+          <p>This is the third division.</p>
+        </div>
+      </div>
+      <button id="next-btn">></button>
+    </div>
+  </section>
+  <section class="info-section">
+    <div class="info-header">
+      <div class="background-shape"></div>
+      <h2>Information About Us</h2>
+      <p>Join our team and work with us</p>
+    </div>
+    <div class="info-stats">
+      <div class="stat">
+        <h3 class="stat-number" data-target="230">0</h3>
+        <p>Complete projects</p>
+      </div>
+      <div class="stat">
+        <h3 class="stat-number" data-target="24">0</h3>
+        <p>Locations</p>
+      </div>
+      <div class="stat">
+        <h3 class="stat-number" data-target="500">0</h3>
+        <p>Satisfied clients</p>
+      </div>
+    </div>
+  </section>
+  <div  class="main" >
+
+
+    @if (video$ | async; as  video){
+      <app-dialog-widget
+        [(visible)]="isDialogVisible"
+        [video]="video"
+        (visibleChange)="isDialogVisible"/>
+    }
+  </div>
+}
+
+<!--<p-image  min-width="500" width="1536" max-width="2000" height="640" [preview]="true"
+  src="https://image.tmdb.org/t/p/original{{movie.backdrop_path}}" alt="Image"
+
+/>-->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+    const mobileMenu = document.querySelector(".mobile-menu");
+    let isMenuOpen = false;
+
+    function toggleMenu() {
+      isMenuOpen = !isMenuOpen;
+      mobileMenu.classList.toggle("active");
+
+      // Animate hamburger to X
+      const spans = mobileMenuBtn.querySelectorAll("span");
+      if (isMenuOpen) {
+        spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
+        spans[1].style.opacity = "0";
+        spans[2].style.transform = "rotate(-45deg) translate(7px, -7px)";
+      } else {
+        spans[0].style.transform = "none";
+        spans[1].style.opacity = "1";
+        spans[2].style.transform = "none";
+      }
+    }
+
+    mobileMenuBtn.addEventListener("click", toggleMenu);
+
+    // Close mobile menu when clicking on a link
+    const mobileMenuLinks = mobileMenu.querySelectorAll("a");
+    mobileMenuLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (isMenuOpen) toggleMenu();
+      });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener("click", (e) => {
+      if (
+        isMenuOpen &&
+        !mobileMenu.contains(e.target) &&
+        !mobileMenuBtn.contains(e.target)
+      ) {
+        toggleMenu();
+      }
+    });
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 768 && isMenuOpen) {
+        toggleMenu();
+      }
+    });
+  });
+
+  class Carousel {
+    constructor() {
+      this.container = document.querySelector(".carousel-container");
+      this.track = document.querySelector(".carousel-track");
+      this.cards = Array.from(document.querySelectorAll(".feature-card"));
+      this.prevButton = document.querySelector(".carousel-button.prev");
+      this.nextButton = document.querySelector(".carousel-button.next");
+
+      this.cardWidth = this.cards[0].offsetWidth;
+      this.currentIndex = 0;
+      this.totalCards = this.cards.length;
+
+      this.init();
+    }
+
+    init() {
+      // Clone cards for infinite loop
+      const firstCardClone = this.cards[0].cloneNode(true);
+      const lastCardClone = this.cards[this.totalCards - 1].cloneNode(true);
+
+      this.track.appendChild(firstCardClone);
+      this.track.insertBefore(lastCardClone, this.cards[0]);
+
+      // Update cards array with clones
+      this.cards = Array.from(document.querySelectorAll(".feature-card"));
+
+      // Set initial position
+      this.currentIndex = 1;
+      this.updatePosition();
+
+      // Add event listeners
+      this.prevButton.addEventListener("click", () => this.slide("prev"));
+      this.nextButton.addEventListener("click", () => this.slide("next"));
+
+      // Add transition end listener
+      this.track.addEventListener("transitionend", () =>
+        this.handleTransitionEnd()
+      );
+
+      // Add resize listener
+      window.addEventListener("resize", () => {
+        this.cardWidth = this.cards[0].offsetWidth;
+        this.updatePosition();
+      });
+    }
+
+    slide(direction) {
+      this.track.style.transition = "transform 0.3s ease-in-out";
+
+      if (direction === "next") {
+        this.currentIndex++;
+      } else {
+        this.currentIndex--;
+      }
+
+      this.updatePosition();
+    }
+
+    updatePosition() {
+      const position = -this.currentIndex * (this.cardWidth + 24); // 24px is the gap
+      this.track.style.transform = `translateX(${position}px)`;
+    }
+
+    handleTransitionEnd() {
+      // If we're at the clone of the last card
+      if (this.currentIndex === 0) {
+        this.track.style.transition = "none";
+        this.currentIndex = this.cards.length - 2;
+        this.updatePosition();
+      }
+      // If we're at the clone of the first card
+      if (this.currentIndex === this.cards.length - 1) {
+        this.track.style.transition = "none";
+        this.currentIndex = 1;
+        this.updatePosition();
+      }
+    }
+  }
+
+  // Initialize carousel when DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    new Carousel();
+  });
+
+  const track = document.querySelector(".carousel-track");
+  const items = Array.from(document.querySelectorAll(".carousel-item"));
+  const prevBtn = document.querySelector(".prev");
+  const nextBtn = document.querySelector(".next");
+
+  let currentIndex = 1;
+
+  // Update carousel position
+  function updateCarousel() {
+    const itemWidth = items[0].getBoundingClientRect().width;
+    const trackOffset = (track.parentElement.offsetWidth - itemWidth) / 3;
+
+    // Center the current item
+    track.style.transform = `translateX(calc(-${
+      currentIndex * itemWidth
+    }px + ${trackOffset}px))`;
+
+    // Update active item
+    items.forEach((item, index) => {
+      item.classList.remove("active");
+      if (index === currentIndex) {
+        item.classList.add("active");
+      }
+    });
+  }
+
+  // Go to the next slide
+  nextBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % items.length;
+    updateCarousel();
+  });
+
+  // Go to the previous slide
+  prevBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    updateCarousel();
+  });
+
+  // Initialize the carousel with the middle item centered
+  updateCarousel();
+
+  // Add subtle animation to blobs on hover
+  document.querySelectorAll(".constr-card").forEach((card) => {
+    card.addEventListener("mouseenter", () => {
+      const blob = card.querySelector(".constr-blob");
+      blob.style.transform = "translate(-50%, -50%) scale(1.3)";
+    });
+
+    card.addEventListener("mouseleave", () => {
+      const blob = card.querySelector(".constr-blob");
+      blob.style.transform = "translate(-50%, -50%) scale(1.2)";
+    });
+  });
+
+  const slides = document.querySelectorAll(".hero-slide");
+  const nextButton = document.getElementById("next-btn");
+
+  let currentSlide = 0;
+
+  nextButton.addEventListener("click", () => {
+    // Hide the current slide smoothly
+    slides[currentSlide].classList.remove("active");
+
+    // Increment slide index and loop back if necessary
+    currentSlide = (currentSlide + 1) % slides.length;
+
+    // Show the next slide with a smooth transition
+    slides[currentSlide].classList.add("active");
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".stat-number");
+
+    counters.forEach((counter) => {
+      const updateCount = () => {
+        const target = +counter.getAttribute("data-target");
+        const count = +counter.innerText;
+        const increment = target / 100;
+
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 30);
+        } else {
+          counter.innerText = target;
+        }
+      };
+
+      updateCount();
+    });
+  });
+
+</script>

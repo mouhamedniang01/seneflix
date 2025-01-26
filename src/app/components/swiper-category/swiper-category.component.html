@@ -1,0 +1,18 @@
+<div class="container-mg container">
+  <!-- category name -->
+  <h2 class="title">{{categoryTitle()}}</h2>
+    <div class="slick-wrapper">
+      <!-- carousel movies-->
+      <ngx-slick-carousel
+        class="carousel" #slickModal="slick-carousel"
+        [config]="slideConfig" >
+        <!-- movie's cover image -->
+        @for (movie of movies().results ; track movie.poster_path){
+          <div   ngxSlickItem  (dblclick)="goToDetailPage(movie.id)" >
+            <img [title]="movie.title"
+                 src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}" alt="" width="250" />
+          </div>
+        }
+      </ngx-slick-carousel>
+    </div>
+</div>

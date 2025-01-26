@@ -1,10 +1,11 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core'; 
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import {SlickCarouselModule} from 'ngx-slick-carousel';
-import { DiscoveryService, Sort } from '../../services/discovery.service';
+import { DiscoveryService, Sort } from '../../services/discovery-service/discovery.service';
 import { Observable } from 'rxjs';
-import { Movie } from '../../models/movie';
+import { Movies } from '../../models/movies';
 import { AsyncPipe } from '@angular/common';
-import { CarouselModule } from 'primeng/carousel'; // carousel import prime ng
+import { CarouselModule } from 'primeng/carousel';
+import {Router} from '@angular/router'; // carousel import prime ng
 @Component({
   selector: 'app-movie-carousel',
   imports: [
@@ -18,9 +19,9 @@ import { CarouselModule } from 'primeng/carousel'; // carousel import prime ng
   styleUrl: './movie-carousel.component.css'
 })
 export class MovieCarouselComponent implements OnInit{
-  movies$ !: Observable<Movie>;
+  movies$ !: Observable<Movies>;
   autoplayInterval  :number = 3000; // in seconds
-  constructor(readonly discoveryMovieService:DiscoveryService) {}
+  constructor(readonly discoveryMovieService:DiscoveryService,readonly  router:Router) {}
   responsiveOptions:WritableSignal<any[] | undefined> = signal(
     [
       {
@@ -57,9 +58,13 @@ export class MovieCarouselComponent implements OnInit{
     );
   }
 
-    
+  navigateToDetailsPage(movieId:number){
+    this.router.navigateByUrl(`movies/details/${movieId}`).then();
+  }
 
-    
+
+
+
 
 
 }

@@ -1,3 +1,26 @@
-<app-navbar></app-navbar>
+<p-menubar [model]="items" class="mb-2 nav">
+  <ng-template #start>
+    <h3 #title class="prime" >Prime </h3>
+    <h3 class="ml-2">Wideo</h3>
+
+    <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="..." fill="var(--primary-color)" />
+    </svg>
+  </ng-template>
+  <app-navbar [items]="items"></app-navbar>
+    <ng-template #end class="m-2">
+      <app-language-selector
+        (onLanguageUpdate)="handleLanguageUpdate($event)"
+      ></app-language-selector>
+    </ng-template>
+
+</p-menubar>
+
+
+<div class="user-updates" style="display: none"  >
+  <h3>Dernières mises à jour</h3>
+  <p>Via template: {{lastTemplateUpdate}}</p>
+
+</div>
 
 <router-outlet></router-outlet>

@@ -3,8 +3,10 @@ import {MovieDetailsComponent} from './components/movie-details/movie-details.co
 import {HomeComponent} from './components/home/home.component';
 
 export const routes: Routes = [
-  {path: '', redirectTo:'home', pathMatch: 'full'},
-  {path:'home', component: HomeComponent, title:'home'},
+  {path: '', redirectTo:'home', pathMatch: 'full',},
+  {
+    path:'home', title:'home', component: HomeComponent
+  },
   {
     path:'movies',
     children:[

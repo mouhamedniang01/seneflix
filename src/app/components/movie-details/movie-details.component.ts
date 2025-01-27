@@ -15,9 +15,7 @@ import {Rating} from 'primeng/rating';
 import { Credits} from '../../models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import {Carousel} from 'primeng/carousel';
-import {Skeleton} from 'primeng/skeleton';
 import {Movies} from '../../models/movies';
-import {Image} from 'primeng/image';
 import { TabContentComponent } from "../tab-content/tab-content.component";
 import { TabsModule } from 'primeng/tabs';
 
@@ -25,7 +23,7 @@ import { TabsModule } from 'primeng/tabs';
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
     GalleriaModule, Button, DialogWidgetComponent, FormsModule,
-    Rating, Carousel, Skeleton, TabsModule, TabContentComponent],
+    Rating, Carousel,  TabsModule, TabContentComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   providers: [MovieService,LoggingInterceptor],

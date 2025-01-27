@@ -1,0 +1,47 @@
+.constr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 32px;
+  padding: 20px;
+}
+@media (max-width: 480px) {
+  .constr-card {
+    padding: 24px;
+  }
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .constr-services {
+    padding: 48px 16px;
+  }
+
+
+
+  .constr-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.constr-card:hover {
+  transform: translateY(-5px);
+}
+
+
+
+.constr-blob {
+  transform: translate(-50%, -50%) scale(1);
+}
+.constr-blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.1);
+  width: 58%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}

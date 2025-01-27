@@ -1,13 +1,12 @@
-
 <div class="constr-grid" id="service">
-  @for (similar of  content()!.results | slice:0:3 ;track similar.id){
-  <div class="constr-card" >
-    <div class="constr-blob constr-blob-1"></div>
-    <div class="constr-content">
-      <p-image   src="https://image.tmdb.org/t/p/w300{{similar.poster_path}}" alt=".." width="250"/>
-        <p-rating [(ngModel)]="similar.popularity" stars="10" />
-      <p>{{similar.vote_average | number :'1.1-1'}}</p>
+  @for (similar of  content()!.results | slice:0:3;track similar.id){
+    <div class="constr-card">
+      <div class="constr-blob constr-blob-1"></div>
+      <div class="constr-content">
+        <p-image style.margin-top="0 "  src="https://image.tmdb.org/t/p/w300{{similar.poster_path}}" alt=".." width="250"/>
+
+        <p>{{similar.vote_average | number :'1.1-1'}}</p>
+      </div>
     </div>
-  </div>
   }
-  </div>
+</div>

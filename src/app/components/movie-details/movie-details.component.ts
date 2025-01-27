@@ -18,12 +18,13 @@ import {Carousel} from 'primeng/carousel';
 import {Movies} from '../../models/movies';
 import { TabContentComponent } from "../tab-content/tab-content.component";
 import { TabsModule } from 'primeng/tabs';
+import {Image} from 'primeng/image';
 
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
     GalleriaModule, Button, DialogWidgetComponent, FormsModule,
-    Rating, Carousel,  TabsModule, TabContentComponent],
+    Rating, Carousel, TabsModule, TabContentComponent, Image],
   templateUrl: './movie-details.component.html',
   standalone: true,
   providers: [MovieService,LoggingInterceptor],

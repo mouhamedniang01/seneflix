@@ -34,9 +34,10 @@ export class AppComponent implements  OnInit{
       {
         label: 'Home',
         icon: 'pi pi-home',
+        routerLink:'/home',
       },
       {
-        label: 'Projects',
+        label: 'Reels',
         icon: 'pi pi-search',
         badge: '3',
         items: [

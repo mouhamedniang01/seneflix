@@ -8,7 +8,8 @@ img{
 .main{
   background-repeat: no-repeat;
   background-size: cover;
-  background-color:  rgba(0, 0, 0, 0.5);
+  max-height: 730px;
+  background-color:  rgba(0, 0, 0, 0.8);
 }
 .btn{
   margin: 1.5rem 0 1.5rem 0;
@@ -67,6 +68,9 @@ h1 {
 }
 .mt-2{
   margin-top: 2rem;
+}
+.mt-1{
+  margin-top: 1.5rem;
 }
 
 

@@ -45,28 +45,28 @@
 
     <!-- credits actors  casting carousel here-->
     @if (credits$ | async; as credit){
-      <p-carousel [value]="credit.cast" [numVisible]="3" autoplayInterval="3000" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions()">
+      <p-carousel [value]="credit.cast" [numVisible]="3"
+                  autoplayInterval="3000" [numScroll]="3" [circular]="true"
+                  [responsiveOptions]="responsiveOptions()">
         <ng-template let-actor #item>
-          <div class="border border-surface-200 dark:border-surface-700 rounded mt-2 align-center">
+          <div class="border border-surface-200 dark:border-surface-200 rounded m-2 p-4">
             <div class="mb-5">
               <div class="relative mx-auto">
                 <!--show actor image if exist -->
-                <img *ngIf="actor.profile_path"   alt="" [width]="300"
-                     src="https://image.tmdb.org/t/p/original{{actor.profile_path}}"
+                <p-image *ngIf="actor.profile_path"   alt="" width="250" height="250"
+                     src="https://image.tmdb.org/t/p/w440_and_h660_face{{actor.profile_path}}"
                      [alt]="actor.name" class="carousel-content rounded-border" />
-                <img alt="" *ngIf="!actor.profile_path" src="https://placehold.co/600x600"
-                     [width]="300" [height]="300"
+                <p-image alt="" *ngIf="!actor.profile_path" src="https://placehold.co/600x600"
+                     width="250" height="250"
                      [alt]="actor.name" class="carousel-content rounded-border" />
-
-
               </div>
             </div>
           </div>
 
-          <div class="mb-2 font-medium">{{ actor.name }}</div>
-          <div class="flex gap-4 mt-1 mb-3">
+          <div class="mb-5 font-medium mt-1"><b>{{ actor.name }}</b></div>
+          <div class="flex gap-4 ">
             <div class="flex justify-between items-center">
-              <div class="mt-2 mb-3 ">Role : {{actor.character}}</div>
+              <div class="mb-2 mt-1"><p>{{actor.character}}</p> </div>
 
             </div>
           </div>
@@ -75,6 +75,8 @@
     }
   </section>
 
+
+  <!--similar & recommended tab--->
   <section class="constr-services">
     <div class="features-header">
       <span class="features-label">NEED TO KNOW</span>
@@ -92,18 +94,16 @@
           }
       </p-tablist>
       <p-tabpanels>
+        @if (similarMovies$ | async ;as  similars){
             <p-tabpanel [value]="0">
-              @if (similarMovies$ | async ;as  similars){
-                <app-tab-content [content]="similars"></app-tab-content>
-              }
+                <app-tab-content [content]="similars" ></app-tab-content>
             </p-tabpanel>
+        }
+        @if (recommendedMovies$ | async ;as  recommendedMovies){
             <p-tabpanel [value]="1">
-              @if (recommendedMovies$ | async ;as  recommendedMovies){
                 <app-tab-content [content]="recommendedMovies"></app-tab-content>
-              }
-
           </p-tabpanel>
-
+        }
     </p-tabpanels>
 
   </p-tabs>

@@ -2,9 +2,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 32px;
-  padding: 20px;
+  align-content: center;
+  padding: 20px ;
+  margin: 0 3rem 0 11rem;
+
 }
 @media (max-width: 480px) {
+  .constr-grid {
+    padding: 20px;
+  }
   .constr-card {
     padding: 24px;
   }

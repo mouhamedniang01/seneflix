@@ -10,10 +10,12 @@ import {LoggingInterceptor} from '../../interceptors/logging.interceptor';
 import {AsyncPipe} from '@angular/common';
 import {TimeWindowEnum} from '../../enums/time-window.enum';
 import {LocalStorageService} from '../../services/local-storage/local-storage.service';
+import {SelectButton} from 'primeng/selectbutton';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [MovieCarouselComponent, SwiperCategoryComponent, AsyncPipe],
+  imports: [MovieCarouselComponent, SwiperCategoryComponent, AsyncPipe, SelectButton, FormsModule],
   templateUrl: './home.component.html',
   standalone: true,
   providers:[SlickCarouselModule,MoviesListService,LoggingInterceptor],
@@ -25,7 +27,9 @@ export class HomeComponent implements OnInit,AfterViewInit{
   currentLanguage :string= 'en-EN';
   // params page & language
   pageNumber :WritableSignal<number> = signal<number>(1);
+  stateOptions: any[] = [{ label: 'Day', value: TimeWindowEnum.DAY },{ label: 'Week', value: TimeWindowEnum.WEEK }];
 
+  value: TimeWindowEnum= TimeWindowEnum.DAY;
 
   constructor(
     readonly moviesListService:MoviesListService,
@@ -34,11 +38,11 @@ export class HomeComponent implements OnInit,AfterViewInit{
 
   ngOnInit(): void {
     this.fetchIncomingMovies();
-    this.fetchTrending();
+    this.fetchTrending(this.value);
   }
   ngAfterViewInit(): void {
     this.currentLanguage =this.localStorageService.getLanguage('language')!.toString();
-    alert(this.currentLanguage.toString());
+//    alert(this.currentLanguage.toString());
   }
 
 
@@ -50,8 +54,8 @@ export class HomeComponent implements OnInit,AfterViewInit{
 
   //get all information on trending
 
-  fetchTrending():void{
-    this.trending$ = this.moviesListService.getTrendingAll(TimeWindowEnum.DAY,'en-EN');
+  fetchTrending(timeWindow:TimeWindowEnum):void{
+    this.trending$ = this.moviesListService.getTrendingAll(timeWindow,'en-EN');
   }
 
 

@@ -1,9 +1,10 @@
 <app-movie-carousel/>
-<div id="grid-container">
-
-  <!-- trending movies swiper-->
+<div id="grid-container" style="margin-bottom: 5rem;">
+  <!--select button -->
+  <!--<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic"></p-selectbutton>
+ --> <!-- trending movies swiper-->
   @if (trending$ | async ; as  trending){
-    <app-swiper-category [movies]="trending" categoryTitle="trending"  />
+    <app-swiper-category [movies]="trending" categoryTitle="trending"  iconName="pi pi-shield" />
   }
   <!-- end trending movies swiper-->
 

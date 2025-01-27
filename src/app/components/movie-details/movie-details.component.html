@@ -4,6 +4,7 @@
         xmlns="http://www.w3.org/1999/html">
     <div class="hero-content">
       <h1>✨{{movie.title}}</h1>
+      <h3>Overview</h3>
       <p class="thumbnail">
         {{movie.overview}}
       </p>
@@ -13,7 +14,7 @@
           <p-rating severity="info" [(ngModel)]="movie.vote_average" [stars]="10" [iconOnStyle]="{color:'#0F93F6'}" [disabled]="true"/>
         </div>
         <div class="btn">
-          <p-button (click)="showDialog()" label="Play now" icon="pi pi-play" severity="info"  class="btn-play" size="large" [raised]="true"  />
+          <p-button (click)="showDialog()" label="Play now" icon="pi pi-play"    class="btn-play" size="large" [raised]="true"  />
         </div>
       </div>
     </div>
@@ -64,41 +65,47 @@
       </p-carousel>
     }
   </section>
+
   <section class="constr-services">
     <div class="features-header">
       <span class="features-label">NEED TO KNOW</span>
       <h2 class="features-title">
         <span class="decorative-dash " >~</span>
-        Our Services
+        Similaries
         <span class="decorative-dash">~</span>
       </h2>
     </div>
 
-    <div class="constr-grid" id="service">
-      <div class="constr-card">
-        <div class="constr-blob constr-blob-1"></div>
-        <div class="constr-content">
-          <h3>General Contracting</h3>
-          <p>General contracting refers to a construction a single contractor.</p>
+    @if (similarMovies$ | async ;as  similars){
+      <div class="constr-grid" id="service">
+        @for (similar of  similars.results;track similar.id){
+        <div class="constr-card">
+          <div class="constr-blob constr-blob-1"></div>
+          <div class="constr-content">
+            <p-image style.margin-top="0 "  src="https://image.tmdb.org/t/p/w300{{similar.poster_path}}" alt=".." width="250"/>
+            <!--<h3>{{similar.title}}</h3>-->
+            <p>{{similar.vote_average | number :'1.1-1'}}</p>
+          </div>
         </div>
-      </div>
+        }
+<!--
+        <div class="constr-card">
+          <div class="constr-blob constr-blob-2"></div>
+          <div class="constr-content">
+            <h3>Special Projects</h3>
+            <p>broad term that can refer to unique or non-routine</p>
+          </div>
+        </div>
 
-      <div class="constr-card">
-        <div class="constr-blob constr-blob-2"></div>
-        <div class="constr-content">
-          <h3>Special Projects</h3>
-          <p>broad term that can refer to unique or non-routine</p>
-        </div>
+        <div class="constr-card">
+          <div class="constr-blob constr-blob-3"></div>
+          <div class="constr-content">
+            <h3>House Renovation</h3>
+            <p>House renovation, alsoas home renovation or remodeling</p>
+          </div>
+        </div>-->
       </div>
-
-      <div class="constr-card">
-        <div class="constr-blob constr-blob-3"></div>
-        <div class="constr-content">
-          <h3>House Renovation</h3>
-          <p>House renovation, alsoas home renovation or remodeling</p>
-        </div>
-      </div>
-    </div>
+    }
   </section>
   <section>
     <div class="features-header">

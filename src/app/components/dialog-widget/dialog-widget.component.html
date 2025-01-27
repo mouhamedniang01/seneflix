@@ -1,0 +1,22 @@
+@if (video){
+  <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '50rem',height:'40rem' }"
+    (keyup.escape)="onClose()" (keydown.escape)="onClose()" (keydown.enter)="onClose()"
+  >
+    <ng-template #header>
+      <div class="inline-flex items-center justify-center gap-8">
+        <span class="font-bold whitespace-nowrap">{{video.results[0].name}}</span>
+        <span class="text-surface-500 dark:text-surface-400 block mb-5 ml-3">
+          {{video.results[0].published_at | date:'dd-MM-yyyy'}}
+        </span>
+      </div>
+    </ng-template>
+    <div class="flex items-center is-center">
+      <youtube-player videoId="{{video.results[0].key}}"
+        [width]="750"  [title]="video.results[0].name"
+      />
+    </div>
+    <ng-template #footer>
+      <p-button label="Cancel"  severity="danger" (click)="onClose()" />
+    </ng-template>
+  </p-dialog>
+}

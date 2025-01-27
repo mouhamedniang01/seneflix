@@ -4,6 +4,7 @@ import {MovieDetail} from '../../models/movie-detail';
 import {Observable} from 'rxjs';
 import {Video} from '../../models/video';
 import {Credits} from '../../models/credits';
+import {Movies} from '../../models/movies';
 
 @Injectable({
   providedIn: 'root'
@@ -47,12 +48,23 @@ export class MovieService {
    * GET METHOD
    * @Param movie_id
    * @Param language
-   * @return Observable<Video>
+   * @return Observable<Credits>
    * URL => https://api.themoviedb.org/3/movie/:movie_id/credits?language={language}
    */
   fetchMovieCredit(movie_id:number, language:string):Observable<Credits>{
     return  this.http
       .get<Credits>(`${this.Host}/movie/${movie_id}/credits?language=${language}`);
   }
-
+   /**
+     * Fetch movie's credit informations
+     * GET METHOD
+     * @Param movie_id number
+     * @Param language string
+     * @return Observable<Movies>
+     * URL => https://api.themoviedb.org/3/movie/:movie_id/similar?language={language}
+     */
+    fetchSimilarMovie(movie_id:number, language:string):Observable<Movies>{
+    return  this.http
+      .get<Movies>(`${this.Host}/movie/${movie_id}/similar?language=${language}&page=1`);
+  }
 }

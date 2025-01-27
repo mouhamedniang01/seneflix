@@ -17,12 +17,14 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import {Carousel} from 'primeng/carousel';
 import {Tag} from 'primeng/tag';
 import {Skeleton} from 'primeng/skeleton';
+import {Movies} from '../../models/movies';
+import {Image} from 'primeng/image';
 
 
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
-    GalleriaModule, Button, DialogWidgetComponent, FormsModule, Rating, Carousel,  Skeleton],
+    GalleriaModule, Button, DialogWidgetComponent, FormsModule, Rating, Carousel, Skeleton, Image],
   templateUrl: './movie-details.component.html',
   standalone: true,
   providers: [MovieService,LoggingInterceptor],
@@ -35,6 +37,7 @@ export class MovieDetailsComponent implements OnInit{
   video$ !: Observable<Video>;
   isDialogVisible:boolean = false;
   credits$!:Observable <Credits>;
+  similarMovies$!:Observable<Movies>;
   responsiveOptions:WritableSignal<any[] | undefined> = signal(
     [
       {
@@ -68,6 +71,10 @@ export class MovieDetailsComponent implements OnInit{
     this.getMovieDetail(this.movieId);
     this.getvideoInfos(this.movieId);
     this.getCredits(this.movieId);
+    this.getSimilar(this.movieId,this.language);
+    this.similarMovies$.subscribe(
+      value => {console.log(value.results)}
+    )
   }
   //get current movie's credits
   getCredits(movieId:number){
@@ -85,23 +92,14 @@ export class MovieDetailsComponent implements OnInit{
   }
 
   // on show dialog
-  value: any;
   showDialog() {
     this.isDialogVisible = true;
   }
 
 
-  //rate popularity
-  getSeverity(status: number) {
-    if(status >=60) {
-      return 'success';
-    }else if( status < 60 ) {
-      return 'warn';
-    }else {
-        return 'danger';
-    }
+   //similar movies
+  getSimilar(movieId:number,language:string):void{
+    this.similarMovies$ = this.movieService.fetchSimilarMovie(movieId,language);
   }
-
-
 
 }

@@ -1,0 +1,14 @@
+.is-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-button{
+  display: none;
+}
+
+.btn{
+  color: #FFFFff;
+  background-color: #FFFFff;
+}

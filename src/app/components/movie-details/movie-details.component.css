@@ -35,7 +35,7 @@ img{
   display: flex;
   padding-left: 20px;
   flex-direction: column;
-  gap: 2rem;
+  gap: .5rem;
 }
 
 .sparkle {
@@ -67,7 +67,7 @@ h1 {
   display: inline-block;
 }
 .mt-2{
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 
@@ -353,10 +353,10 @@ h1 {
 
 .constr-content {
   position: relative;
-  top: 30%;
+  /*top: 30%;
   z-index: 2;
   left: 10%;
-  padding-right: 50px;
+  padding-right: 50px;*/
 }
 
 .constr-content h3 {

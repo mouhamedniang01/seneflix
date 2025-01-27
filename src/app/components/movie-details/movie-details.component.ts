@@ -1,7 +1,7 @@
 import {Component, OnInit, signal, WritableSignal,} from '@angular/core';
 import {MovieService} from '../../services/movie/movie.service';
 import {CardModule} from 'primeng/card';
-import {Observable} from 'rxjs';
+import {  Observable} from 'rxjs';
 import {MovieDetail} from '../../models/movie-detail';
 import {ActivatedRoute} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
@@ -10,21 +10,22 @@ import {GalleriaModule} from 'primeng/galleria';
 import {Button} from 'primeng/button';
 import {DialogWidgetComponent} from '../dialog-widget/dialog-widget.component';
 import {Video} from '../../models/video';
-import {FormsModule} from '@angular/forms';
+import {FormGroup, FormsModule} from '@angular/forms';
 import {Rating} from 'primeng/rating';
 import { Credits} from '../../models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import {Carousel} from 'primeng/carousel';
-import {Tag} from 'primeng/tag';
 import {Skeleton} from 'primeng/skeleton';
 import {Movies} from '../../models/movies';
 import {Image} from 'primeng/image';
-
+import { TabContentComponent } from "../tab-content/tab-content.component";
+import { TabsModule } from 'primeng/tabs';
 
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
-    GalleriaModule, Button, DialogWidgetComponent, FormsModule, Rating, Carousel, Skeleton, Image],
+    GalleriaModule, Button, DialogWidgetComponent, FormsModule,
+    Rating, Carousel, Skeleton, TabsModule, TabContentComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   providers: [MovieService,LoggingInterceptor],
@@ -37,7 +38,12 @@ export class MovieDetailsComponent implements OnInit{
   video$ !: Observable<Video>;
   isDialogVisible:boolean = false;
   credits$!:Observable <Credits>;
+  formGroup!:FormGroup;
   similarMovies$!:Observable<Movies>;
+  recommendedMovies$!:Observable<Movies>;
+  tabs: { title: string; value: number}[] = [];
+  pageNumber:number = 1 ;
+
   responsiveOptions:WritableSignal<any[] | undefined> = signal(
     [
       {
@@ -63,7 +69,7 @@ export class MovieDetailsComponent implements OnInit{
     ]
   );
 
-  constructor(private movieService: MovieService,readonly activeRoute: ActivatedRoute) { }
+  constructor(readonly movieService: MovieService,readonly activeRoute: ActivatedRoute) { }
 
 
   ngOnInit(): void {
@@ -71,10 +77,9 @@ export class MovieDetailsComponent implements OnInit{
     this.getMovieDetail(this.movieId);
     this.getvideoInfos(this.movieId);
     this.getCredits(this.movieId);
-    this.getSimilar(this.movieId,this.language);
-    this.similarMovies$.subscribe(
-      value => {console.log(value.results)}
-    )
+    this.getSimilar(this.movieId,this.language)
+    this.setTab();
+    this.getRecommandation(this.movieId,this.language,this.pageNumber);
   }
   //get current movie's credits
   getCredits(movieId:number){
@@ -101,5 +106,16 @@ export class MovieDetailsComponent implements OnInit{
   getSimilar(movieId:number,language:string):void{
     this.similarMovies$ = this.movieService.fetchSimilarMovie(movieId,language);
   }
+  //get recommandation's movie
+  getRecommandation(movieId:number,language:string,pageNumber:number):void{
+    this.recommendedMovies$ = this.movieService.fetchRecommendedationsMovie(movieId,language,pageNumber);
+  }
 
+  //set tab
+  setTab() {
+    this.tabs = [
+      { title: 'Similaries', value: 0 },
+      { title: 'Recommandation ', value: 1}
+  ];
+  }
 }

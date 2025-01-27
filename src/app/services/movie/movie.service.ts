@@ -67,4 +67,18 @@ export class MovieService {
     return  this.http
       .get<Movies>(`${this.Host}/movie/${movie_id}/similar?language=${language}&page=1`);
   }
+
+   /**
+     * Fetch movie's credit informations
+     * GET METHOD
+     * @Param pageNumber number
+     * @Param movie_id number
+     * @Param language string
+     * @return Observable<Movies>
+     * URL => https://api.themoviedb.org/3/movie/:movie_id/similar?language={language}
+     */
+   fetchRecommendedationsMovie(movie_id:number, language:string,pageNumber:number):Observable<Movies>{
+    return  this.http
+      .get<Movies>(`${this.Host}/movie/${movie_id}/recommendations?language=en-US&page=${pageNumber}`);
+  }
 }

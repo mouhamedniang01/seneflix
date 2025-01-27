@@ -1,18 +1,37 @@
 <div class="container-mg container">
   <!-- category name -->
-  <h2 class="title">{{categoryTitle()}}</h2>
+  <h2 class="title">
+    {{categoryTitle()}}
+     <i [class]="iconName()" style="font-size: 1.2rem;margin:5px 0 0 10px; height: 18px;flex-shrink: 0;color: #00AAE4;"></i></h2>
     <div class="slick-wrapper">
-      <!-- carousel movies-->
+      @if(movies()){
+          <!-- carousel movies-->
       <ngx-slick-carousel
-        class="carousel" #slickModal="slick-carousel"
-        [config]="slideConfig" >
-        <!-- movie's cover image -->
-        @for (movie of movies().results ; track movie.poster_path){
-          <div   ngxSlickItem  (dblclick)="goToDetailPage(movie.id)" >
-            <img [title]="movie.title"
-                 src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}" alt="" width="250" />
-          </div>
-        }
-      </ngx-slick-carousel>
+      class="carousel" #slickModal="slick-carousel"
+      [config]="slideConfig" >
+      <!-- movie's cover image -->
+      @for (movie of movies()!.results ; track movie.poster_path){
+        <div   ngxSlickItem  (dblclick)="goToDetailPage(movie.id)" >
+          <img [title]="movie.title"
+               src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}" alt="" width="250" />
+        </div>
+      }
+    </ngx-slick-carousel>
+      }
+
+      @if (credits$ ) {
+      <!-- carousel credit -->
+      <ngx-slick-carousel
+      class="carousel" #slickModal="slick-carousel"
+      [config]="slideConfig" >
+      <!-- casting  cover image -->
+      @for (credit of credits()!.cast ; track credit.id){
+        <div  ngxSlickItem >
+            <img [title]="credit.name" src="https://image.tmdb.org/t/p/w300{{credit.profile_path}}" alt="" width="250" />
+        </div>
+      }
+    </ngx-slick-carousel>
+
+      }
     </div>
 </div>

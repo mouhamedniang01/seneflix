@@ -7,6 +7,8 @@ import {CardModule} from 'primeng/card';
 import {Observable} from 'rxjs';
 import {Movies} from '../../models/movies';
 import {Router} from '@angular/router';
+import { Credits } from '../../models/credits';
+import { MovieService } from '../../services/movie/movie.service';
 
 @Component({
   selector: 'app-swiper-category',
@@ -17,25 +19,37 @@ import {Router} from '@angular/router';
   styleUrl: './swiper-category.component.css'
 })
 export class SwiperCategoryComponent implements  OnInit{
-  categoryTitle :InputSignal<string> = input.required<string>();
+  categoryTitle :InputSignal<string> = input<string>('');
+  iconName :InputSignal<string> = input<string>('');
   // params page & language
   pageNumber :WritableSignal<number> = signal<number>(1);
   language : WritableSignal<string> = signal<string>('fr-FR');
   movies$!: Observable<Movies>;
-  movies:InputSignal<Movies> = input.required<Movies>();
 
-  constructor(readonly upComingMovieService:MoviesListService,readonly router:Router) {}
+  credits$ !:Observable<Credits>;
+  credits: InputSignal<undefined| Credits> = input<Credits>();
+  movies:InputSignal<Movies| undefined> = input<Movies>();
+
+  constructor(readonly movieListService:MoviesListService,
+    readonly movieService:MovieService,
+    readonly router:Router) {}
 
   ngOnInit(): void {
+    this.getCredits();
     this.fetchIncomingMovies();
   }
 
+  // get the credits
+  getCredits(){return this.credits;}
 
   // get all informations on all incoming movies
   fetchIncomingMovies(){
-    this.movies$ = this.upComingMovieService
+    this.movies$ = this.movieListService
       .getUpcommingMovies(this.language(), this.pageNumber());
   }
+
+
+
   //navige to movie detail page
   //navigate to movie details page
   goToDetailPage(movieId:number) {

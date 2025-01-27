@@ -3,7 +3,7 @@
         style.background-image='url(https://image.tmdb.org/t/p/original{{movie.backdrop_path}})'
         xmlns="http://www.w3.org/1999/html">
     <div class="hero-content">
-      <h1>✨{{movie.title}}</h1>
+      <h1 style="margin-top: -5px;">✨{{movie.title}}</h1>
       <h3>Overview</h3>
       <p class="thumbnail">
         {{movie.overview}}
@@ -35,6 +35,13 @@
         <span class="decorative-dash">~</span>
       </h2>
     </div>
+    @if (video$ | async; as  video){
+      <app-dialog-widget
+        [(visible)]="isDialogVisible"
+        [video]="video"
+        (visibleChange)="isDialogVisible"/>
+    }
+
 
     <!-- credits actors carousel here-->
     @if (credits$ | async; as credit){
@@ -44,9 +51,9 @@
             <div class="mb-5">
               <div class="relative mx-auto">
                 <!--show actor image if exist -->
-                <img *ngIf="actor.profile_path"
+                <img *ngIf="actor.profile_path"   alt=""
                      src="https://image.tmdb.org/t/p/original{{actor.profile_path}}" [alt]="actor.name" class="carousel-content rounded-border" />
-              <img *ngIf="!actor.profile_path" src="https://placehold.co/600x600"  [alt]="actor.name" class="carousel-content rounded-border" />
+                <img alt="" *ngIf="!actor.profile_path" src="https://placehold.co/600x600"  [alt]="actor.name" class="carousel-content rounded-border" />
 
                 <p-skeleton
                             width="600" height="600" />
@@ -71,23 +78,48 @@
       <span class="features-label">NEED TO KNOW</span>
       <h2 class="features-title">
         <span class="decorative-dash " >~</span>
-        Similaries
+        Similaries & Recommandation
         <span class="decorative-dash">~</span>
       </h2>
     </div>
 
-    @if (similarMovies$ | async ;as  similars){
-      <div class="constr-grid" id="service">
-        @for (similar of  similars.results;track similar.id){
-        <div class="constr-card">
+    <p-tabs [value]="1" style="background-attachment:  #010813;">
+      <p-tablist>
+          @for (tab of tabs; track tab.value) {
+              <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
+          }
+      </p-tablist>
+      <p-tabpanels>
+
+            <p-tabpanel [value]="0">
+              @if (similarMovies$ | async ;as  similars){
+                <app-tab-content [content]="similars"></app-tab-content>
+              }
+            </p-tabpanel>
+            <p-tabpanel [value]="1">
+              @if (recommendedMovies$ | async ;as  recommendedMovies){
+                <app-tab-content [content]="recommendedMovies"></app-tab-content>
+              }
+
+          </p-tabpanel>
+
+    </p-tabpanels>
+
+  </p-tabs>
+
+
+
+      <!--<div class="constr-grid" id="service">
+        @for (similar of  similars.results | slice:0:6;track similar.id){
+        <div class="constr-card" >
           <div class="constr-blob constr-blob-1"></div>
           <div class="constr-content">
-            <p-image style.margin-top="0 "  src="https://image.tmdb.org/t/p/w300{{similar.poster_path}}" alt=".." width="250"/>
-            <!--<h3>{{similar.title}}</h3>-->
+            <p-image   src="https://image.tmdb.org/t/p/w300{{similar.poster_path}}" alt=".." width="250"/>
+              <p-rating [(ngModel)]="similar.popularity" stars="10" />
             <p>{{similar.vote_average | number :'1.1-1'}}</p>
           </div>
-        </div>
-        }
+        </div>-->
+
 <!--
         <div class="constr-card">
           <div class="constr-blob constr-blob-2"></div>
@@ -104,8 +136,8 @@
             <p>House renovation, alsoas home renovation or remodeling</p>
           </div>
         </div>-->
-      </div>
-    }
+
+
   </section>
   <section>
     <div class="features-header">

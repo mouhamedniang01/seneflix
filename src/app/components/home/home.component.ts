@@ -15,7 +15,7 @@ import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [MovieCarouselComponent, SwiperCategoryComponent, AsyncPipe, SelectButton, FormsModule],
+  imports: [MovieCarouselComponent, SwiperCategoryComponent, AsyncPipe,  FormsModule],
   templateUrl: './home.component.html',
   standalone: true,
   providers:[SlickCarouselModule,MoviesListService,LoggingInterceptor],

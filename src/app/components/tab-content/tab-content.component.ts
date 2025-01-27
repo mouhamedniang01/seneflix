@@ -3,6 +3,7 @@ import { Movies } from '../../models/movies';
 import {Image} from 'primeng/image';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -15,4 +16,14 @@ import { CommonModule } from '@angular/common';
 export class TabContentComponent {
  // valueTab: InputSignal<any> = input.required<any>();
   content:InputSignal<Movies | undefined>= input<Movies>();
+
+  constructor(private router: Router) {
+  }
+
+
+  goToDetailsView(movieId:number) {
+    this.router.navigateByUrl(`movies/details/${movieId}`).then(
+      value => {window.location.reload();}
+    );
+  }
 }

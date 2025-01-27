@@ -7,6 +7,61 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
 /**
   hero
  */
+ /* Hero Section */
+ .hero {
+   padding: 1rem;
+   display: flex;
+   flex-direction: column;
+   gap: 3rem;
+   margin: 0 auto;
+   background-color:  rgba(0, 0, 0, 0.8);
+ }
+
+ .hero-content {
+   display: flex;
+   padding-left: 20px;
+   flex-direction: column;
+   gap: .5rem;
+ }
+ @media (min-width: 768px) {
+   .hero {
+     flex-direction: row;
+     align-items: center;
+     padding: 4rem 2rem;
+   }
+
+   h1 {
+     font-size: 3.5rem;
+   }
+
+   .hero-content {
+     flex: 1;
+   }
+
+   .hero-image {
+     flex: 1;
+   }
+ }
+ .info-header .background-shape {
+   position: absolute;
+   left: 150px;
+   transform: translateY(-25%);
+   width: 400px;
+   height: 200px;
+   background: linear-gradient(135deg, #ffd700, #ff9d00);
+   border-radius: 100px 200px 100px 300px;
+   opacity: 0.2;
+   /* z-index: -1; */
+ }
+
+ .footer {
+   text-align: center;
+   padding: 20px;
+   background-color: #333;
+   color: #fff;
+   font-size: 16px;
+   margin-top: 40px;
+ }
 
 
 

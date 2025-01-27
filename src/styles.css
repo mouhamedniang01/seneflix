@@ -385,22 +385,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
    visibility: visible;
  }
 
- #next-btn {
-   margin-top: 20px;
-   padding: 15px 20px;
-   border: none;
-   background-color: #3a3938;
-   color: white;
-   font-size: 16px;
-   cursor: pointer;
-   border-radius: 50%;
 
-   transition: background-color 0.3s ease;
- }
 
- #next-btn:hover {
-   background-color: #e64a19;
- }
  .one,
  .two,
  .three {
@@ -422,78 +408,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
    display: flex;
    text-align: left;
    flex-direction: column;
-   /* border:1px solid red; */
    width: 300px;
    padding-left: 20px;
-   /* position:absolute;
-     width:200px;
-     top:5%;
-     left:21%; */
  }
  .ab {
    display: flex;
    flex-direction: column;
  }
- /* .oneTxt div{
-     display: flex;
-     text-align:center;
-     justify-content: space-between;
-   } */
- h2 {
-   font-size: 30px;
- }
- .twoImg {
-   border-radius: 300px 200px 300px 400px;
- }
- .two {
-   display: flex;
-   flex-direction: row;
-   justify-content: flex-end;
-   align-items: flex-end;
- }
- .twoTxt {
-   position: relative;
-   width: 270px;
-   top: -100px;
-   text-align: left;
-   padding-left: 20px;
- }
- .three {
-   display: flex;
- }
- .threeImg {
-   border-radius: 400px 500px 600px;
- }
- .threeTxt {
-   display: flex;
-   flex-direction: column;
-   text-align: left;
- }
- .one {
-   position: relative;
-   left: 100px;
- }
- .three {
-   position: relative;
-   left: -100px;
- }
- .oneImg {
-   background-image: url("https://hdwallpaperim.com/wp-content/uploads/2017/08/25/121661-living_rooms-interiors-interior_design.jpg");
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
- }
- .twoImg {
-   background-image: url("https://cuttingedgeds.com/wp-content/uploads/2019/11/interior-designer-for-home-and-business-space-1.jpg");
- }
- .threeImg {
-   background-image: url("https://www.decorilla.com/online-decorating/wp-content/uploads/2018/10/modern-interior-design-grey-living-room2.png");
- }
- @media (max-width: 1024px) {
-   .three {
-     display: none;
-   }
- }
+
+
+
 
  .info-section {
    display: flex;
@@ -522,25 +446,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
    margin-top: 30px;
  }
 
- .stat {
-   text-align: center;
-   background-color: rgb(249, 245, 239);
-   border-radius: 50%;
-   width: 150px;
-   height: 150px;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
- }
 
- .stat-number {
-   font-size: 2.5rem;
-   font-weight: bold;
-   color: #333;
-   margin: 0;
- }
 
  .stat p {
    font-size: 0.8rem;
@@ -548,14 +454,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
    margin-top: 10px;
  }
 
- .footer {
-   text-align: center;
-   padding: 20px;
-   background-color: #333;
-   color: #fff;
-   font-size: 16px;
-   margin-top: 40px;
- }
+
 
 
 

@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  seneflix:
+    build: .
+    container_name: seneflix
+    ports:
+      - '4200:4200'
+    volumes:
+      - ./:/seneflix
+    environment:
+      - STYLE=css

@@ -10,7 +10,7 @@ ENV APP_NAME 'seneflix'
 ENV ROUTING 'true'
 ENV STANDALONE 'false'
 ENV STRICT 'true'
-ENV STYLE 'scss'
+ENV STYLE 'css'
 
 CMD ng new $APP_NAME --routing=$ROUTING --standalone=$STANDALONE --strict=$STRICT --style=$STYLE \
     && mv $APP_NAME/* . \

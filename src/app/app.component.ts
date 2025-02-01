@@ -2,7 +2,7 @@ import {  Component, OnInit,} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {LoggingInterceptor} from './interceptors/logging.interceptor';
 import {NavbarComponent} from "./components/navbar/navbar.component";
-import {LanguageSelectorComponent} from './components/language-selector/language-selector.component';
+import {LanguageSelectorComponent, Langue} from './components/language-selector/language-selector.component';
 import {Menubar} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import {LocalStorageService} from './services/local-storage/local-storage.service';
@@ -18,7 +18,7 @@ import {LocalStorageService} from './services/local-storage/local-storage.servic
 export class AppComponent implements  OnInit{
   title:string = 'prime wideo';
   items: MenuItem[] | undefined;
-  lastTemplateUpdate: string   = 'en-EN';
+  lastTemplateUpdate: string  | Langue ='';
   constructor(public localStorageService:LocalStorageService) {}
 
 
@@ -66,11 +66,10 @@ export class AppComponent implements  OnInit{
 
 
   // Gestion via stockage local
-  handleLanguageUpdate(language: string):void {
+  handleLanguageUpdate(language: any):void {
     this.lastTemplateUpdate = language;
      this.localStorageService.setLanguage('language', language);
-     const v = this.localStorageService.getLanguage('language')
-    alert(v)
+
   }
 
 }

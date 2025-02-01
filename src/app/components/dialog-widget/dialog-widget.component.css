@@ -7,6 +7,9 @@
 .p-button{
   display: none;
 }
+p-dialog{
+  background:none;
+}
 
 .btn{
   color: #FFFFff;

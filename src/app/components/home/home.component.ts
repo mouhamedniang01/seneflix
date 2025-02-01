@@ -10,7 +10,7 @@ import {LoggingInterceptor} from '../../interceptors/logging.interceptor';
 import {AsyncPipe} from '@angular/common';
 import {TimeWindowEnum} from '../../enums/time-window.enum';
 import {LocalStorageService} from '../../services/local-storage/local-storage.service';
-import {SelectButton} from 'primeng/selectbutton';
+//import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -24,7 +24,7 @@ import {FormsModule} from '@angular/forms';
 export class HomeComponent implements OnInit,AfterViewInit{
   upcomingMovies$!: Observable<Movies>;
   trending$ !: Observable<Movies>;
-  currentLanguage :string= 'en-EN';
+  currentLanguage :WritableSignal<string>=signal<string> ('en-EN');
   // params page & language
   pageNumber :WritableSignal<number> = signal<number>(1);
   stateOptions: any[] = [{ label: 'Day', value: TimeWindowEnum.DAY },{ label: 'Week', value: TimeWindowEnum.WEEK }];
@@ -41,7 +41,9 @@ export class HomeComponent implements OnInit,AfterViewInit{
     this.fetchTrending(this.value);
   }
   ngAfterViewInit(): void {
-    this.currentLanguage =this.localStorageService.getLanguage('language')!.toString();
+    const langue =this.localStorageService.getLanguage('language')!.toString();
+    this.currentLanguage.set(langue);
+    console.log(langue)
 //    alert(this.currentLanguage.toString());
   }
 
@@ -49,13 +51,13 @@ export class HomeComponent implements OnInit,AfterViewInit{
 
   // get all informations on all incoming movies
   fetchIncomingMovies():void{
-    this.upcomingMovies$ = this.moviesListService.getUpcommingMovies('en-EN', this.pageNumber());
+    this.upcomingMovies$ = this.moviesListService.getUpcommingMovies(this.currentLanguage(), this.pageNumber());
   }
 
   //get all information on trending
 
   fetchTrending(timeWindow:TimeWindowEnum):void{
-    this.trending$ = this.moviesListService.getTrendingAll(timeWindow,'en-EN');
+    this.trending$ = this.moviesListService.getTrendingAll(timeWindow,this.currentLanguage());
   }
 
 

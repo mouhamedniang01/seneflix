@@ -1,4 +1,4 @@
-import {Component, OnInit, signal, WritableSignal,} from '@angular/core';
+import { Component, OnInit, signal, WritableSignal,} from '@angular/core';
 import {MovieService} from '../../services/movie/movie.service';
 import {CardModule} from 'primeng/card';
 import {  Observable} from 'rxjs';
@@ -10,7 +10,7 @@ import {GalleriaModule} from 'primeng/galleria';
 import {Button} from 'primeng/button';
 import {DialogWidgetComponent} from '../dialog-widget/dialog-widget.component';
 import {Video} from '../../models/video';
-import {FormGroup, FormsModule} from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import {Rating} from 'primeng/rating';
 import { Credits} from '../../models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
@@ -19,6 +19,7 @@ import {Movies} from '../../models/movies';
 import { TabContentComponent } from "../tab-content/tab-content.component";
 import { TabsModule } from 'primeng/tabs';
 import {Image} from 'primeng/image';
+import {LocalStorageService} from '../../services/local-storage/local-storage.service';
 
 @Component({
   selector: 'app-movie-details',
@@ -33,11 +34,10 @@ import {Image} from 'primeng/image';
 export class MovieDetailsComponent implements OnInit{
   movie$ !: Observable<MovieDetail>;
   movieId: number = 0;
-  language : string='en-EN';
+  language : WritableSignal<string>=signal('');
   video$ !: Observable<Video>;
   isDialogVisible:boolean = false;
   credits$!:Observable <Credits>;
-  formGroup!:FormGroup;
   similarMovies$!:Observable<Movies>;
   recommendedMovies$!:Observable<Movies>;
   tabs: { title: string; value: number}[] = [];
@@ -68,31 +68,36 @@ export class MovieDetailsComponent implements OnInit{
     ]
   );
 
-  constructor(readonly movieService: MovieService,readonly activeRoute: ActivatedRoute) { }
-
+  constructor(readonly movieService: MovieService,readonly activeRoute: ActivatedRoute,
+  private  localStorage:LocalStorageService) { }
 
   ngOnInit(): void {
     this.movieId = this.activeRoute.snapshot.params['id'];
-    this.getMovieDetail(this.movieId);
-    this.getvideoInfos(this.movieId);
-    this.getCredits(this.movieId);
-    this.getSimilar(this.movieId,this.language)
+    this.language.set( this.localStorage.getLanguage('language')!);
+    this.getMovieDetail(this.movieId,this.language());
+    this.getvideoInfos(this.movieId,this.language());
+    this.getCredits(this.movieId,this.language());
+    this.getSimilar(this.movieId,this.language())
     this.setTab();
-    this.getRecommandation(this.movieId,this.language,this.pageNumber);
+    this.getRecommandation(this.movieId,this.language(),this.pageNumber);
   }
+
+
+
+
   //get current movie's credits
-  getCredits(movieId:number){
-    this.credits$  = this.movieService.fetchMovieCredit(movieId,this.language);
+  getCredits(movieId:number,language:string){
+    this.credits$  = this.movieService.fetchMovieCredit(movieId,language);
   }
 
   //get movie details from movie id by url
-  getMovieDetail(movieId: number):void{
-    this.movie$ = this.movieService.fetchMovieDetails(movieId,this.language);
+  getMovieDetail(movieId: number,langue:string):void{
+    this.movie$ = this.movieService.fetchMovieDetails(movieId,langue);
   }
 
   // get movie's video information  from youtube
-  getvideoInfos(movieId: number):void{
-    this.video$ = this.movieService.fetchVideoInfos(movieId,this.language);
+  getvideoInfos(movieId:number,language:string):void{
+    this.video$ = this.movieService.fetchVideoInfos(movieId,language);
   }
 
   // on show dialog

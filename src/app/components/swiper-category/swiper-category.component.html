@@ -10,9 +10,9 @@
       class="carousel" #slickModal="slick-carousel"
       [config]="slideConfig" >
       <!-- movie's cover image -->
-      @for (movie of movies()!.results ; track movie.poster_path){
+      @for (movie of movies()!.results ; track movie.id){
         <div   ngxSlickItem  (dblclick)="goToDetailPage(movie.id)" >
-          <img [title]="movie.title"
+          <img title="double cliquer pour voir les détails "
                src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}" alt="" width="250" />
         </div>
       }
@@ -27,7 +27,8 @@
       <!-- casting  cover image -->
       @for (credit of credits()!.cast ; track credit.id){
         <div  ngxSlickItem >
-            <img [title]="credit.name" src="https://image.tmdb.org/t/p/w300{{credit.profile_path}}" alt="" width="250" />
+            <img [title]="credit.name"
+                 src="https://image.tmdb.org/t/p/w300{{credit.profile_path}}" alt="" width="250" />
         </div>
       }
     </ngx-slick-carousel>

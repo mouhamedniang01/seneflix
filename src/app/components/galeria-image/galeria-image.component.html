@@ -1,0 +1,12 @@
+<p-galleria [value]="images.posters"
+            [responsiveOptions]="responsiveOptions"
+            [containerStyle]="{ 'max-width': '640px' }"
+            [numVisible]="7" [circular]="true"
+>
+  <ng-template #item let-item>
+    <img src="https://image.tmdb.org/t/p/original{{item.file_path}}" style="width: 100%; display: block;"  alt=".."/>
+  </ng-template>
+  <ng-template #thumbnail let-item>
+    <img src="https://image.tmdb.org/t/p/original{{item.file_path}}" style="width: 100%; display: block;"  alt="..........."/>
+  </ng-template>
+</p-galleria>

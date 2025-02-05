@@ -1,4 +1,4 @@
-import {  Component, OnInit,} from '@angular/core';
+import {Component, OnInit, signal,} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {LoggingInterceptor} from './interceptors/logging.interceptor';
 import {NavbarComponent} from "./components/navbar/navbar.component";
@@ -19,11 +19,16 @@ export class AppComponent implements  OnInit{
   title:string = 'prime wideo';
   items: MenuItem[] | undefined;
   lastTemplateUpdate: string  | Langue ='';
+  footerVisible = signal(false);
   constructor(public localStorageService:LocalStorageService) {}
 
+  showFooter(){
+    this.footerVisible.set(!this.footerVisible())
+  }
 
   ngOnInit(): void {
     this.setItems();
+    setTimeout(()=>this.showFooter(),3000)
   }
 
 

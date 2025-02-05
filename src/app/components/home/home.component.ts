@@ -1,64 +1,67 @@
-import {AfterViewInit, Component, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, computed, inject, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import {MovieCarouselComponent} from '../movie-carousel/movie-carousel.component';
 import {SwiperCategoryComponent} from '../swiper-category/swiper-category.component';
-import {Observable} from 'rxjs';
 import {Movies} from '../../models/movies';
 import {MoviesListService} from '../../services/movies-list.service';
 import {Router} from '@angular/router';
 import {SlickCarouselModule} from 'ngx-slick-carousel';
 import {LoggingInterceptor} from '../../interceptors/logging.interceptor';
-import {AsyncPipe} from '@angular/common';
 import {TimeWindowEnum} from '../../enums/time-window.enum';
 import {LocalStorageService} from '../../services/local-storage/local-storage.service';
-//import {SelectButton} from 'primeng/selectbutton';
-import {FormsModule} from '@angular/forms';
+import {SelectButton} from 'primeng/selectbutton';
+import {FormControl, FormGroup, FormsModule} from '@angular/forms';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
-  imports: [MovieCarouselComponent, SwiperCategoryComponent, AsyncPipe,  FormsModule],
+  imports: [MovieCarouselComponent, SwiperCategoryComponent, SelectButton, FormsModule],
   templateUrl: './home.component.html',
   standalone: true,
   providers:[SlickCarouselModule,MoviesListService,LoggingInterceptor],
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit,AfterViewInit{
-  upcomingMovies$!: Observable<Movies>;
-  trending$ !: Observable<Movies>;
+export class HomeComponent implements OnInit{
+  //inject services & routes
+  private readonly moviesListService:MoviesListService= inject(MoviesListService);
+  private  readonly localStorageService:LocalStorageService =  inject(LocalStorageService);
+  public readonly router:Router = inject(Router) ;
+
   currentLanguage :WritableSignal<string>=signal<string> ('en-EN');
   // params page & language
   pageNumber :WritableSignal<number> = signal<number>(1);
-  stateOptions: any[] = [{ label: 'Day', value: TimeWindowEnum.DAY },{ label: 'Week', value: TimeWindowEnum.WEEK }];
+  stateOptions =signal( [{ label: 'Day', value: TimeWindowEnum.DAY },{ label: 'Week', value: TimeWindowEnum.WEEK }]);
+  formGroupSelect!: FormGroup;
 
-  value: TimeWindowEnum= TimeWindowEnum.DAY;
-
-  constructor(
-    readonly moviesListService:MoviesListService,
-   public localStorageService:LocalStorageService
-    , readonly router:Router) {}
-
-  ngOnInit(): void {
-    this.fetchIncomingMovies();
-    this.fetchTrending(this.value);
-  }
-  ngAfterViewInit(): void {
-    const langue =this.localStorageService.getLanguage('language')!.toString();
-    this.currentLanguage.set(langue);
-    console.log(langue)
-//    alert(this.currentLanguage.toString());
-  }
-
-
+  currentTimeWindow :WritableSignal<TimeWindowEnum>= signal(TimeWindowEnum.DAY);
 
   // get all informations on all incoming movies
-  fetchIncomingMovies():void{
-    this.upcomingMovies$ = this.moviesListService.getUpcommingMovies(this.currentLanguage(), this.pageNumber());
-  }
+  upcomingMovies:Signal<Movies| undefined > =  toSignal(this.moviesListService.getUpcommingMovies(this.currentLanguage(), this.pageNumber()));
 
   //get all information on trending
-
-  fetchTrending(timeWindow:TimeWindowEnum):void{
-    this.trending$ = this.moviesListService.getTrendingAll(timeWindow,this.currentLanguage());
+  trending:Signal<Movies | undefined>  = computed <Movies | undefined>(
+    toSignal( this.moviesListService.getTrendingAll(this.currentTimeWindow(),this.currentLanguage()))
+  );
+  ngOnInit(): void {
+    this.injectForm();
   }
 
+  /*ngAfterViewInit(): void {
+    const langue = this.localStorageService.getLanguage('language')!.toString();
+    this.currentLanguage.set(langue);
+    console.log(langue);
+    this.onUpdate();
+    this.fetchTrending(this.formGroupSelect.controls['timeWindow'].value);
+//    alert(this.currentLanguage.toString());
+  }
+  */
+  injectForm(){
+    this.formGroupSelect = new FormGroup({
+      timeWindow : new FormControl(TimeWindowEnum.DAY)
+    });
+  }
 
+  //assign time window
+  onUpdate():void{
+    this.currentTimeWindow.set(this.formGroupSelect.controls['timeWindow'].value);
+  };
 }

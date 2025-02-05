@@ -35,6 +35,11 @@
         <span class="decorative-dash">~</span>
       </h2>
     </div>
+    <!-- movies galleria -->
+    @if (images$ | async; as images){
+      <app-galeria-image [images]="images"/>
+    }
+
     @if (video$ | async; as  video){
       <app-dialog-widget
         [(visible)]="isDialogVisible"

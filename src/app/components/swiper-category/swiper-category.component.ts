@@ -40,7 +40,7 @@ export class SwiperCategoryComponent implements  OnInit{
   }
 
   // get the credits
-  getCredits(){return this.credits;}
+  getCredits():InputSignal<Credits| undefined>{return this.credits;}
 
   // get all informations on all incoming movies
   fetchIncomingMovies(){

@@ -20,12 +20,16 @@ import { TabContentComponent } from "../tab-content/tab-content.component";
 import { TabsModule } from 'primeng/tabs';
 import {Image} from 'primeng/image';
 import {LocalStorageService} from '../../services/local-storage/local-storage.service';
+import {Images} from '../../models/images';
+import {MoviesListService} from '../../services/movies-list.service';
+import {Language} from '../../enums/language.enum';
+import {GaleriaImageComponent} from '../galeria-image/galeria-image.component';
 
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
     GalleriaModule, Button, DialogWidgetComponent, FormsModule,
-    Rating, Carousel, TabsModule, TabContentComponent, Image],
+    Rating, Carousel, TabsModule, TabContentComponent, Image, GaleriaImageComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   providers: [MovieService,LoggingInterceptor],
@@ -42,7 +46,7 @@ export class MovieDetailsComponent implements OnInit{
   recommendedMovies$!:Observable<Movies>;
   tabs: { title: string; value: number}[] = [];
   pageNumber:number = 1 ;
-
+  images$!: Observable<Images>;
   responsiveOptions:WritableSignal<any[] | undefined> = signal(
     [
       {
@@ -67,9 +71,10 @@ export class MovieDetailsComponent implements OnInit{
       }
     ]
   );
+  includImageLang='en,null';
 
   constructor(readonly movieService: MovieService,readonly activeRoute: ActivatedRoute,
-  private  localStorage:LocalStorageService) { }
+  private  localStorage:LocalStorageService,private  readonly  movieListService:MoviesListService) { }
 
   ngOnInit(): void {
     this.movieId = this.activeRoute.snapshot.params['id'];
@@ -77,12 +82,14 @@ export class MovieDetailsComponent implements OnInit{
     this.getMovieDetail(this.movieId,this.language());
     this.getvideoInfos(this.movieId,this.language());
     this.getCredits(this.movieId,this.language());
-    this.getSimilar(this.movieId,this.language())
-    this.setTab();
-    this.getRecommandation(this.movieId,this.language(),this.pageNumber);
+    this.setTab();// for tab similars & recommandations movies
+    this.showMoviesPicture(this.movieId,this.language(),this.includImageLang); //inject galleria
   }
 
-
+  // show galleries image
+  showMoviesPicture(idMovie:number,language:string,includeImageLanguage:string){
+    this.images$ = this.movieListService.getMoviesImages(idMovie,includeImageLanguage,language);
+  }
 
 
   //get current movie's credits
@@ -115,8 +122,10 @@ export class MovieDetailsComponent implements OnInit{
     this.recommendedMovies$ = this.movieService.fetchRecommendedationsMovie(movieId,language,pageNumber);
   }
 
-  //set tab
+  //inject similar & recommanded movies
   setTab() {
+    this.getSimilar(this.movieId,this.language());
+    this.getRecommandation(this.movieId,this.language(),this.pageNumber);
     this.tabs = [
       { title: 'Similaries', value: 0 },
       { title: 'Recommandation ', value: 1}

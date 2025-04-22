@@ -1,11 +1,11 @@
 import {Component, OnInit, signal,} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {LoggingInterceptor} from './interceptors/logging.interceptor';
-import {NavbarComponent} from "./components/navbar/navbar.component";
-import {LanguageSelectorComponent, Langue} from './components/language-selector/language-selector.component';
+import {LanguageSelectorComponent, Langue} from './share-ui/language-selector/language-selector.component';
 import {Menubar} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
-import {LocalStorageService} from './services/local-storage/local-storage.service';
+import {LocalStorageService} from './core/services/local-storage/local-storage.service';
+import { NavbarComponent } from './core/components/navbar/navbar.component';
+import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
 
 @Component({
   selector: 'app-root',

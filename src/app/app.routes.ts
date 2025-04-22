@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import {MovieDetailsComponent} from './components/movie-details/movie-details.component';
-import {HomeComponent} from './components/home/home.component';
+import {MovieDetailsComponent} from './movie/components/movie-details/movie-details.component';
+import {HomeComponent} from './core/components/home/home.component';
 
 export const routes: Routes = [
   {path: '', redirectTo:'home', pathMatch: 'full',},

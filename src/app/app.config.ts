@@ -5,7 +5,8 @@ import Aura from '@primeng/themes/aura';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
-import { TokenInterceptorProvider} from './interceptors/logging.interceptor';
+import { TokenInterceptorProvider } from './core/interceptors/logging.interceptor';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [

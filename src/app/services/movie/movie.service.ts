@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MovieDetail} from '../../models/movie-detail';
+import {MovieDetail} from '../../movie-lists/models/movie-detail';
 import {Observable} from 'rxjs';
-import {Video} from '../../models/video';
-import {Credits} from '../../models/credits';
-import {Movies} from '../../models/movies';
+import {Video} from '../../movie-lists/models/video';
+import {Credits} from '../../movie-lists/models/credits';
+import {Movies} from '../../movie-lists/models/movies';
 
 @Injectable({
   providedIn: 'root'
@@ -68,17 +68,5 @@ export class MovieService {
       .get<Movies>(`${this.Host}/movie/${movie_id}/similar?language=${language}&page=1`);
   }
 
-   /**
-     * Fetch movie's credit informations
-     * GET METHOD
-     * @Param pageNumber number
-     * @Param movie_id number
-     * @Param language string
-     * @return Observable<Movies>
-     * URL => https://api.themoviedb.org/3/movie/:movie_id/similar?language={language}
-     */
-   fetchRecommendedationsMovie(movie_id:number, language:string,pageNumber:number):Observable<Movies>{
-    return  this.http
-      .get<Movies>(`${this.Host}/movie/${movie_id}/recommendations?language=en-US&page=${pageNumber}`);
-  }
+ 
 }

@@ -11,7 +11,7 @@ import {DialogWidgetComponent} from '../../../share-ui/dialog-widget/dialog-widg
 import {Video} from '../../../movie-lists/models/video';
 import { FormsModule} from '@angular/forms';
 import {Rating} from 'primeng/rating';
-import { Credits} from '../../../movie-lists/models/credits';
+import { Cast, Credits} from '../../../movie-lists/models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import {Carousel} from 'primeng/carousel';
 import {Movies} from '../../../movie-lists/models/movies';
@@ -21,15 +21,13 @@ import {Image} from 'primeng/image';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
 import {Images} from '../../../movie-lists/models/images';
 import {MoviesListService} from '../../../movie-lists/services/movies-list.service';
-import {Language} from '../../../enums/language.enum';
 import {GaleriaImageComponent} from '../../../share-ui/galeria-image/galeria-image.component';
-import { LoggingInterceptor } from '../../../core/interceptors/logging.interceptor';
 
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
     GalleriaModule, Button, DialogWidgetComponent, FormsModule,
-    Rating, Carousel, TabsModule, TabContentComponent, Image, GaleriaImageComponent],
+    Rating, TabsModule, TabContentComponent,Image, GaleriaImageComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css'
@@ -41,35 +39,13 @@ export class MovieDetailsComponent implements OnInit{
   video$ !: Observable<Video>;
   isDialogVisible:boolean = false;
   credits$!:Observable <Credits>;
+  casts!:Observable<Cast[]>;
   similarMovies$!:Observable<Movies>;
   recommendedMovies$!:Observable<Movies>;
-  tabs: { title: string; value: number}[] = [];
+  public tabs: { title: string; value: number}[] = [];
   pageNumber:number = 1 ;
   images$!: Observable<Images>;
-  responsiveOptions:WritableSignal<any[] | undefined> = signal(
-    [
-      {
-        breakpoint: '1400px',
-        numVisible: 2,
-        numScroll: 1
-      },
-      {
-        breakpoint: '1199px',
-        numVisible: 3,
-        numScroll: 1
-      },
-      {
-        breakpoint: '767px',
-        numVisible: 2,
-        numScroll: 1
-      },
-      {
-        breakpoint: '575px',
-        numVisible: 1,
-        numScroll: 1
-      }
-    ]
-  );
+
   includImageLang='en,null';
 
   constructor(readonly movieService: MovieService,readonly activeRoute: ActivatedRoute,
@@ -130,4 +106,31 @@ export class MovieDetailsComponent implements OnInit{
       { title: 'Recommandation ', value: 1}
   ];
   }
+
+
+  //responsive carousel options
+  responsiveOptions:WritableSignal<any[] | undefined> = signal(
+    [
+      {
+        breakpoint: '1400px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '1199px',
+        numVisible: 3,
+        numScroll: 1
+      },
+      {
+        breakpoint: '767px',
+        numVisible: 2,
+        numScroll: 1
+      },
+      {
+        breakpoint: '575px',
+        numVisible: 1,
+        numScroll: 1
+      }
+    ]
+  );
 }

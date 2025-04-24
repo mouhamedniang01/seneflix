@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { CarouselModule } from 'primeng/carousel';
 import {Router} from '@angular/router'; // carousel import prime ng
-import { Movies } from '../../models/movies';
-import { DiscoveryService, Sort } from '../../../discover/services/discovery/discovery.service';
+import { Movies } from '../../movie-lists/models/movies';
+import { DiscoveryService, Sort } from '../../discover/services/discovery/discovery.service';
 @Component({
   selector: 'app-movie-carousel',
   imports: [

@@ -9,7 +9,7 @@ import {LocalStorageService} from '../../services/local-storage/local-storage.se
 import {SelectButton} from 'primeng/selectbutton';
 import {FormControl, FormGroup, FormsModule} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
-import { MovieCarouselComponent } from '../../../movie-lists/components/movie-carousel/movie-carousel.component';
+import { MovieCarouselComponent } from '../../../share-ui/movie-carousel/movie-carousel.component';
 import { LoggingInterceptor } from '../../interceptors/logging.interceptor';
 
 @Component({
@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit{
     this.injectForm();
   }
 
-   
+
   injectForm(){
     this.formGroupSelect = new FormGroup({
       timeWindow : new FormControl(TimeWindowEnum.DAY)

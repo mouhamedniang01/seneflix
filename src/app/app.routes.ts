@@ -5,20 +5,17 @@ import {HomeComponent} from './core/components/home/home.component';
 export const routes: Routes = [
   {path: '', redirectTo:'home', pathMatch: 'full',},
   {
-    path:'home', title:'home', component: HomeComponent
+    path:'home', title:'home',
+    loadComponent: () => import('./core/components/home/home.component')
+      .then(m => m.HomeComponent),
   },
   {
     path:'movies',
     children:[
       {
         path:'details',
-        children:[
-          {
-            path:':id',
-            component: MovieDetailsComponent,
-            title:'details'
-          }
-        ]
+         loadChildren:
+           ()=>import('./movie/movie.module').then(m=>m.MovieModule)
 
       }
     ]

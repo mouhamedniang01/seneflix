@@ -1,6 +1,7 @@
 img {
-  max-width: 87.5%;
-  height: 25%;
+  width: 87.5%;
+  height: 34%;
+  max-width: 100%;
   padding: 20px 20px 0 13.5em;
   cursor: pointer;
 }

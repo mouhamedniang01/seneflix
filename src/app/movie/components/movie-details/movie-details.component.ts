@@ -1,7 +1,7 @@
 import { Component, OnInit, signal, WritableSignal,} from '@angular/core';
 import {MovieService} from '../../../services/movie/movie.service';
 import {CardModule} from 'primeng/card';
-import {  Observable} from 'rxjs';
+import {  map, Observable} from 'rxjs';
 import {MovieDetail} from '../../../movie-lists/models/movie-detail';
 import {ActivatedRoute} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
@@ -17,17 +17,18 @@ import {Carousel} from 'primeng/carousel';
 import {Movies} from '../../../movie-lists/models/movies';
 import { TabContentComponent } from "../../../share-ui/tab-content/tab-content.component";
 import { TabsModule } from 'primeng/tabs';
-import {Image} from 'primeng/image';
+import {Image, ImageModule} from 'primeng/image';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
 import {Images} from '../../../movie-lists/models/images';
 import {MoviesListService} from '../../../movie-lists/services/movies-list.service';
 import {GaleriaImageComponent} from '../../../share-ui/galeria-image/galeria-image.component';
+import { AnimateOnScrollCastComponent } from "../../../share-ui/animate-on-scroll-cast/animate-on-scroll-cast.component";
 
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
     GalleriaModule, Button, DialogWidgetComponent, FormsModule,
-    Rating, TabsModule, TabContentComponent,Image, GaleriaImageComponent],
+    Rating, TabsModule, TabContentComponent, ImageModule, GaleriaImageComponent, AnimateOnScrollCastComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css'
@@ -39,6 +40,7 @@ export class MovieDetailsComponent implements OnInit{
   video$ !: Observable<Video>;
   isDialogVisible:boolean = false;
   credits$!:Observable <Credits>;
+  castings$!:Observable<Cast[]>;
   casts!:Observable<Cast[]>;
   similarMovies$!:Observable<Movies>;
   recommendedMovies$!:Observable<Movies>;
@@ -69,7 +71,12 @@ export class MovieDetailsComponent implements OnInit{
 
   //get current movie's credits
   getCredits(movieId:number,language:string){
-    this.credits$  = this.movieService.fetchMovieCredit(movieId,language);
+    this.castings$ = this.movieService.fetchMovieCredit(movieId,language).pipe(
+      map((data: Credits) => {
+        const casting= data.cast;
+        return casting.slice(0, 8); // get first 9 castings
+      }
+      ));
   }
 
   //get movie details from movie id by url

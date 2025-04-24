@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import {Video} from '../../movie-lists/models/video';
 import {Credits} from '../../movie-lists/models/credits';
 import {Movies} from '../../movie-lists/models/movies';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
@@ -55,6 +56,8 @@ export class MovieService {
     return  this.http
       .get<Credits>(`${this.Host}/movie/${movie_id}/credits?language=${language}`);
   }
+
+
    /**
      * Fetch movie's credit informations
      * GET METHOD
@@ -68,5 +71,5 @@ export class MovieService {
       .get<Movies>(`${this.Host}/movie/${movie_id}/similar?language=${language}&page=1`);
   }
 
- 
+
 }

@@ -36,7 +36,7 @@ export class MovieCarouselComponent implements OnInit{
   }
 
   navigateToDetailsPage(movieId:number){
-    this.router.navigateByUrl(`movies/details/${movieId}`).then();
+    this.router.navigateByUrl(`movies/${movieId}/details`).then();
   }
 
 

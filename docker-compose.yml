@@ -1,12 +1,15 @@
-version: '3.5'
+#version: '3.5'
 
 services:
   seneflix:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dockerfile
     container_name: seneflix
     ports:
-      - '4200:4200'
+      - '4200:80'
     volumes:
       - ./:/seneflix
     environment:
-      - STYLE=css
+      - NODE_ENV=production
+    restart: always

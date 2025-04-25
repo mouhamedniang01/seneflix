@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MovieDetail} from '../../movie-lists/models/movie-detail';
+import {MovieDetail} from '../../../movie-lists/models/movie-detail';
 import {Observable} from 'rxjs';
-import {Video} from '../../movie-lists/models/video';
-import {Credits} from '../../movie-lists/models/credits';
-import {Movies} from '../../movie-lists/models/movies';
+import {Video} from '../../../movie-lists/models/video';
+import {Credits} from '../../../movie-lists/models/credits';
+import {Movies} from '../../../movie-lists/models/movies';
 import { rxResource } from '@angular/core/rxjs-interop';
+import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  Host:string = 'https://api.themoviedb.org/3';
+  Host:string = environment.apiUrl;
 
   constructor(readonly http: HttpClient) { }
 

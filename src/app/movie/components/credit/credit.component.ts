@@ -1,5 +1,5 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
-import { MovieService } from '../../../services/movie/movie.service';
+import { MovieService } from '../../services/movie/movie.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { ImageModule } from 'primeng/image';
 
 @Component({
   selector: 'app-credit',
+  standalone:true,
   imports: [CardModule, CardModule, AnimateOnScrollModule,
       GalleriaModule, FormsModule,ImageModule,  TabsModule],
   templateUrl: './credit.component.html',

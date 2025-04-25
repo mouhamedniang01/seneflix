@@ -22,7 +22,7 @@ export class TabContentComponent {
 
 
   goToDetailsView(movieId:number) {
-    this.router.navigateByUrl(`movies/details/${movieId}`).then(
+    this.router.navigateByUrl(`movies/${movieId}/details`).then(
       value => {window.location.reload();}
     );
   }

@@ -4,9 +4,13 @@
             [numVisible]="7" [circular]="true"
 >
   <ng-template #item let-item>
-    <img src="https://image.tmdb.org/t/p/original{{item.file_path}}" style="width: 100%; display: block;"  alt=".."/>
+    <img src="https://image.tmdb.org/t/p/original{{item.file_path}}"
+         class="main-image"
+           alt=".."/>
   </ng-template>
   <ng-template #thumbnail let-item>
-    <img src="https://image.tmdb.org/t/p/original{{item.file_path}}" style="width: 100%; display: block;"  alt="..........."/>
+    <img src="https://image.tmdb.org/t/p/original{{item.file_path}}"
+         class="display sub-image"
+         style=""  alt="..........."/>
   </ng-template>
 </p-galleria>

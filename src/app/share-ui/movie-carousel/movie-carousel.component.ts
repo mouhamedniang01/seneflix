@@ -1,5 +1,4 @@
 import { Component, OnInit, signal, WritableSignal } from '@angular/core';
-import {SlickCarouselModule} from 'ngx-slick-carousel';
 import { Observable } from 'rxjs';
 
 import { AsyncPipe } from '@angular/common';
@@ -11,8 +10,7 @@ import { DiscoveryService, Sort } from '../../discover/services/discovery/discov
   selector: 'app-movie-carousel',
   imports: [
     AsyncPipe,
-    CarouselModule,
-    SlickCarouselModule,
+    CarouselModule
 ],
   standalone:true,
   templateUrl: './movie-carousel.component.html',

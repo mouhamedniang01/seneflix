@@ -3,7 +3,6 @@ import {SwiperCategoryComponent} from '../swiper-category/swiper-category.compon
 import {Movies} from '../../../movie-lists/models/movies';
 import {MoviesListService} from '../../../movie-lists/services/movies-list.service';
 import {Router} from '@angular/router';
-import {SlickCarouselModule} from 'ngx-slick-carousel';
 import {TimeWindowEnum} from '../../../enums/time-window.enum';
 import {LocalStorageService} from '../../services/local-storage/local-storage.service';
 import {SelectButton} from 'primeng/selectbutton';
@@ -14,10 +13,10 @@ import { LoggingInterceptor } from '../../interceptors/logging.interceptor';
 
 @Component({
   selector: 'app-home',
-  imports: [MovieCarouselComponent, SwiperCategoryComponent, SelectButton, FormsModule],
+  imports: [ SwiperCategoryComponent,  FormsModule],
   templateUrl: './home.component.html',
   standalone: true,
-  providers:[SlickCarouselModule,MoviesListService,LoggingInterceptor],
+  providers:[LoggingInterceptor],
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{

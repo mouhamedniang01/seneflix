@@ -1,7 +1,9 @@
 @if (movie$ | async; as movie){
   <main class="hero main"
-        style.background-image='url(https://image.tmdb.org/t/p/original{{movie.backdrop_path}})'
-        xmlns="http://www.w3.org/1999/html">
+        style.background-image='url(
+        https://image.tmdb.org/t/p/original{{movie.backdrop_path}}
+        )'
+  >
     <div class="hero-content">
       <h1 style="margin-top: -5px;">✨{{movie.title}}</h1>
       <h3>Overview</h3>
@@ -11,7 +13,8 @@
       <div class="cta-container">
         Release date : {{movie.release_date | date:'dd-MM-yyyy'}}<br/>
         <div class="mt-2">
-          <p-rating severity="info" [(ngModel)]="movie.vote_average" [stars]="10" [iconOnStyle]="{color:'#0F93F6'}" [disabled]="true"/>
+          <p-rating severity="info" [(ngModel)]="movie.vote_average" [stars]="10"
+                    [iconOnStyle]="{color:'#0F93F6'}" [disabled]="true"/>
         </div>
         <div class="btn">
           <p-button (click)="showDialog()" label="Play now" icon="pi pi-play"    class="btn-play" size="large" [raised]="true"  />
@@ -19,60 +22,58 @@
       </div>
     </div>
   </main>
-  <section class="difference-section">
-    <div class="features-header">
-      <span class="features-label">
-        <div class="flex flex-col items-center gap-2">
-            <span class="text-xl font-medium mb-2">Scroll Down</span><br/><br/>
-            <span class="mt-2 slidedown-icon  h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
-               <p-button href="service" class="mt-2" icon="pi pi-arrow-down" [rounded]="true" severity="secondary" />
-            </span>
-      </div>
-      </span>
-      <h2 class="features-title">
-        <span class="decorative-dash">~</span>
-        Casting
-        <span class="decorative-dash">~</span>
-      </h2>
-    </div>
-    <app-animate-on-scroll-cast></app-animate-on-scroll-cast>
-    <!-- movies galleria -->
-    @if (images$ | async; as images){
-      <app-galeria-image [images]="images" class="is-centered mb-4"/>
-    }
+<!--  <section class="difference-section">-->
+<!--    <div class="features-header">-->
+<!--      <span class="features-label">-->
+<!--        <div class="flex flex-col items-center gap-2">-->
+<!--            <span class="text-xl font-medium mb-2">Scroll Down</span><br/><br/>-->
+<!--            <span class="mt-2 slidedown-icon  h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">-->
+<!--               <p-button href="service" class="mt-2" icon="pi pi-arrow-down" [rounded]="true" severity="secondary" />-->
+<!--            </span>-->
+<!--      </div>-->
+<!--      </span>-->
+<!--      <h2 class="features-title">-->
+<!--        <span class="decorative-dash">~</span>-->
+<!--        Casting-->
+<!--        <span class="decorative-dash">~</span>-->
+<!--      </h2>-->
+<!--    </div>-->
+<!--    &lt;!&ndash; movies galleria &ndash;&gt;-->
+<!--&lt;!&ndash;    @if (images$ | async; as images){&ndash;&gt;-->
+<!--&lt;!&ndash;      <app-galeria-image [images]="images" class="is-centered mb-4"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    }&ndash;&gt;-->
 
-    @if (video$ | async; as  video){
-      <app-dialog-widget
-        [(visible)]="isDialogVisible"
-        [video]="video"
-        (visibleChange)="isDialogVisible"/>
-    }
-
-
-    <!-- credits actors  casting carousel here-->
+<!--    @if (video$ | async; as  video){-->
+<!--      <app-dialog-widget-->
+<!--        [(visible)]="isDialogVisible"-->
+<!--        [video]="video"-->
+<!--        (visibleChange)="isDialogVisible"/>-->
+<!--    }-->
 
 
-      <div class="casting is-centered">
-        @for (actor of castings$ | async; track actor.id) {
-          <!-- card credit -->
-           <div class="credit-card">
-                 <!--show actor image if exist -->
-             @if (actor.profile_path){
-              <p-image   width="250" height="250" class="rounded-border mb-3" [alt]="actor.name"
-              src="https://image.tmdb.org/t/p/w440_and_h660_face{{actor.profile_path}}" />
-            }@else {
-              <p-image alt="" class="rounded-border"  src="https://placehold.co/600x600" width="250" height="250"
-              [alt]="actor.name" class=" rounded-border" />
-            }<br>
-          <b > {{ actor.original_name }} </b>
-          <p class="role">Rôle:  {{ actor.character }}</p>
-           </div>
-            }
-         <!--credit card -->
-     </div> <!-- end of credit card -->
+<!--    &lt;!&ndash; credits actors  casting carousel here&ndash;&gt;-->
+<!--&lt;!&ndash;          <div class="casting is-centered">&ndash;&gt;-->
+<!--&lt;!&ndash;            @for (actor of castings$ | async; track actor.id) {&ndash;&gt;-->
+<!--&lt;!&ndash;              &lt;!&ndash; card credit &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;               <div class="credit-card">&ndash;&gt;-->
+<!--&lt;!&ndash;                     &lt;!&ndash;show actor image if exist &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;                 @if (actor.profile_path){&ndash;&gt;-->
+<!--&lt;!&ndash;                  <p-image   width="250" height="250" class="rounded-border mb-3" [alt]="actor.name"&ndash;&gt;-->
+<!--&lt;!&ndash;                  src="https://image.tmdb.org/t/p/w440_and_h660_face{{actor.profile_path}}" />&ndash;&gt;-->
+<!--&lt;!&ndash;                }@else {&ndash;&gt;-->
+<!--&lt;!&ndash;                  <p-image alt=""  src="https://placehold.co/600x600" width="250" height="250"&ndash;&gt;-->
+<!--&lt;!&ndash;                  [alt]="actor.name" class=" rounded-border" />&ndash;&gt;-->
+<!--&lt;!&ndash;                }<br>&ndash;&gt;-->
+<!--&lt;!&ndash;              <b > {{ actor.original_name }} </b>&ndash;&gt;-->
+<!--&lt;!&ndash;              <p class="role">Rôle:  {{ actor.character }}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;               </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                }&ndash;&gt;-->
+<!--&lt;!&ndash;             &lt;!&ndash;credit card &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;         </div> &ndash;&gt;-->
+<!--    &lt;!&ndash; end of credit card &ndash;&gt;-->
 
 
-  </section>
+<!--  </section>-->
 
 
   <!--similar & recommended tab--->
@@ -86,26 +87,28 @@
       </h2>
     </div>
 
+
+    <!-- similar & recommanded tabBar-->
     <p-tabs [value]="1" style="background-color:  #010813;">
       <p-tablist>
-          @for (tab of tabs; track tab.value) {
-              <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
-          }
+        @for (tab of tabs; track tab.value) {
+          <p-tab [value]="tab.value">{{ tab.title }}</p-tab>
+        }
       </p-tablist>
       <p-tabpanels>
         @if (similarMovies$ | async ;as  similars){
-            <p-tabpanel [value]="0">
-                <app-tab-content [content]="similars" ></app-tab-content>
-            </p-tabpanel>
-        }
-        @if (recommendedMovies$ | async ;as  recommendedMovies){
-            <p-tabpanel [value]="1">
-                <app-tab-content [content]="recommendedMovies"></app-tab-content>
+          <p-tabpanel [value]="0">
+            <app-tab-content [content]="similars" ></app-tab-content>
           </p-tabpanel>
         }
-    </p-tabpanels>
+        @if (recommendedMovies$ | async ;as  recommendedMovies){
+          <p-tabpanel [value]="1">
+            <app-tab-content [content]="recommendedMovies"></app-tab-content>
+          </p-tabpanel>
+        }
+      </p-tabpanels>
 
-  </p-tabs>
+    </p-tabs>
 
 
 
@@ -115,7 +118,7 @@
   <div  class="main" >
 
 
- @if (video$ | async; as  video){
+    @if (video$ | async; as  video){
       <app-dialog-widget
         [(visible)]="isDialogVisible"
         [video]="video"
@@ -123,231 +126,3 @@
     }
   </div>
 }
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-    const mobileMenu = document.querySelector(".mobile-menu");
-    let isMenuOpen = false;
-
-    function toggleMenu() {
-      isMenuOpen = !isMenuOpen;
-      mobileMenu.classList.toggle("active");
-
-      // Animate hamburger to X
-      const spans = mobileMenuBtn.querySelectorAll("span");
-      if (isMenuOpen) {
-        spans[0].style.transform = "rotate(45deg) translate(5px, 5px)";
-        spans[1].style.opacity = "0";
-        spans[2].style.transform = "rotate(-45deg) translate(7px, -7px)";
-      } else {
-        spans[0].style.transform = "none";
-        spans[1].style.opacity = "1";
-        spans[2].style.transform = "none";
-      }
-    }
-
-    mobileMenuBtn.addEventListener("click", toggleMenu);
-
-    // Close mobile menu when clicking on a link
-    const mobileMenuLinks = mobileMenu.querySelectorAll("a");
-    mobileMenuLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        if (isMenuOpen) toggleMenu();
-      });
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener("click", (e) => {
-      if (
-        isMenuOpen &&
-        !mobileMenu.contains(e.target) &&
-        !mobileMenuBtn.contains(e.target)
-      ) {
-        toggleMenu();
-      }
-    });
-
-    // Handle window resize
-    window.addEventListener("resize", () => {
-      if (window.innerWidth >= 768 && isMenuOpen) {
-        toggleMenu();
-      }
-    });
-  });
-
-  class Carousel {
-    constructor() {
-      this.container = document.querySelector(".carousel-container");
-      this.track = document.querySelector(".carousel-track");
-      this.cards = Array.from(document.querySelectorAll(".feature-card"));
-      this.prevButton = document.querySelector(".carousel-button.prev");
-      this.nextButton = document.querySelector(".carousel-button.next");
-      this.cardWidth = this.cards[0].offsetWidth;
-      this.currentIndex = 0;
-      this.totalCards = this.cards.length;
-      this.init();
-    }
-
-    init() {
-      // Clone cards for infinite loop
-      const firstCardClone = this.cards[0].cloneNode(true);
-      const lastCardClone = this.cards[this.totalCards - 1].cloneNode(true);
-
-      this.track.appendChild(firstCardClone);
-      this.track.insertBefore(lastCardClone, this.cards[0]);
-
-      // Update cards array with clones
-      this.cards = Array.from(document.querySelectorAll(".feature-card"));
-
-      // Set initial position
-      this.currentIndex = 1;
-      this.updatePosition();
-
-      // Add event listeners
-      this.prevButton.addEventListener("click", () => this.slide("prev"));
-      this.nextButton.addEventListener("click", () => this.slide("next"));
-
-      // Add transition end listener
-      this.track.addEventListener("transitionend", () =>
-        this.handleTransitionEnd()
-      );
-
-      // Add resize listener
-      window.addEventListener("resize", () => {
-        this.cardWidth = this.cards[0].offsetWidth;
-        this.updatePosition();
-      });
-    }
-
-    slide(direction) {
-      this.track.style.transition = "transform 0.3s ease-in-out";
-
-      if (direction === "next") {
-        this.currentIndex++;
-      } else {
-        this.currentIndex--;
-      }
-
-      this.updatePosition();
-    }
-
-    updatePosition() {
-      const position = -this.currentIndex * (this.cardWidth + 24); // 24px is the gap
-      this.track.style.transform = `translateX(${position}px)`;
-    }
-
-    handleTransitionEnd() {
-      // If we're at the clone of the last card
-      if (this.currentIndex === 0) {
-        this.track.style.transition = "none";
-        this.currentIndex = this.cards.length - 2;
-        this.updatePosition();
-      }
-      // If we're at the clone of the first card
-      if (this.currentIndex === this.cards.length - 1) {
-        this.track.style.transition = "none";
-        this.currentIndex = 1;
-        this.updatePosition();
-      }
-    }
-  }
-
-  // Initialize carousel when DOM is loaded
-  document.addEventListener("DOMContentLoaded", () => {
-    new Carousel();
-  });
-
-  const track = document.querySelector(".carousel-track");
-  const items = Array.from(document.querySelectorAll(".carousel-item"));
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
-
-  let currentIndex = 1;
-
-  // Update carousel position
-  function updateCarousel() {
-    const itemWidth = items[0].getBoundingClientRect().width;
-    const trackOffset = (track.parentElement.offsetWidth - itemWidth) / 3;
-
-    // Center the current item
-    track.style.transform = `translateX(calc(-${
-      currentIndex * itemWidth
-    }px + ${trackOffset}px))`;
-
-    // Update active item
-    items.forEach((item, index) => {
-      item.classList.remove("active");
-      if (index === currentIndex) {
-        item.classList.add("active");
-      }
-    });
-  }
-
-  // Go to the next slide
-  nextBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % items.length;
-    updateCarousel();
-  });
-
-  // Go to the previous slide
-  prevBtn.addEventListener("click", () => {
-    currentIndex = (currentIndex - 1 + items.length) % items.length;
-    updateCarousel();
-  });
-
-  // Initialize the carousel with the middle item centered
-  updateCarousel();
-
-  // Add subtle animation to blobs on hover
-  document.querySelectorAll(".constr-card").forEach((card) => {
-    card.addEventListener("mouseenter", () => {
-      const blob = card.querySelector(".constr-blob");
-      blob.style.transform = "translate(-50%, -50%) scale(1.3)";
-    });
-
-    card.addEventListener("mouseleave", () => {
-      const blob = card.querySelector(".constr-blob");
-      blob.style.transform = "translate(-50%, -50%) scale(1.2)";
-    });
-  });
-
-  const slides = document.querySelectorAll(".hero-slide");
-  const nextButton = document.getElementById("next-btn");
-
-  let currentSlide = 0;
-
-  nextButton.addEventListener("click", () => {
-    // Hide the current slide smoothly
-    slides[currentSlide].classList.remove("active");
-
-    // Increment slide index and loop back if necessary
-    currentSlide = (currentSlide + 1) % slides.length;
-
-    // Show the next slide with a smooth transition
-    slides[currentSlide].classList.add("active");
-  });
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const counters = document.querySelectorAll(".stat-number");
-
-    counters.forEach((counter) => {
-      const updateCount = () => {
-        const target = +counter.getAttribute("data-target");
-        const count = +counter.innerText;
-        const increment = target / 100;
-
-        if (count < target) {
-          counter.innerText = Math.ceil(count + increment);
-          setTimeout(updateCount, 30);
-        } else {
-          counter.innerText = target;
-        }
-      };
-
-      updateCount();
-    });
-  });
-
-</script>

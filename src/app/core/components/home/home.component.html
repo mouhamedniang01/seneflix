@@ -1,24 +1,24 @@
-<app-movie-carousel/>
+<!--<app-movie-carousel/>-->
 <div id="grid-container" style="margin-bottom: 5rem;">
   <!--select button time window -->
-  <div class="is-center">
-    <p-selectbutton
-    [options]="stateOptions()"
-    (onChange)=" this.currentTimeWindow.set(currentTimeWindow());"
-    [(ngModel)]="currentTimeWindow"
-    optionLabel="label"
-    optionValue="value" >
-  </p-selectbutton>
-    <!--form [formGroup]="formGroupSelect">
+<!--  <div class="is-center">-->
+<!--    <p-selectbutton-->
+<!--    [options]="stateOptions()"-->
+<!--    (onChange)=" this.currentTimeWindow.set(currentTimeWindow());"-->
+<!--    [(ngModel)]="currentTimeWindow"-->
+<!--    optionLabel="label"-->
+<!--    optionValue="value" >-->
+<!--  </p-selectbutton>-->
+<!--    &lt;!&ndash;form [formGroup]="formGroupSelect">-->
 
-    </form-->
-  </div>
+<!--    </form&ndash;&gt;-->
+<!--  </div>-->
 
-  <!--<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic"></p-selectbutton>
+<!--  &lt;!&ndash;<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic"></p-selectbutton>-->
  --> <!-- trending movies swiper-->
   @if (trending()){
-    <app-swiper-category [movies]="trending()" 
-    categoryTitle="trending" 
+    <app-swiper-category [movies]="trending()"
+    categoryTitle="trending"
      iconName="pi pi-shield" />
   }
   <!-- end trending movies swiper-->
@@ -26,7 +26,7 @@
   <!-- upcoming movies -->
   @if ( upcomingMovies()){
     <app-swiper-category [movies]="upcomingMovies()"
-     categoryTitle="for you" 
+     categoryTitle="for you"
      iconName="pi pi-heart"/>
   }
   <div class="mb-2"></div>

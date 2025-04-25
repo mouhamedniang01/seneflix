@@ -19,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     ),
     // inject the logging interceptor
     TokenInterceptorProvider,
+    provideZoneChangeDetection(),
     //prime ng added
     providePrimeNG({
         theme: {

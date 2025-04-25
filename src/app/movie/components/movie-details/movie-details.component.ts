@@ -1,5 +1,5 @@
 import { Component, OnInit, signal, WritableSignal,} from '@angular/core';
-import {MovieService} from '../../../services/movie/movie.service';
+import {MovieService} from '../../services/movie/movie.service';
 import {CardModule} from 'primeng/card';
 import {  map, Observable} from 'rxjs';
 import {MovieDetail} from '../../../movie-lists/models/movie-detail';
@@ -28,7 +28,7 @@ import { AnimateOnScrollCastComponent } from "../../../share-ui/animate-on-scrol
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
     GalleriaModule, Button, DialogWidgetComponent, FormsModule,
-    Rating, TabsModule, TabContentComponent, ImageModule, GaleriaImageComponent, AnimateOnScrollCastComponent],
+    Rating, TabsModule, TabContentComponent, ImageModule,],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css'
@@ -72,8 +72,8 @@ export class MovieDetailsComponent implements OnInit{
   //get current movie's credits
   getCredits(movieId:number,language:string){
     this.castings$ = this.movieService.fetchMovieCredit(movieId,language).pipe(
-      map((data: Credits) => {
-        const casting= data.cast;
+      map((data: Credits):Cast[] => {
+        const casting:Cast[]= data.cast;
         return casting.slice(0, 8); // get first 9 castings
       }
       ));

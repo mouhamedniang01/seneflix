@@ -1,5 +1,4 @@
 import {Component, input, InputSignal, OnInit, signal, WritableSignal} from '@angular/core';
-import {SlickCarouselModule} from 'ngx-slick-carousel';
 import {MoviesListService} from '../../../movie-lists/services/movies-list.service';
 import {LoggingInterceptor} from '../../interceptors/logging.interceptor';
 import {ImageModule} from 'primeng/image';
@@ -8,13 +7,13 @@ import {Observable} from 'rxjs';
 import {Movies} from '../../../movie-lists/models/movies';
 import {Router} from '@angular/router';
 import { Credits } from '../../../movie-lists/models/credits';
-import { MovieService } from '../../../services/movie/movie.service';
+import { MovieService } from '../../../movie/services/movie/movie.service';
 
 @Component({
   selector: 'app-swiper-category',
-  imports: [ImageModule, SlickCarouselModule,CardModule],
+  imports: [ImageModule,CardModule],
   standalone:true,
-  providers:[SlickCarouselModule,MoviesListService,LoggingInterceptor],
+  providers:[MoviesListService,LoggingInterceptor],
   templateUrl: './swiper-category.component.html',
   styleUrl: './swiper-category.component.css'
 })

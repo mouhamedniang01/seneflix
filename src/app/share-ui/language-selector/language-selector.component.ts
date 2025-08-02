@@ -2,13 +2,13 @@ import {Component, OnInit, output, OutputEmitterRef} from '@angular/core';
 import {InputTextModule} from 'primeng/inputtext';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SelectModule} from 'primeng/select';
-import {CommonModule} from '@angular/common';
+
 import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
 import {Language} from '../../enums/language.enum';
 
 @Component({
   selector: 'app-language-selector',
-  imports: [InputTextModule, FormsModule, SelectModule, CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [InputTextModule, FormsModule, SelectModule, FormsModule, ReactiveFormsModule],
   templateUrl: './language-selector.component.html',
   standalone: true,
   styleUrl: './language-selector.component.css'

@@ -9,7 +9,7 @@ export const routes: Routes = [
   },
   {
     path:'movies',
-    loadChildren:()=>import('./movie/movie.routing.module').then(m=>m.MovieRoutingModule),
+    loadChildren:()=>import('./movie/movie.module').then(m=>m.MovieModule),
   }
 ];
 

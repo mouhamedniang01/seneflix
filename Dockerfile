@@ -2,10 +2,10 @@ FROM node:alpine3.20 as build
 #install angular cli
 RUN npm install -g @angular/cli
 # Set the working directory inside the container
-WORKDIR /app
-RUN mkdir seneflix
+#WORKDIR /app
+#RUN mkdir seneflix
 
-WORKDIR /seneflix
+WORKDIR /app
 
 
 
@@ -14,12 +14,14 @@ COPY package*.json ./
 
 # Install Angular dependencies
 RUN npm install
-# Copy the application code into the container
+
+# Copy files from local machine to virtual directory in docker image
 COPY . .
+RUN npm run build --prod
 
 ENV APP_NAME 'seneflix'
 ENV ROUTING 'true'
-ENV STANDALONE 'false'
+ENV STANDALONE 'true'
 ENV STRICT 'true'
 ENV STYLE 'css'
 
@@ -33,7 +35,11 @@ RUN ng build --configuration=production
 
 # Use Nginx to serve the built Angular app
 FROM nginx:alpine
-COPY --from=0 /seneflix/dist /usr/share/nginx/html
+
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /app/dist/seneflix /usr/share/nginx/html
 
 # Expose port for Angular app
 EXPOSE 80

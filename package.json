@@ -1,12 +1,14 @@
 {
   "name": "seneflix",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "analyze-bundle": "ng build --configuration=analyze-bundle && source-map-explorer dist/**/*.js --no-border-checks",
+    "stats": "webpack-bundle-analyzer dist/seneflix/stats.json"
   },
   "private": true,
   "dependencies": {
@@ -25,25 +27,26 @@
     "@ngxs/router-plugin": "19.0.0",
     "@ngxs/storage-plugin": "19.0.0",
     "@primeng/themes": "^19.0.5",
-    "ngx-slick-carousel": "^19.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^19.0.5",
     "rxjs": "~7.8.0",
-    "source-map-explorer": "^2.5.3",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.1.2",
     "@angular/cli": "^19.1.2",
     "@angular/compiler-cli": "^19.1.0",
     "@types/jasmine": "~5.1.0",
+    "angular-cli-ghpages": "^2.0.3",
     "jasmine-core": "~5.5.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.7.2"
+    "source-map-explorer": "^2.5.3",
+    "typescript": "~5.7.2",
+    "webpack-cli": "^6.0.1"
   }
 }

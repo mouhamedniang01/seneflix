@@ -30,7 +30,6 @@
               "src/styles.css"
             ],
             "scripts": [
-
             ]
           },
           "configurations": {
@@ -97,6 +96,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

@@ -4,7 +4,7 @@ services:
   seneflix:
     build:
       context: .
-      dockerfile: Dockerfile.dockerfile
+      dockerfile: Dockerfile
     container_name: seneflix
     ports:
       - '4200:80'

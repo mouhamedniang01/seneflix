@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import {Component, Input, input, InputSignal, OnInit, signal, WritableSignal} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { AsyncPipe } from '@angular/common';
@@ -9,29 +9,24 @@ import { DiscoveryService, Sort } from '../../discover/services/discovery/discov
 @Component({
   selector: 'app-movie-carousel',
   imports: [
-    AsyncPipe,
     CarouselModule
 ],
   standalone:true,
   templateUrl: './movie-carousel.component.html',
   styleUrl: './movie-carousel.component.css'
 })
-export class MovieCarouselComponent implements OnInit{
-  movies$ !: Observable<Movies>;
+export class MovieCarouselComponent {
+
+  showPosterPath:InputSignal<boolean> = input.required<boolean>();
+  movies:InputSignal<Movies| undefined>= input.required<Movies | undefined>();
+  showNavigation:InputSignal<boolean| undefined> = input<boolean>();
+  showIndicators :InputSignal<boolean | undefined>= input<boolean>();
+  visibleAndScrollNumber:InputSignal<number>= input.required<number>();
+
+
   autoplayInterval  : number = 3000; // in seconds
-  constructor(readonly discoveryMovieService:DiscoveryService,readonly  router:Router) {}
+  constructor(readonly  router:Router) {}
 
-
-  ngOnInit(): void {
-      this.getDiscoveryMovies();
-  }
-
-  //fetch movies for discovery movies
-  getDiscoveryMovies(){
-    this.movies$ = this.discoveryMovieService.fetchDiscoveryMovies(
-      'fr-FR',1,true,Sort.DESC
-    );
-  }
 
   navigateToDetailsPage(movieId:number){
     this.router.navigateByUrl(`movies/${movieId}/details`).then();
@@ -66,6 +61,8 @@ export class MovieCarouselComponent implements OnInit{
       }
   ]
   );
+
+
 
 
 }

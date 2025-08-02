@@ -39,3 +39,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
 .mb-4{
   margin-bottom: 1.5rem;
 }
+.box-shadow{
+  box-shadow: 0 20px 30px rgb(0 0 0 / 0.9);
+}

@@ -1,34 +1,49 @@
-<!--<app-movie-carousel/>-->
+<!--discovery carrousel-->
+<app-movie-carousel
+  [movies]="discoveryMovies()"
+  [showNavigation]="true"
+  [showIndicators]="true"
+  [showPosterPath]="false" [visibleAndScrollNumber]="1"/>
+
 <div id="grid-container" style="margin-bottom: 5rem;">
   <!--select button time window -->
-<!--  <div class="is-center">-->
-<!--    <p-selectbutton-->
-<!--    [options]="stateOptions()"-->
-<!--    (onChange)=" this.currentTimeWindow.set(currentTimeWindow());"-->
-<!--    [(ngModel)]="currentTimeWindow"-->
-<!--    optionLabel="label"-->
-<!--    optionValue="value" >-->
-<!--  </p-selectbutton>-->
-<!--    &lt;!&ndash;form [formGroup]="formGroupSelect">-->
+  <div class="is-center">
+    <p-selectbutton
+    [options]="stateOptions()"
+    (onChange)=" this.currentTimeWindow.set(currentTimeWindow());"
+    [(ngModel)]="currentTimeWindow"
+    optionLabel="label"
+    optionValue="value" >
+  </p-selectbutton>
+    <!--form [formGroup]="formGroupSelect">
 
-<!--    </form&ndash;&gt;-->
-<!--  </div>-->
+   </form&ndash;&gt;-->
+  </div>
 
 <!--  &lt;!&ndash;<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic"></p-selectbutton>-->
- --> <!-- trending movies swiper-->
-  @if (trending()){
-    <app-swiper-category [movies]="trending()"
-    categoryTitle="trending"
-     iconName="pi pi-shield" />
-  }
+  <!-- trending movies swiper-->
+<!--  @if (trending()){-->
+<!--    <app-swiper-category [movies]="trending()"-->
+<!--    categoryTitle="trending"-->
+<!--     iconName="pi pi-shield" />-->
+<!--  }-->
   <!-- end trending movies swiper-->
 
   <!-- upcoming movies -->
-  @if ( upcomingMovies()){
-    <app-swiper-category [movies]="upcomingMovies()"
-     categoryTitle="for you"
-     iconName="pi pi-heart"/>
-  }
+  <div style="margin: 0;">
+    @if ( upcomingMovies()){
+      <app-movie-carousel
+        appTendances
+        [movies]="upcomingMovies()"
+        [showIndicators]="false"
+        [showNavigation]="false"
+
+        [showPosterPath]="true" [visibleAndScrollNumber]="4"/>
+    }
+  </div>
+
   <div class="mb-2"></div>
   <!-- end upcoming movies -->
 </div>
+
+<!--       iconName="pi pi-heart"                 categoryTitle="for you"-->

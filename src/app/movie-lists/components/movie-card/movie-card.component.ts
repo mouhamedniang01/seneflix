@@ -1,4 +1,4 @@
-import {Component, input, InputSignal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal} from '@angular/core';
 import { Router} from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -10,7 +10,8 @@ import { TendancesDirective } from '../../../core/directives/tendances.directive
   ],
   templateUrl: './movie-card.component.html',
   standalone: true,
-  styleUrl: './movie-card.component.css'
+  styleUrl: './movie-card.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieCardComponent {
   // movies params

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal,} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal,} from '@angular/core';
 import {MovieService} from '../../services/movie/movie.service';
 import {CardModule} from 'primeng/card';
 import {  map, Observable} from 'rxjs';
@@ -31,7 +31,8 @@ import { AnimateOnScrollCastComponent } from "../../../share-ui/animate-on-scrol
     Rating, TabsModule, TabContentComponent, ImageModule,],
   templateUrl: './movie-details.component.html',
   standalone: true,
-  styleUrl: './movie-details.component.css'
+  styleUrl: './movie-details.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailsComponent implements OnInit{
   movie$ !: Observable<MovieDetail>;

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movies } from '../../../movie-lists/models/movies';
+import {Sort} from '../../../enums/Sort';
 
 @Injectable({
   providedIn: 'root'
@@ -34,11 +35,5 @@ export class DiscoveryService {
         include_video=${isIncludeVideo}&page=1&sort_by=${sortByPopularity}`
       );
     }
-
-
 }
 
-export enum Sort {
-  ASC='popularity.asc',
-  DESC='popularity.desc'
-}

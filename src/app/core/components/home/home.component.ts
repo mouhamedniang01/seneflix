@@ -1,17 +1,26 @@
-import {Component, computed, inject, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+  signal,
+  WritableSignal
+} from '@angular/core';
 
 import {Movies} from '../../../movie-lists/models/movies';
 import {MoviesListService} from '../../../movie-lists/services/movies-list.service';
 import {Router} from '@angular/router';
 import {TimeWindowEnum} from '../../../enums/time-window.enum';
-import {LocalStorageService} from '../../services/local-storage/local-storage.service';
-import {SelectButton, SelectButtonModule} from 'primeng/selectbutton';
+import {SelectButtonModule} from 'primeng/selectbutton';
 import {FormControl, FormGroup, FormsModule} from '@angular/forms';
 import {toSignal} from '@angular/core/rxjs-interop';
-import { MovieCarouselComponent } from '../../../share-ui/movie-carousel/movie-carousel.component';
-import { LoggingInterceptor } from '../../interceptors/logging.interceptor';
-import {DiscoveryService, Sort} from '../../../discover/services/discovery/discovery.service';
+import {MovieCarouselComponent} from '../../../share-ui/movie-carousel/movie-carousel.component';
+import {LoggingInterceptor} from '../../interceptors/logging.interceptor';
+import {DiscoveryService} from '../../../discover/services/discovery/discovery.service';
 import {TendancesDirective} from '../../directives/tendances.directive';
+import {Sort} from '../../../enums/Sort';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +30,8 @@ import {TendancesDirective} from '../../directives/tendances.directive';
   templateUrl: './home.component.html',
   standalone: true,
   providers:[LoggingInterceptor],
-  styleUrl: './home.component.css'
+  styleUrl: './home.component.css',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit{
   //inject services & routes

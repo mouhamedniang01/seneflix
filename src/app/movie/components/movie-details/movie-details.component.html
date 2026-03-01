@@ -1,20 +1,23 @@
-@if (movie$ | async; as movie){
+@if (movieDetails()!; as movie){
   <main class="hero main"
         style.background-image='url(
         https://image.tmdb.org/t/p/original{{movie.backdrop_path}}
         )'
   >
     <div class="hero-content">
-      <h1 style="margin-top: -5px;">✨{{movie.title}}</h1>
+      <h1 style="margin-top: -5px;">✨{{movie.title}} </h1>
       <h3>Overview</h3>
       <p class="thumbnail">
         {{movie.overview}}
       </p>
       <div class="cta-container">
         Release date : {{movie.release_date | date:'dd-MM-yyyy'}}<br/>
-        <div class="mt-2">
-          <p-rating severity="info" [(ngModel)]="movie.vote_average" [stars]="10"
+        <div class="mt-2 ratings" aria-label="ratings">
+          <p-rating severity="info"
+                    [ngModel]="ratings()"
+                    [stars]="5"
                     [iconOnStyle]="{color:'#0F93F6'}" [disabled]="true"/>
+        <p style="color:#0F93F6;margin-left: 1.5rem ">{{ratings()}}</p>
         </div>
         <div class="btn">
           <p-button (click)="showDialog()" label="Play now" icon="pi pi-play"    class="btn-play" size="large" [raised]="true"  />
@@ -22,58 +25,63 @@
       </div>
     </div>
   </main>
-<!--  <section class="difference-section">-->
-<!--    <div class="features-header">-->
-<!--      <span class="features-label">-->
-<!--        <div class="flex flex-col items-center gap-2">-->
-<!--            <span class="text-xl font-medium mb-2">Scroll Down</span><br/><br/>-->
-<!--            <span class="mt-2 slidedown-icon  h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">-->
-<!--               <p-button href="service" class="mt-2" icon="pi pi-arrow-down" [rounded]="true" severity="secondary" />-->
-<!--            </span>-->
-<!--      </div>-->
-<!--      </span>-->
-<!--      <h2 class="features-title">-->
-<!--        <span class="decorative-dash">~</span>-->
-<!--        Casting-->
-<!--        <span class="decorative-dash">~</span>-->
-<!--      </h2>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; movies galleria &ndash;&gt;-->
-<!--&lt;!&ndash;    @if (images$ | async; as images){&ndash;&gt;-->
-<!--&lt;!&ndash;      <app-galeria-image [images]="images" class="is-centered mb-4"/>&ndash;&gt;-->
-<!--&lt;!&ndash;    }&ndash;&gt;-->
+  <section class="difference-section">
+    <div class="features-header">
+      <span class="features-label">
+        <div class="flex flex-col items-center gap-2">
+            <span class="text-xl font-medium mb-2">Scroll Down</span><br/><br/>
+            <span class="mt-2 slidedown-icon  h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
+               <p-button href="service" class="mt-2" icon="pi pi-arrow-down" [rounded]="true" severity="secondary" />
+            </span>
+      </div>
+      </span>
+      <h2 class="features-title">
+        <span class="decorative-dash">~</span>
+        Casting
+        <span class="decorative-dash">~</span>
+      </h2>
+    </div>
+    <!--credit panel-->
 
-<!--    @if (video$ | async; as  video){-->
-<!--      <app-dialog-widget-->
-<!--        [(visible)]="isDialogVisible"-->
-<!--        [video]="video"-->
-<!--        (visibleChange)="isDialogVisible"/>-->
+
+    <!-- movies galleria -->
+<!--    @if (images$ | async; as images){-->
+<!--      <app-galeria-image [images]="images" class="is-centered mb-4"/>-->
 <!--    }-->
 
-
-<!--    &lt;!&ndash; credits actors  casting carousel here&ndash;&gt;-->
-<!--&lt;!&ndash;          <div class="casting is-centered">&ndash;&gt;-->
-<!--&lt;!&ndash;            @for (actor of castings$ | async; track actor.id) {&ndash;&gt;-->
-<!--&lt;!&ndash;              &lt;!&ndash; card credit &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;               <div class="credit-card">&ndash;&gt;-->
-<!--&lt;!&ndash;                     &lt;!&ndash;show actor image if exist &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;                 @if (actor.profile_path){&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p-image   width="250" height="250" class="rounded-border mb-3" [alt]="actor.name"&ndash;&gt;-->
-<!--&lt;!&ndash;                  src="https://image.tmdb.org/t/p/w440_and_h660_face{{actor.profile_path}}" />&ndash;&gt;-->
-<!--&lt;!&ndash;                }@else {&ndash;&gt;-->
-<!--&lt;!&ndash;                  <p-image alt=""  src="https://placehold.co/600x600" width="250" height="250"&ndash;&gt;-->
-<!--&lt;!&ndash;                  [alt]="actor.name" class=" rounded-border" />&ndash;&gt;-->
-<!--&lt;!&ndash;                }<br>&ndash;&gt;-->
-<!--&lt;!&ndash;              <b > {{ actor.original_name }} </b>&ndash;&gt;-->
-<!--&lt;!&ndash;              <p class="role">Rôle:  {{ actor.character }}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;               </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                }&ndash;&gt;-->
-<!--&lt;!&ndash;             &lt;!&ndash;credit card &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;         </div> &ndash;&gt;-->
-<!--    &lt;!&ndash; end of credit card &ndash;&gt;-->
+    @if (video$ | async; as  video){
+      <app-dialog-widget
+        [(visible)]="isDialogVisible"
+        [video]="video"
+        (visibleChange)="isDialogVisible"/>
+    }
 
 
-<!--  </section>-->
+          <div class="casting is-centered">
+            @if (credits()!;as actors){
+              <app-credit [actors]="actors"></app-credit>
+            }
+          <!--  @for (actor of credits() ; track actor.id) {
+              &lt;!&ndash; card credit &ndash;&gt;
+               <div class="credit-card">
+                     &lt;!&ndash;show actor image if exist &ndash;&gt;
+                 @if (actor.profile_path){
+                  <p-image   width="250" height="250" class="rounded-border mb-3" [alt]="actor.name"
+                  src="https://image.tmdb.org/t/p/w440_and_h660_face{{actor.profile_path}}" />
+                }@else {
+                  <p-image alt=""  src="https://placehold.co/600x600" width="250" height="250"
+                  [alt]="actor.name" class=" rounded-border" />
+                }<br>
+              <b > {{ actor.original_name }} </b>
+              <p class="role">Rôle:  {{ actor.character }}</p>
+               </div>
+                }-->
+             <!--credit card -->
+         </div>
+<!--     end of credit card -->
+
+
+  </section>
 
 
   <!--similar & recommended tab--->
@@ -96,15 +104,19 @@
         }
       </p-tablist>
       <p-tabpanels>
-        @if (similarMovies$ | async ;as  similars){
+        @if (similarMovies() ;as  similars){
           <p-tabpanel [value]="0">
             <app-tab-content [content]="similars" ></app-tab-content>
           </p-tabpanel>
+        } @else {
+          <h2 style="color: #FFFFff">No similar movies</h2>
         }
-        @if (recommendedMovies$ | async ;as  recommendedMovies){
+        @if (recommendedMovies()! ;as  recommendedMovies){
           <p-tabpanel [value]="1">
             <app-tab-content [content]="recommendedMovies"></app-tab-content>
           </p-tabpanel>
+        } @else {
+          <h2  style="color: #FFFFff">No Recommended Movies</h2>
         }
       </p-tabpanels>
 

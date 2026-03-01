@@ -27,7 +27,7 @@
   <a pRipple class="flex items-center p-menubar-item-link" routerLink="{{item?.routerLink}}">
     <span>{{ item.label }}</span>
     @if (item.badge) {
-      <p-badge [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
+      <p-badge [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge"></p-badge>
     }
     @if (item.shortcut) {
       <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
@@ -37,4 +37,3 @@
     }
   </a>
 </ng-template>
-c

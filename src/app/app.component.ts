@@ -1,4 +1,4 @@
-import {Component, OnInit, signal,} from '@angular/core';
+import {Component, OnInit, signal, WritableSignal,} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {LanguageSelectorComponent, Langue} from './share-ui/language-selector/language-selector.component';
 import {Menubar} from 'primeng/menubar';
@@ -18,7 +18,7 @@ import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
 export class AppComponent implements  OnInit{
   title:string = 'prime wideo';
   items: MenuItem[] | undefined;
-  lastTemplateUpdate: string  | Langue ='';
+  lastTemplateUpdate: WritableSignal<string>   =signal('');
   footerVisible = signal(false);
   constructor(public localStorageService:LocalStorageService) {}
 
@@ -28,7 +28,7 @@ export class AppComponent implements  OnInit{
 
   ngOnInit(): void {
     this.setItems();
-    setTimeout(()=>this.showFooter(),3000)
+    setTimeout(()=>this.showFooter(),13000)
   }
 
 
@@ -71,10 +71,11 @@ export class AppComponent implements  OnInit{
 
 
   // Gestion via stockage local
-  handleLanguageUpdate(language: any):void {
-    this.lastTemplateUpdate = language;
-     this.localStorageService.setLanguage('language', language);
-
+  handleLanguageUpdate(language: Langue):void {
+    this.lastTemplateUpdate.set(language.content);
+    console.log(language.content)
+    this.localStorageService.setLanguage(language.content);
+  //  window.location.reload(); //refresh page
   }
 
 }

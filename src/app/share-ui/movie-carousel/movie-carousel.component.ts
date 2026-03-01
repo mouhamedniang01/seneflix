@@ -1,4 +1,4 @@
-import {Component, Input, input, InputSignal, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, input, InputSignal, signal, WritableSignal} from '@angular/core';
 
 import { CarouselModule } from 'primeng/carousel';
 import {Router} from '@angular/router'; // carousel import prime ng

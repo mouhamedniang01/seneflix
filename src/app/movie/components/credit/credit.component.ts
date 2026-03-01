@@ -1,29 +1,52 @@
-import {ChangeDetectionStrategy, Component, inject, Signal, signal, WritableSignal} from '@angular/core';
-import { MovieService } from '../../services/movie/movie.service';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import { CardModule } from 'primeng/card';
-import { GalleriaModule } from 'primeng/galleria';
-import { TabsModule } from 'primeng/tabs';
-import { ImageModule } from 'primeng/image';
-import {Credits} from '../../../movie-lists/models/credits';
+import {
+  ChangeDetectionStrategy,
+  Component, inject,
+  input,
+  InputSignal, ViewChild,
+} from '@angular/core';
+
+import {Cast} from '../../../movie-lists/models/credits';
+import {ImportModule} from '../../../share-ui/import';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-credit',
   standalone:true,
-  imports: [CardModule, CardModule, AnimateOnScrollModule,
-      GalleriaModule, FormsModule,ImageModule,  TabsModule],
+  imports: [ImportModule],
   templateUrl: './credit.component.html',
   styleUrl: './credit.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreditComponent {
 
-  private movieService:MovieService = inject(MovieService);
-  private route:ActivatedRoute = inject(ActivatedRoute);
-  movieId :WritableSignal<number>= signal(this.route.snapshot.params['id']);
-  credits:Signal<Credits| undefined> = toSignal(this.movieService.fetchMovieCredit(this.movieId(), 'fr-FR'));
+  actors:InputSignal<Cast[]> = input.required<Cast[]>();
 
+  selectedActor: Cast | null = null;
+   @ViewChild('op') private op!: CreditComponent;
+  private router: Router = inject(Router);
+
+
+
+
+  selectActor(actor:Cast) {
+    this.selectedActor = actor;
+   this.op.hide();
+  }
+
+  members = [
+    { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
+    { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
+    { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
+  ];
+
+
+
+
+  toggle($event: MouseEvent) {
+    this.op.toggle($event);
+  }
+
+  private hide() {
+    this.router.navigate(['/actors/:id'])
+  }
 }

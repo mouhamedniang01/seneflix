@@ -1,28 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class LocalStorageService {
-  constructor() {}
 
-  // Set a value in local storage
-  setLanguage(key: string, value: string): void {
-    localStorage.setItem(key, value);
+  private languageSignal = signal<string>(
+    localStorage.getItem('language') ?? 'fr-FR'
+  );
+
+  getLanguage() {
+    return this.languageSignal.asReadonly();
   }
 
-  // Get a value from local storage
-  getLanguage(key: string): string | null {
-    return localStorage.getItem(key);
+  setLanguage(lang: string) {
+    localStorage.setItem('language', lang);
+    this.languageSignal.set(lang);
   }
 
-  // Remove a value from local storage
-  removeLanguage(key: string): void {
-    localStorage.removeItem(key);
-  }
-
-  // Clear all items from local storage
-  clear(): void {
-    localStorage.clear();
-  }
 }

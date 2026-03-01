@@ -1,10 +1,18 @@
-import {Component, OnInit, output, OutputEmitterRef} from '@angular/core';
+import {
+  Component,
+  inject,
+  output,
+  OutputEmitterRef,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {InputTextModule} from 'primeng/inputtext';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SelectModule} from 'primeng/select';
 
 import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
 import {Language} from '../../enums/language.enum';
+import {form} from '@angular/forms/signals';
 
 @Component({
   selector: 'app-language-selector',
@@ -14,39 +22,43 @@ import {Language} from '../../enums/language.enum';
   styleUrl: './language-selector.component.css'
 })
 
-export class LanguageSelectorComponent implements  OnInit{
-  formGroup: FormGroup = new FormGroup({
-    selectedLangue: new FormControl('')
+export class LanguageSelectorComponent {
+
+
+
+  localStorageService: LocalStorageService = inject(LocalStorageService);
+  selectedLanguage!: WritableSignal<Langue>;
+
+
+  onLanguageUpdate: OutputEmitterRef<Langue> = output<Langue>();
+
+
+
+  languagies = signal<Langue[]>([
+    { name: 'Français', code: 'fr-FR', content: Language.FRENCH },
+    { name: 'English', code: 'en-UK', content: Language.ENGLISH },
+  ]);
+
+  languageModel = signal<Langue>({
+    name: 'Français',
+    code: 'fr-FR',
+    content: Language.FRENCH
   });
-  languagies: Langue[] | undefined;
 
-  selectedLanguage!: Langue;
+  languageForm = form(this.languageModel);
 
-   onLanguageUpdate:OutputEmitterRef<Langue | string> = output<Langue | string>();
-  constructor(public localStorageService:LocalStorageService) {}
-
-
- public updateLanguage():void {
-    // Émettre la nouvelle valeur
-  this.selectedLanguage = this.formGroup.controls['selectedLangue'].value;
-  const  emit = this.selectedLanguage.content ;
-   this.onLanguageUpdate.emit(emit);
-
-  }
-  ngOnInit() {
-    this.setLanguagies();
+  updateLanguage(langue: Langue) {
+    this.languageForm().value.set(langue);
+    this.onLanguageUpdate.emit(langue);
   }
 
 
-  // assign language I18N
-  public setLanguagies(){
-    this.languagies = [
-      { name: 'Français', code: 'FR',content: Language.FRECNH},
-      { name: 'English', code: 'UK' ,content:  Language.ENGLISH},
-    ];
 
-  }
 }
+
 export  interface  Langue{
   name: string, code: string,content: Language
 }
+
+
+

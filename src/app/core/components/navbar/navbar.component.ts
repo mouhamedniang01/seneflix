@@ -16,5 +16,4 @@ import {RouterLink} from '@angular/router';
 export class NavbarComponent {
   items: InputSignal<MenuItem[] | undefined> = input.required<MenuItem[] | undefined>();
 
-
 }

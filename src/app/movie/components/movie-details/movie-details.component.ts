@@ -1,7 +1,16 @@
-import {ChangeDetectionStrategy, Component, OnInit, signal, WritableSignal,} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import {MovieService} from '../../services/movie/movie.service';
 import {CardModule} from 'primeng/card';
-import {  map, Observable} from 'rxjs';
+import {map, Observable, switchMap} from 'rxjs';
 import {MovieDetail} from '../../../movie-lists/models/movie-detail';
 import {ActivatedRoute} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
@@ -13,31 +22,38 @@ import { FormsModule} from '@angular/forms';
 import {Rating} from 'primeng/rating';
 import { Cast, Credits} from '../../../movie-lists/models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
-import {Carousel} from 'primeng/carousel';
 import {Movies} from '../../../movie-lists/models/movies';
 import { TabContentComponent } from "../../../share-ui/tab-content/tab-content.component";
 import { TabsModule } from 'primeng/tabs';
-import {Image, ImageModule} from 'primeng/image';
+import { ImageModule} from 'primeng/image';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
-import {Images} from '../../../movie-lists/models/images';
 import {MoviesListService} from '../../../movie-lists/services/movies-list.service';
-import {GaleriaImageComponent} from '../../../share-ui/galeria-image/galeria-image.component';
-import { AnimateOnScrollCastComponent } from "../../../share-ui/animate-on-scroll-cast/animate-on-scroll-cast.component";
-
+import {toObservable, toSignal} from '@angular/core/rxjs-interop';
+import {CreditComponent} from '../credit/credit.component';
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, AsyncPipe, CardModule, AnimateOnScrollModule,
     GalleriaModule, Button, DialogWidgetComponent, FormsModule,
-    Rating, TabsModule, TabContentComponent, ImageModule,],
+    Rating, TabsModule, TabContentComponent, ImageModule, CreditComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetailsComponent implements OnInit{
+
+  //inject services
+  private activeRoute:ActivatedRoute = inject(ActivatedRoute);
+  private    movieListService:MoviesListService = inject(MoviesListService);
+  private  movieService: MovieService = inject(MovieService);
+  private   localStorage:LocalStorageService = inject(LocalStorageService);
+
+  //parameters
+  language =this.localStorage.getLanguage();
+  movieId: Signal<number> = computed(():number=>Number(this.activeRoute.snapshot.params['id']));
+
+
   movie$ !: Observable<MovieDetail>;
-  movieId: number = 0;
-  language : WritableSignal<string>=signal('');
   video$ !: Observable<Video>;
   isDialogVisible:boolean = false;
   credits$!:Observable <Credits>;
@@ -46,31 +62,50 @@ export class MovieDetailsComponent implements OnInit{
   similarMovies$!:Observable<Movies>;
   recommendedMovies$!:Observable<Movies>;
   public tabs: { title: string; value: number}[] = [];
-  pageNumber:number = 1 ;
-  images$!: Observable<Images>;
+  pageNumber:WritableSignal<number> = signal(1) ;
 
-  includImageLang='en,null';
 
-  constructor(readonly movieService: MovieService,readonly activeRoute: ActivatedRoute,
-  private readonly  localStorage:LocalStorageService,private  readonly  movieListService:MoviesListService) { }
+  includImageLang=signal('en,null');
+
+
 
   ngOnInit(): void {
-    this.movieId = this.activeRoute.snapshot.params['id'];
-    this.language.set( this.localStorage.getLanguage('language')!);
-    this.getMovieDetail(this.movieId,this.language());
-    this.getvideoInfos(this.movieId,this.language());
-    this.getCredits(this.movieId,this.language());
     this.setTab();// for tab similars & recommandations movies
-    this.showMoviesPicture(this.movieId,this.language(),this.includImageLang); //inject galleria
+    console.log('🎬 Init - ID:', this.movieId(), 'Langue:', this.language());
+    //this.showMoviesPicture(this.movieId,this.language(),this.includImageLang); //inject galleria
   }
 
+  /*moviePicture:Signal<Images | undefined> = toSignal(
+    this.movieListService.getMoviesImages(
+      this.movieId(),
+      this.includImageLang,
+      this.language()
+    )
+  );*/
   // show galleries image
-  showMoviesPicture(idMovie:number,language:string,includeImageLanguage:string){
+  /*showMoviesPicture(idMovie:number,language:string,includeImageLanguage:string){
     this.images$ = this.movieListService.getMoviesImages(idMovie,includeImageLanguage,language);
-  }
+  }*/
+
 
 
   //get current movie's credits
+     credits:Signal<Cast[]|undefined> = toSignal(
+        toObservable(this.language).pipe(
+        switchMap(lang =>
+          this.movieService.fetchMovieCredit(this.movieId(), lang!)
+            .pipe(
+              map(
+                (data: Credits):Cast[] => {
+                const casting:Cast[]= data.cast;
+                return casting.slice(0, 3) // get first 9 castings
+                }
+              )
+            )
+          )
+        )
+     );
+
   getCredits(movieId:number,language:string){
     this.castings$ = this.movieService.fetchMovieCredit(movieId,language).pipe(
       map((data: Credits):Cast[] => {
@@ -80,15 +115,42 @@ export class MovieDetailsComponent implements OnInit{
       ));
   }
 
+  menuItems = signal( [
+    {
+      label: 'Refresh',
+      icon: 'pi pi-refresh'
+    },
+    {
+      label: 'Search',
+      icon: 'pi pi-search'
+    },
+    {
+      separator: true
+    },
+    {
+      label: 'Delete',
+      icon: 'pi pi-times'
+    }
+  ]);
   //get movie details from movie id by url
-  getMovieDetail(movieId: number,langue:string):void{
-    this.movie$ = this.movieService.fetchMovieDetails(movieId,langue);
-  }
+  movieDetails = toSignal(
+    toObservable(this.language).pipe(
+      switchMap(lang =>
+        this.movieService.fetchMovieDetails(this.movieId(), lang!)
+      )
+    )
+  );
+
+  ratings:Signal<number> = computed(()=> Number(this.movieDetails()!.vote_average) / 2);
 
   // get movie's video information  from youtube
-  getvideoInfos(movieId:number,language:string):void{
-    this.video$ = this.movieService.fetchVideoInfos(movieId,language);
-  }
+  videos:Signal<Video|undefined> =  toSignal(
+      toObservable(this.language).pipe(
+        switchMap(lang =>
+          this.movieService.fetchVideoInfos(this.movieId(),lang!)
+        )
+      )
+  );
 
   // on show dialog
   showDialog() {
@@ -97,18 +159,17 @@ export class MovieDetailsComponent implements OnInit{
 
 
    //similar movies
-  getSimilar(movieId:number,language:string):void{
-    this.similarMovies$ = this.movieService.fetchSimilarMovie(movieId,language);
-  }
+  similarMovies:Signal<Movies| undefined> = toSignal(
+    this.movieService.fetchSimilarMovie(this.movieId(),this.language()??'en-US')
+  )
+
   //get recommandation's movie
-  getRecommandation(movieId:number,language:string,pageNumber:number):void{
-    this.recommendedMovies$ = this.movieListService.fetchRecommendedationsMovie(movieId,language,pageNumber);
-  }
+  recommendedMovies:Signal<Movies |undefined> = toSignal(
+    this.movieListService.fetchRecommendedationsMovie(this.movieId(),this.language()??'en-US',this.pageNumber())
+  );
 
   //inject similar & recommanded movies
   setTab() {
-    this.getSimilar(this.movieId,this.language());
-    this.getRecommandation(this.movieId,this.language(),this.pageNumber);
     this.tabs = [
       { title: 'Similaries', value: 0 },
       { title: 'Recommandation ', value: 1}

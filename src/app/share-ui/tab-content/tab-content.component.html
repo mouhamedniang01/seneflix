@@ -1,12 +1,28 @@
-<div class="constr-grid" id="service">
-  @for (similar of  content()!.results | slice:0:6;track similar.id){
+@if (content()){
+  <div class="constr-grid" id="service">
+  @for (similar of   moviesWithRating() | slice:0:6;track similar.id){
     <div class="constr-card" (click)="goToDetailsView(similar.id)" >
       <div class="constr-blob constr-blob-1"></div>
       <div class="constr-content" >
-        <p-image  src="https://image.tmdb.org/t/p/w300{{similar.poster_path}}" alt=".." width="250"/>
+        <p-image  src="https://image.tmdb.org/t/p/w500{{similar.poster_path}}" alt=".." height="300"/>
 
-        <p>{{similar.vote_average | number :'1.1-1'}}</p>
+
+        <div class="index">
+          @if (similar.vote_average || similar.vote_average !=0){
+      <p-rating severity="warn"
+                    [ngModel]="similar.vote_average"
+                    [stars]="5"
+                    [iconOnStyle]="{color:'#FFAC1C'}" [disabled]="true"/>
+
+            <p> {{similar.vote_average | number :'1.1-1'}}</p>
+          } @else {
+            <p>Average Note: N/A</p>
+          }
+        </div>
       </div>
     </div>
   }
 </div>
+} @else {
+  <h2 style="color: #FFFFff;">No movies founded</h2>
+}

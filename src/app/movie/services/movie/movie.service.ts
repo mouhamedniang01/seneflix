@@ -1,18 +1,16 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {MovieDetail} from '../../../movie-lists/models/movie-detail';
 import {Observable} from 'rxjs';
 import {Video} from '../../../movie-lists/models/video';
 import {Credits} from '../../../movie-lists/models/credits';
 import {Movies} from '../../../movie-lists/models/movies';
-import { rxResource } from '@angular/core/rxjs-interop';
-import {environment} from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  Host:string = environment.apiUrl;
+  Host:string = 'https://api.themoviedb.org/3';
 
   constructor(readonly http: HttpClient) { }
 
@@ -23,13 +21,15 @@ export class MovieService {
    * @Param movie_id
    * @Param language
    * @return Observable<MovieDetail>
-   * URL => https://api.themoviedb.org/3/movie/:movie_id?language={language}
+   * URL => https://api.themoviedb.org/3/movie/:movie_id?language={language}&append_to_response={{append_to_response}}
    */
 
-  fetchMovieDetails(movie_id:number, language:string):Observable<MovieDetail>{
-    return this.http
-      .get<MovieDetail>(`${this.Host}/movie/${movie_id}?language=${language}`,)
 
+
+  fetchMovieDetails(movie_id: number, language: string): Observable<MovieDetail> {
+    return this.http.get<MovieDetail>(
+      `${this.Host}/movie/${movie_id}?language=${language}&append_to_response=${language}`
+    );
   }
 
   /**

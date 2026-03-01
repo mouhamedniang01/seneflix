@@ -5,6 +5,8 @@
   display: flex;
   flex-wrap: wrap;
   gap:25px;
+  padding:0 0.75rem 0 2.5rem;
+  max-width: 1200px;
 }
 
 .credit-card{
@@ -16,9 +18,6 @@
 .rounded-border{
    border-radius: 3em;
    -webkit-border-radius: 3em;
-   -moz-border-radius: 3em;
-   -ms-border-radius: 3em;
-   -o-border-radius: 3em;
 }
 @media (min-width: 768px) {
   .hero {
@@ -90,6 +89,9 @@ h1 {
 .cta-container {
   position: relative;
   display: inline-block;
+}
+.ratings{
+  display: flex;
 }
 .mt-2{
   margin-top: 2rem;

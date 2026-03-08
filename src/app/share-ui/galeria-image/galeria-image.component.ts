@@ -1,7 +1,6 @@
-import {Component, Input, input, InputSignal, model} from '@angular/core';
+import {Component, input} from '@angular/core';
 import { GalleriaModule} from 'primeng/galleria';
-import {Images} from '../../movie-lists/models/images';
-import {Image} from 'primeng/image';
+import {Images} from '../../movie/models/images';
 
 @Component({
   selector: 'app-galeria-image',
@@ -11,7 +10,7 @@ import {Image} from 'primeng/image';
   styleUrl: './galeria-image.component.css'
 })
 export class GaleriaImageComponent {
-  @Input() images!:Images ;
+  readonly images = input.required<Images>();
   responsiveOptions: any[] = [
     {
       breakpoint: '1300px',

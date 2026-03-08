@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {MovieDetail} from '../../../movie-lists/models/movie-detail';
+import {MovieDetail} from '../../models/movie-detail';
 import {Observable} from 'rxjs';
-import {Video} from '../../../movie-lists/models/video';
-import {Credits} from '../../../movie-lists/models/credits';
-import {Movies} from '../../../movie-lists/models/movies';
+import {Video} from '../../models/video';
+import {Credits} from '../../models/credits';
+import {Movies} from '../../models/movies';
 
 @Injectable({
   providedIn: 'root'

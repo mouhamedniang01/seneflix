@@ -1,17 +1,20 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import {Directive, ElementRef, inject, OnInit} from '@angular/core';
 
 @Directive({
-    standalone: true,
     selector: '[appTendances]'
 })
-export class TendancesDirective {
-  @Input() appTendances = '';
-  constructor(private el: ElementRef) {
-    this.el.nativeElement.style.maxWidth = '580px';
-    this.el.nativeElement.style.boxShadow= ' box-shadow: 0 20px 30px rgb(0 0 0 / 0.9)';
-    this.el.nativeElement.style.borderRadius = '12px';
-    this.el.nativeElement.style.overflow = 'hidden';
-    this.el.nativeElement.style.margin = '0 auto';
-  }
+export class TendancesDirective implements OnInit {
+  private el = inject(ElementRef<HTMLElement>);
 
+  constructor() {
+    const element = this.el.nativeElement;
+    element.style.maxHeight = '80%';
+   // element.style.boxShadow = '0 20px 30px rgb(0 0 0 / 0.9)';
+    element.style.borderRadius = '12px';
+    element.style.overflow = 'hidden';
+    element.style.margin = '0 auto';
+  }
+  ngOnInit() {
+
+  }
 }

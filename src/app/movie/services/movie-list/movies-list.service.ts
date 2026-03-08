@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, } from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Movies} from '../models/movies';
-import {TimeWindowEnum} from '../../enums/time-window.enum';
-import {Images} from '../models/images';
-import { environment } from '../../../environments/environment.development';
+import {Movies} from '../../models/movies';
+import {Images} from '../../models/images';
+import {TimeWindowEnum} from '../../../core/enums/time-window.enum';
+import {environment} from '../../../../environments/environment';
+import {Langue} from '../../../share-ui/language-selector/language-selector.component';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,7 @@ export class MoviesListService {
       );
   }
 
-  
+
     /**
      * Fetch movie's credit informations
      * GET METHOD
@@ -71,6 +72,16 @@ export class MoviesListService {
       .get<Movies>(`${this.Host}/movie/${movie_id}/recommendations?language=en-US&page=${pageNumber}`);
     }
 
+  /**
+   * récupérer les films tendances
+   * @param time_window day | week
+   * @param langue fr-FR
+   * @param pageNumber number
+   */
 
-
+    getTrendingMovies(time_window:TimeWindowEnum,langue:Langue |string,pageNumber:number):Observable<Movies>{
+      return this.httpClient.get<Movies>(
+        `https://api.themoviedb.org/3/trending/movie/${time_window}?language=${langue}&page=${pageNumber} `
+      );
+    }
 }

@@ -2,8 +2,8 @@
  @import "primeicons/primeicons.css";
  @import "tailwindcss";
  @import "tailwindcss-primeui";
-
- html, body { height: 100%; }
+ /*@import 'https://fonts.googleapis.com/css?family=Raleway:100,400';*/
+ html, body { height: 100%;   font-family: 'Raleway', sans-serif;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-color:#162B3C; }
 
 
@@ -12,20 +12,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
  */
  /* Hero Section */
  .hero {
-   padding: 1rem;
-   display: flex;
+
+   /*display: flex;padding: 1rem;
    flex-direction: column;
-   gap: 3rem;
-   margin: 0 auto;
+   gap: 1.3rem;
+   margin: 0 auto;*/
    background-color:  rgba(0, 0, 0, 0.8);
    opacity: 0.9;
+
  }
 
  .hero-content {
-   display: flex;
-   padding-left: 20px;
-   flex-direction: column;
-   gap: .5rem;
+   display: grid;
+   grid-template-columns: repeat(2,2fr);
+   gap: 0.5rem;
+ /*  padding-left: 20px;
+   grid-template-columns: repeat(auto-fit,minmax(400px,2fr));
+   gap: 0.5rem;
+  flex-wrap: wrap;
+   min-width: 1200px;*/
  }
 
 .is-centered {
@@ -33,6 +38,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
   display: flex;
   justify-content: center;
 }
+ .mb-1 {
+   margin-bottom: 0.25rem;
+ }
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -46,3 +54,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-c
   box-shadow: 0 20px 30px rgb(0 0 0 / 0.9);
 }
 
+ @layer tailwind-base, primeng, tailwind-utilities;
+
+/**carousel movies title for section*/
+
+ .paddings {
+   margin-bottom: 0.75rem;
+   padding: 1% 2.5%;
+ }
+
+ .is-centered {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }

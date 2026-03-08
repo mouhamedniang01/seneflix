@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Movies } from '../../../movie-lists/models/movies';
-import {Sort} from '../../../enums/Sort';
+import { Movies } from '../../../movie/models/movies';
+import {Sort} from '../../../core/enums/Sort';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import {Sort} from '../../../enums/Sort';
 export class DiscoveryService {
 
     constructor(private httpClient: HttpClient) { }
-    Host:string = 'https://api.themoviedb.org/3/movie/upcoming';
+    //Host:string = 'https://api.themoviedb.org/3/movie/upcoming';
 
     /**
      * Fetch discovery movies doc API V3
@@ -32,8 +32,10 @@ export class DiscoveryService {
       return this.httpClient
       .get<Movies>(`
         https://api.themoviedb.org/3/discover/movie?language=${language}
-        include_video=${isIncludeVideo}&page=1&sort_by=${sortByPopularity}`
+        include_video=${isIncludeVideo}&page=${pageNumber}&sort_by=${sortByPopularity}`
       );
     }
+
+
 }
 

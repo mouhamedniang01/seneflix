@@ -1,28 +1,4 @@
-<!--<p-menubar [model]="items" class="mb-2 nav">
-<ng-template #start>
-  <h3 #title class="prime" >Prime </h3>
-  <h3 class="ml-2">Wideo</h3>
-
-  <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="..." fill="var(--primary-color)" />
-  </svg>
-</ng-template>
-<ng-template #item let-item let-root="root">
-  <a pRipple class="flex items-center p-menubar-item-link">
-    <span>{{ item.label }}</span>
-    <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-    <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-    <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
-  </a>
-</ng-template>
-<ng-template #end>
-  <app-language-selector (onLanguageUpdate)=""></app-language-selector>
-</ng-template>
-</p-menubar>
--->
-
-
-
+<!--
 <ng-template #item let-item let-root="root">
   <a pRipple class="flex items-center p-menubar-item-link" routerLink="{{item?.routerLink}}">
     <span>{{ item.label }}</span>
@@ -37,3 +13,20 @@
     }
   </a>
 </ng-template>
+-->
+
+<p-menubar [model]="items" class="mb-2 nav">
+  <ng-template #end class="m-2">
+    <ng-template #start>
+      <h3 #title class="prime" >Prime </h3>
+      <h3 class="ml-2">Wideo</h3>
+
+      <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path  fill="var(--primary-color)"  d=""/>
+      </svg>
+  </ng-template>
+    <app-language-selector
+      (onLanguageUpdate)="handleLanguageUpdate($event)"
+    ></app-language-selector>
+  </ng-template>
+</p-menubar>

@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SelectModule} from 'primeng/select';
 
 import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
-import {Language} from '../../enums/language.enum';
+import {Language} from '../../core/enums/language.enum';
 import {form} from '@angular/forms/signals';
 
 @Component({
@@ -51,9 +51,6 @@ export class LanguageSelectorComponent {
     this.languageForm().value.set(langue);
     this.onLanguageUpdate.emit(langue);
   }
-
-
-
 }
 
 export  interface  Langue{

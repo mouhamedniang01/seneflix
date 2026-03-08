@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DialogWidgetComponent } from './dialog-widget.component';
+import { VideoDialogComponent } from './video.dialog.component';
 
-describe('DialogWidgetComponent', () => {
-  let component: DialogWidgetComponent;
-  let fixture: ComponentFixture<DialogWidgetComponent>;
+describe('VideoDialogComponent', () => {
+  let component: VideoDialogComponent;
+  let fixture: ComponentFixture<VideoDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DialogWidgetComponent]
+      imports: [VideoDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DialogWidgetComponent);
+    fixture = TestBed.createComponent(VideoDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

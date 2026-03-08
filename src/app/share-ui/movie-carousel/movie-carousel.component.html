@@ -1,27 +1,46 @@
-@if (movies()){
-    <p-carousel [value]="movies()!.results" [numVisible]="visibleAndScrollNumber()"
-                [numScroll]="visibleAndScrollNumber()"
-     [autoplayInterval]="autoplayInterval" [showNavigators]="showNavigation()"
-                [showIndicators]="showIndicators()"
-    [responsiveOptions]="responsiveOptions()" >
-        <ng-template let-movie #item>
-          <div class="is-centered border border-surface-200 dark:border-surface-700 rounded m-3 p-5 ">
-                <div class="mb-3">
-                    <div class="relative mx-auto " (click)="navigateToDetailsPage(movie.id)">
-                      <figure>
-                        <img  alt=".."
-                              [title]="movie.title"
-                              [src]="showPosterPath()?
-                      'https://image.tmdb.org/t/p/original'+movie.poster_path:
-                      'https://image.tmdb.org/t/p/original'+movie.backdrop_path"
-                              class="w-full rounded-border  " />
-                      </figure>
+@if (movies();as  movies){
+  @if (sectionTitle()) {
+    <div class="head-container">
+      <h1 class="paddings text-zinc-200 w-5xl ">{{sectionTitle()}}</h1>
+      <p-button class="pr-3 text-shadow-zinc-200"
+                icon="pi pi-arrow-right"
+                iconPos="right" [rounded]="true"
+                [routerLink]="'/'+viewAllRouteLink()"
+                severity="contrast" label="View All"  [raised]="true"/>
+    </div>
+  }
 
-                    </div>
-                </div>
-            </div>
-        </ng-template>
-    </p-carousel>
+  <p-carousel [value]="movies!.results"
+              [numVisible]="visibleAndScrollNumber()"
+
+              [numScroll]="visibleAndScrollNumber()"
+              [autoplayInterval]="autoplayInterval" [showNavigators]="showNavigation()"
+              [showIndicators]="showIndicators()"
+              [responsiveOptions]="responsiveOptions()" >
+    <ng-template let-movie #item>
+      <div class="is-centered   rounded m-3 p-5 ">
+        <div class="mb-3">
+          <div class="relative mx-auto " (click)="navigateToDetailsPage(movie.id)">
+            <figure>
+              <img  alt="https://placehold.co/600x400"
+                    [style.max-height.px]="height()"
+                    [title]="movie.title"
+                    [src]="showPosterPath()?
+                      'https://image.tmdb.org/t/p/'+imageSize()+movie.poster_path:
+                      'https://image.tmdb.org/t/p/'+imageSize()+movie.backdrop_path"
+                    class="w-full rounded-border  " />
+
+
+              @if (show_vote()){
+                <p-tag severity="secondary" value="{{movie.vote_average | number: '1.0-1'}}"  class="absolute dark:bg-surface-900!" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+              }
+            </figure>
+
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
 
 
 }

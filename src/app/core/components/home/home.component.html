@@ -1,49 +1,68 @@
-<!--discovery carrousel-->
-<app-movie-carousel
-  [movies]="discoveryMovies()"
-  [showNavigation]="true"
-  [showIndicators]="true"
-  [showPosterPath]="false" [visibleAndScrollNumber]="1"/>
+@if (discoveryMoviesRessource.isLoading()){
+  <app-loading-spinner/>
+} @else if (discoveryMoviesRessource.hasValue()){
+  @if (discoveryMovies() ; as discovery){
+    <div class="carousel-container">
+      <!--discovery carrousel-->
+      <section class="hero-section">
+        <app-movie-carousel
+          [imageSize]="original"
+          [movies]="discovery"
+          [showNavigation]="true"
+          [showIndicators]="true"
+          [showPosterPath]="false" [visibleAndScrollNumber]="1"/>
+      </section>
+      <div id="grid-container" style="margin-bottom: 5rem;">
 
-<div id="grid-container" style="margin-bottom: 5rem;">
-  <!--select button time window -->
-  <div class="is-center">
-    <p-selectbutton
-    [options]="stateOptions()"
-    (onChange)=" this.currentTimeWindow.set(currentTimeWindow());"
-    [(ngModel)]="currentTimeWindow"
-    optionLabel="label"
-    optionValue="value" >
-  </p-selectbutton>
-    <!--form [formGroup]="formGroupSelect">
+        <div class="mb-2"></div>
+        <!-- upcoming movies -->
+        @if ( upcomingMovies();as  upcoming){
+          <div class="p-3">
+            <app-movie-carousel
+              appTendances
+              [sectionTitle]="'Upcoming Movies'"
+              [imageSize]="x_small"
+              [movies]="upcoming"
+              [height]="300"
+              [showIndicators]="false"
+              [showNavigation]="false"
+              [showPosterPath]="true"
+              [visibleAndScrollNumber]="5"/>
+          </div>
 
-   </form&ndash;&gt;-->
-  </div>
+        }
+      </div>
+      <!-- end upcoming movies -->
 
-<!--  &lt;!&ndash;<p-selectbutton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" aria-labelledby="basic"></p-selectbutton>-->
-  <!-- trending movies swiper-->
-<!--  @if (trending()){-->
-<!--    <app-swiper-category [movies]="trending()"-->
-<!--    categoryTitle="trending"-->
-<!--     iconName="pi pi-shield" />-->
-<!--  }-->
-  <!-- end trending movies swiper-->
+      <!--select button time window -->
+      <div class="is-centered align-items-center justify-center">
+        <p-selectbutton
+          [options]="stateOptions()"
+          [(ngModel)]="currentTimeWindow"
+          (click)="change()"
+          optionLabel="label"
+          optionValue="value" >
+        </p-selectbutton>
+      </div>
+      <div class="mb-2"></div>
 
-  <!-- upcoming movies -->
-  <div style="margin: 0;">
-    @if ( upcomingMovies()){
-      <app-movie-carousel
-        appTendances
-        [movies]="upcomingMovies()"
-        [showIndicators]="false"
-        [showNavigation]="false"
 
-        [showPosterPath]="true" [visibleAndScrollNumber]="4"/>
-    }
-  </div>
+      @if (trending()){
+        <div class="p-3">
 
-  <div class="mb-2"></div>
-  <!-- end upcoming movies -->
-</div>
+          <app-movie-carousel
+            appTendances
+            [sectionTitle]="'Trending'"
+            [imageSize]="x_small"
+            [movies]="trending()"
+            [showIndicators]="false"
+            [showNavigation]="false"
+            [showPosterPath]="true"
+            [viewAllRouteLink]="'movies/trending'"
+            [visibleAndScrollNumber]="4"/>
+        </div>
+      }
 
-<!--       iconName="pi pi-heart"                 categoryTitle="for you"-->
+    </div>
+  }
+}

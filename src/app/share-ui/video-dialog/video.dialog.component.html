@@ -1,0 +1,31 @@
+@if (video(); as video){
+  <p-dialog [visible]="visible()"
+            (onHide)="onClose()"
+            (visibleChange)="onClose()"
+            [modal]="true"
+            [style]="{ width: '50rem',height:'40rem' }"
+            [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+            [draggable]="false" [resizable]="true"
+    (keyup.escape)="onClose()" (keydown.escape)="onClose()" (keydown.enter)="onClose()"
+  >
+    <ng-template #header>
+      <div class="inline-flex items-center justify-center gap-8">
+        <span class="font-bold whitespace-nowrap">{{video.results[0].name}}</span>
+
+      </div>
+    </ng-template>
+    <div class="flex items-center is-center">
+      <youtube-player videoId="{{video.results[0].key}}"
+        [width]="750"  [title]="title()"
+      />
+    </div>
+    <ng-template #footer>
+      <p-button label="Cancel" icon="pi pi-times-circle"  severity="danger" (click)="onClose()" />
+    </ng-template>
+  </p-dialog>
+} @else {
+  <h1 class="text-blue-800">
+    <i class="pi pi-compass" style="width: 2.5rem;color: #0f172a;"></i>
+    No trailer were found
+  </h1>
+}

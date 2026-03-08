@@ -1,0 +1,31 @@
+<!-- <p-card appTendances >
+        <ng-template #content>
+            <img alt="Card" class="w-full" (click)="goToDetailPage(movieId())"
+            src="https://image.tmdb.org/t/p/{{poster_width()}}{{poster_path()}}" />
+        </ng-template>
+</p-card>-->
+
+<!--
+ <p-card >
+        <ng-template #content>
+            <img (click)=" goToDetailPage(movie.id)"
+            alt="Card" class="w-full" src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}" />
+        </ng-template>
+    </p-card>
+-->
+
+<div class="movie-card"
+     [style.background-repeat]="'no-repeat'"
+     [style.background-size]="'cover'"
+     [style.background]="'url(https://image.tmdb.org/t/p/w780'+poster_path()+')'">
+  <h1>{{name()}}</h1>
+
+  <span>Popularity : {{popularity() | number:'1.0-1'}} <i class="pi pi-chart-line"></i></span>
+
+  <span>{{rating() | number : '1.0-1'}} <i class="pi pi-star-fill"></i></span>
+
+  <p>{{synopsis()}}</p>
+
+  <button class="watch" (click)="goToDetailPage(movieId())">SHOW MOVIE</button>
+
+</div>

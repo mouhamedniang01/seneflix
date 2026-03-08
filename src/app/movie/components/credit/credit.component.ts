@@ -5,7 +5,7 @@ import {
   InputSignal, ViewChild,
 } from '@angular/core';
 
-import {Cast} from '../../../movie-lists/models/credits';
+import {Cast} from '../../models/credits';
 import {ImportModule} from '../../../share-ui/import';
 import {Router} from '@angular/router';
 

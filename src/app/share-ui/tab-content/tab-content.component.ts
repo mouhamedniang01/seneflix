@@ -1,5 +1,5 @@
 import {Component, computed,input, InputSignal} from '@angular/core';
-import { Movies } from '../../movie-lists/models/movies';
+import { Movies } from '../../movie/models/movies';
 import {Image} from 'primeng/image';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';

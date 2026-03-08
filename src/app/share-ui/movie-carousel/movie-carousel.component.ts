@@ -1,13 +1,21 @@
 import {Component, input, InputSignal, signal, WritableSignal} from '@angular/core';
 
 import { CarouselModule } from 'primeng/carousel';
-import {Router} from '@angular/router'; // carousel import prime ng
-import { Movies } from '../../movie-lists/models/movies';
+import {Router, RouterLink} from '@angular/router'; // carousel import prime ng
+import { Movies } from '../../movie/models/movies';
+import {Button} from 'primeng/button';
+import {Tag} from 'primeng/tag';
+import {DecimalPipe, NgStyle} from '@angular/common';
 @Component({
   selector: 'app-movie-carousel',
   imports: [
-    CarouselModule
-],
+    CarouselModule,
+    Button,
+    Tag,
+    NgStyle,
+    DecimalPipe,
+    RouterLink
+  ],
   standalone:true,
   templateUrl: './movie-carousel.component.html',
   styleUrl: './movie-carousel.component.css'
@@ -38,13 +46,13 @@ export class MovieCarouselComponent {
     [
       {
           breakpoint: '1400px',
-          numVisible: 1,
-          numScroll: 1
+          numVisible: 3,
+          numScroll: 3
       },
       {
           breakpoint: '1199px',
-          numVisible: 1,
-          numScroll: 1
+          numVisible: 2,
+          numScroll: 2
       },
       {
           breakpoint: '767px',
@@ -58,8 +66,10 @@ export class MovieCarouselComponent {
       }
   ]
   );
-
-
-
-
+  imageSize = input<string | null>();
+  protected style: any = input<number | null>(null);
+  readonly sectionTitle = input<string | null>(null);
+  readonly height = input<any | null>(null);
+  show_vote = input<boolean>(false);//tag
+  viewAllRouteLink = input<string>('/');
 }

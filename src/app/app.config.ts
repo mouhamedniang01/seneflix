@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 import { providePrimeNG } from 'primeng/config'; // prime ng
 import Nora from '@primeng/themes/nora';
 import { routes } from './app.routes';
@@ -9,7 +9,7 @@ import { TokenInterceptorProvider } from './core/interceptors/logging.intercepto
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes,withViewTransitions()),
     provideHttpClient(
       // DI-based interceptors must be explicitly enabled.
       withInterceptorsFromDi(),

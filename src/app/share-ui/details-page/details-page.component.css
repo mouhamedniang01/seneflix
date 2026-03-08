@@ -25,6 +25,10 @@ h1 {
 .synopsis{
   text-align: justify;
   text-justify: inter-word;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .rounded-image{
   clip-path: circle();

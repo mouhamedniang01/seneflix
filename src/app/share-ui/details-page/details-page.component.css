@@ -1,0 +1,154 @@
+.main{
+  padding: 1.2rem 3.5rem;
+  gap: 5%;
+}
+h1 {
+  font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+}
+
+.info-section {
+  flex: 1;
+  padding: 1.2rem 1.2rem 3rem 1.5rem;
+}
+
+/*movie image**/
+.poster-path {
+  max-width: 350px;
+  width: 100%;
+  cursor: pointer;
+}
+.poster-path:hover{
+  opacity: 0.8;
+  transition: 20s opacity;
+}
+
+.synopsis{
+  text-align: justify;
+  text-justify: inter-word;
+}
+.rounded-image{
+  clip-path: circle();
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  padding: 0;
+  margin: 0;
+}
+.flex-start{
+  display: flex;
+  align-items: start;
+}
+
+.space-between{
+  justify-content: space-between;
+}
+.space-start{
+  justify-content: start;
+}
+column-direction{
+  flex-direction: column;
+}
+.gap-4{
+  gap: 2.3rem;
+}
+.pt-1{
+  padding: 4% 0 0 0;
+}
+gap-1{
+  gap: 1.5rem;
+}
+.icon{
+  margin:3px 0.5em 0 0;
+}
+
+.pr-1{
+  padding: 0 0 2.5rem 0;
+}
+
+.main {
+  display: flex;
+  gap: 2rem;
+  padding: 1.2rem 3.5rem;
+  flex-direction: row;
+}
+/*castings*/
+.castings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 18px;
+}
+.cast-content{
+  display: grid;
+}
+.info-text{
+  margin: 0  2% 0 2%;
+}
+.light-text{
+  font-weight: 300;
+}
+
+/* similars contents*/
+/* similars contents */
+.simalar-container {
+  padding: 3rem;
+  gap: 5%;
+}
+
+.similar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.similar-poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.similar-poster:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+.text-centered{
+  text-align: center;
+}
+.flex-item {
+  background-color: #000000;
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 992px) {
+  .poster-path {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+}
+
+
+/* MOBILE */
+@media (max-width: 592px) {
+  .main {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+}
+/* On screens that are 600px wide or less, make the columns stack on top of each other instead of next to each other */
+@media (max-width: 790px) {
+  .flex-start {
+    flex-direction: row;
+  }
+
+}
+
+

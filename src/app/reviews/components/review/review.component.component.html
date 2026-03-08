@@ -1,0 +1,33 @@
+@if (review();as  reviewInfo){
+  <p-panel [toggleable]="true">
+    <ng-template #header>
+      <div class="flex items-center gap-2">
+        <p-avatar [image]="imageUrl()" shape="circle"  size="large"/>
+        <span class="font-bold">{{reviewInfo.author}} {{reviewInfo.author_details.name}}</span>
+      </div>
+    </ng-template>
+    <ng-template #footer aria-label="footer">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <p-button icon="pi pi-user" rounded text></p-button>
+
+          <a pButton target="_blank" [href]="reviewInfo.url">
+            <span class="pi pi-external-link"  ></span>
+          </a>
+        </div>
+        <span class="text-surface-500 dark:text-surface-400">{{lastModificationDate()}}</span>
+      </div>
+    </ng-template>
+    <ng-template #icons>
+      <span>
+        <i class="pi pi-star-fill" style="color: #FFC000;"></i>
+        @if (reviewInfo.author_details.rating){
+         {{reviewInfo.author_details.rating | number :'1.1-2'}}
+        } @else {
+          0
+        }
+      </span>
+    </ng-template>
+    <p class="m-0" aria-label="comments">{{reviewInfo.content}}</p>
+  </p-panel>
+}

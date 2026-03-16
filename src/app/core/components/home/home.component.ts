@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit{
   currentTimeWindow :WritableSignal<TimeWindowEnum> = signal(TimeWindowEnum.DAY);
 
   // get all informations on all incoming movies
-  upcomingMovies:Signal<Movies| undefined > =  toSignal(this.moviesListService.getUpcommingMovies(this.currentLanguage(), this.pageNumber()));
+  upcomingMovies:Signal<Movies| undefined > =  toSignal(this.moviesListService.getUpcomingMovies(this.currentLanguage(), this.pageNumber()));
 
   //get all information on trending
   trending: Signal<Movies | undefined> = toSignal(

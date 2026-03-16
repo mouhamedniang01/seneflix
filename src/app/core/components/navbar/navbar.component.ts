@@ -55,7 +55,7 @@ export class NavbarComponent implements OnInit{
             routerLink:'movies/trending'
           },
           {
-            label: 'Upcomming Movies',
+            label: 'Upcoming',
             icon: 'pi pi-hourglass',
             shortcut: '⌘+B',
             routerLink:'/movies/upcoming'

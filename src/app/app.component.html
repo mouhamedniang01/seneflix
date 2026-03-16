@@ -1,5 +1,16 @@
+
 <app-navbar/>
 <router-outlet></router-outlet>
-  <!--footer-->
-<app-footer/>
+<!--footer-->
+
+<!--
+Le préchargement intelligent (prefetch) permet d'optimiser
+l'expérience utilisateur en chargeant le composant en arrière-plan
+avant qu'il ne soit réellement nécessaire.
+-->
+@defer (prefetch on idle ){
+  <app-footer/>
+} @loading (after 100ms;minimum  1s){
+  <app-loading-spinner/>
+}
 

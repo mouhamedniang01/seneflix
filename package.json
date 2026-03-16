@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "analyze-bundle": "ng build --configuration=analyze-bundle && source-map-explorer dist/**/*.js --no-border-checks",
-    "stats": "webpack-bundle-analyzer dist/seneflix/stats.json"
+    "stats": "webpack-bundle-analyzer dist/seneflix/stats.json",
+    "preinstall": "npx only-allow pnpm",
+    "cleandep": "pnpm clean"
   },
   "private": true,
   "dependencies": {
@@ -19,12 +21,15 @@
     "@angular/platform-browser": "^21.2.0",
     "@angular/platform-browser-dynamic": "^21.2.0",
     "@angular/router": "^21.2.0",
+    "@angular/service-worker": "^21.2.0",
     "@angular/youtube-player": "^21.2.0",
     "@primeng/themes": "^21.0.4",
     "@tailwindcss/postcss": "^4.2.1",
+    "postcss": "^8.5.8",
     "primeicons": "^7.0.0",
     "primeng": "^21.1.1",
     "rxjs": "~7.8.0",
+    "tailwindcss": "^4.2.1",
     "tailwindcss-primeui": "^0.6.1",
     "tslib": "^2.3.0",
     "webpack-bundle-analyzer": "^4.10.2"
@@ -36,7 +41,6 @@
     "@angular/compiler-cli": "^21.2.0",
     "@types/jest": "^30.0.0",
     "angular-cli-ghpages": "^2.0.3",
-    "jasmine-core": "~5.5.0",
     "jest": "^30.2.0",
     "source-map-explorer": "^2.5.3",
     "typescript": "~5.9.3",

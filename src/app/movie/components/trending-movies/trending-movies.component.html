@@ -1,22 +1,36 @@
-@if (trendingMovies();as trendings) {
-  @for (movie of trendings.results;track  movie.id){
-    <app-movie-card
-      [name]="movie.title"
-      [poster_path]="movie.backdrop_path"
-      [movieId]="movie.id"
-      [synopsis]="movie.overview"
-      [popularity]="movie.popularity"
-      [rating]="movie.vote_average"
-      [realese_date]="movie.release_date"
+@if (genreOptions() ;as options) {
 
-    ></app-movie-card>
+  <p-listbox style="max-width: 110px; "
+    [options]="filterOptions()"
+    [(ngModel)]="value"
+    [multiple]="true"
+    optionLabel="name"
+    optionValue="id">
+  </p-listbox>
+}
+
+@defer (hydrate on viewport){
+  @if (trendingMovies();as trendings) {
+    @for (movie of trendings.results;track  movie.id){
+      <app-movie-card
+        [name]="movie.title"
+        [poster_path]="movie.backdrop_path"
+        [movieId]="movie.id"
+        [synopsis]="movie.overview"
+        [popularity]="movie.popularity"
+        [rating]="movie.vote_average"
+        [realese_date]="movie.release_date"
+
+      ></app-movie-card>
+    }
+    <!--paginator -->
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first()"
+      [rows]="rows()"
+      [totalRecords]="trendings.total_results"  />
   }
 
-  <!--paginator -->
-  <p-paginator
-    (onPageChange)="onPageChange($event)"
-    [first]="first()"
-    [rows]="rows()"
-    [totalRecords]="trendings.total_results"  />
-
+} @loading (minimum 1s;after 100ms){
+  <app-loading-spinner/>
 }

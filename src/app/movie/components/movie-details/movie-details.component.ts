@@ -14,7 +14,7 @@ import {ActivatedRoute} from '@angular/router';
 import {GalleriaModule} from 'primeng/galleria';
 import {Video} from '../../models/video';
 import { FormsModule} from '@angular/forms';
-import { Cast, Credits} from '../../models/credits';
+import {  Credits} from '../../models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import {Movies, Result} from '../../models/movies';
 import { TabsModule } from 'primeng/tabs';
@@ -23,15 +23,18 @@ import {LocalStorageService} from '../../../core/services/local-storage/local-st
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {DetailsPageComponent} from '../../../share-ui/details-page/details-page.component';
 import {ReviewComponentComponent} from '../../../reviews/components/review/review.component.component';
-import {ReviewService} from '../../../services/reviews/review.service';
 import {Review} from '../../../reviews/models/review';
 import {MovieDetail} from '../../models/movie-detail';
 import {MoviesListService} from '../../services/movie-list/movies-list.service';
+import {LoadingSpinnerComponent} from '../../../share-ui/loading-spinner/loading-spinner.component';
+import {ModalComponent} from '../../../share-ui/modal/modal.component';
+import {Cast} from '../../../people/models/cast';
+import {ReviewService} from '../../services/reviews/review.service';
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, CardModule, AnimateOnScrollModule,
     GalleriaModule, FormsModule,
-   TabsModule,  ImageModule, DetailsPageComponent,ReviewComponentComponent],
+    TabsModule, ImageModule, DetailsPageComponent, ReviewComponentComponent, LoadingSpinnerComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css',

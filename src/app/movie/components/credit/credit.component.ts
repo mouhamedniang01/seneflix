@@ -5,10 +5,9 @@ import {
   InputSignal, ViewChild,
 } from '@angular/core';
 
-import {Cast} from '../../models/credits';
 import {ImportModule} from '../../../share-ui/import';
 import {Router} from '@angular/router';
-
+import {Cast} from '../../../people/models/cast';
 @Component({
   selector: 'app-credit',
   standalone:true,

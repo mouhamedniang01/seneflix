@@ -16,7 +16,7 @@ export class MovieCardComponent {
   // movies params
   name:InputSignal<string |undefined> = input<string|undefined>();
   rating:InputSignal<number> = input(0) ;
-  realese_date :InputSignal<Date> = input<Date>(new Date());
+  realese_date :InputSignal<Date | undefined> = input<Date | undefined>();
   poster_path: InputSignal<string|undefined> = input<string|undefined>();
   //poster_width:InputSignal<string> = input.required<string>();
   movieId : InputSignal<number> = input.required<number>();

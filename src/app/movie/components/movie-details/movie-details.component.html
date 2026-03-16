@@ -1,34 +1,39 @@
+@defer{
+  @if (movieDetails()!; as movie){
+    <app-details-page
+      [id]="movie.id"
+      [title]="movie.title"
+      [genres]="genres()"
+      [poster_path]="movie.poster_path"
+      [ratings]="movie.vote_average"
+      [release_date]="movie.release_date"
+      [synopsys]="movie.overview"
+      [countries]="movie.origin_country"
+      [production_compagnies]="productions_compagnies()"
+      [cast_rounded_images]="cast()"
+      [similars]="similarMovies()"
+      [endpoint]="endpoint"
+      [video]="videos()">
+    </app-details-page>
 
-@if (movieDetails()!; as movie){
-  <app-details-page
-    [title]="movie.title"
-    [genres]="genres()"
-    [poster_path]="movie.poster_path"
-    [ratings]="movie.vote_average"
-    [release_date]="movie.release_date"
-    [synopsys]="movie.overview"
-    [countries]="movie.origin_country"
-    [production_compagnies]="productions_compagnies()"
-    [cast_rounded_images]="cast()"
-    [similars]="similarMovies()"
-    [endpoint]="endpoint"
-    [video]="videos()">
-  </app-details-page>
-
-
-  @if (reviewSignal()?.results; as reviews){
-    <div class="p-20">
+    @if (reviewSignal()?.results; as reviews){
+      <div class="p-20">
         <h2 class="via-slate-200"
             [style.display]="reviewDisplay()"
             [style.margin-bottom]="marginBottom"
         >Reviews</h2>
 
-      @for (review of reviews ;track review.id){
-        <app-review [review]="review"/>
-      }
-    </div>
-  }@else {
-  <i class="pi pi-comments"></i>
-  <h2>No comment added</h2>
+        @for (review of reviews ;track review.id){
+          <app-review [review]="review"/>
+        }
+      </div>
+    }@else {
+      <i class="pi pi-comments"></i>
+      <h2>No comment added</h2>
+    }
   }
+} @loading (after 100ms;minimum 1s){
+  <app-loading-spinner/>
+} @placeholder (){
+  <p>Loading ....</p>
 }

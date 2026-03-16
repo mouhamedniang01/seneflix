@@ -4,10 +4,11 @@ import {LocalStorageService} from './core/services/local-storage/local-storage.s
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { LoggingInterceptor } from './core/interceptors/logging.interceptor';
 import {FooterComponent} from './core/components/footer/footer.component';
+import {LoadingSpinnerComponent} from './share-ui/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent,  FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent, LoadingSpinnerComponent],
   templateUrl: './app.component.html',
   providers:[LoggingInterceptor,LocalStorageService],
   standalone: true,

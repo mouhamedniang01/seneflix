@@ -90,7 +90,14 @@ p {
   width: 60%;
   height: 35%;
 }
-
+.synopsis{
+    margin: 1.25rem 0 ;
+  display: -webkit-box; /* On précise qu'on veut utiliser webkit-box */
+  -webkit-box-orient: vertical; /* On indique le sens du texte */
+  -webkit-line-clamp: 3; /* On donne le nombre de lignes souhaité */
+  overflow: hidden; /* On cache tout ce qui peut dépasser */
+    padding-right: 2rem;
+}
 @media (max-width: 768px) {
   body {
     /*     background: none; */

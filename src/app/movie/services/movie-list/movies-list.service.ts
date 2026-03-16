@@ -20,7 +20,7 @@ export class MoviesListService {
    * Get Methods
    * url => https://api.themoviedb.org/3/movie/upcoming?language={string}&page={number}
    */
-  public getUpcommingMovies(language:string,pageNumber:number):Observable<Movies>{
+  public getUpcomingMovies(language:string, pageNumber:number):Observable<Movies>{
     return this.httpClient
       .get<Movies>(
         `${this.Host}/movie/upcoming?language=${language}&page=${pageNumber}`,
@@ -28,18 +28,41 @@ export class MoviesListService {
   }
 
   /**
-   * Fetch all trending
-   * Get Method
-   * @Param time_window
-   * @Param language
-   * @return Observable<Movies>
-   * URL => https://api.themoviedb.org/3/trending/all/:{{time_window}}?language=en-US
+   *
+   * @param language fr-FR
+   * @param movieCategory upcoming | popular
+   * @param pageNumber number
    */
-  public  getTrendingAll(time_window:TimeWindowEnum, language:string):Observable<Movies>{
+  public getMovieByCategory(language:string,movieCategory:string, pageNumber:number):Observable<Movies>{
     return this.httpClient
-      .get<Movies>(`${this.Host}/trending/all/${time_window}?language=${language}`);
+      .get<Movies>(
+        `${this.Host}/movie/${movieCategory}?language=${language}&page=${pageNumber}`,
+      );
   }
 
+  /**
+   * récupérer les films populairs
+   * @param langue fr-FR
+   * @param pageNumber number
+   * @param region string =>ex :ISO-3166-1 code
+   */
+
+  getPopularMovies(langue:string,pageNumber:number,region:string){
+    return this.httpClient.
+    get<Movies>(`${this.Host}/movie/popular?language=${langue}&page=${pageNumber}&region=${region}`)
+  }
+  /**
+   * récupérer les films tendances
+   * @param time_window day | week
+   * @param langue fr-FR
+   * @param pageNumber number
+   */
+
+  getTrendingMovies(time_window:TimeWindowEnum,langue:Langue |string,pageNumber:number):Observable<Movies>{
+    return this.httpClient.get<Movies>(
+      `https://api.themoviedb.org/3/trending/movie/${time_window}?language=${langue}&page=${pageNumber} `
+    );
+  }
 
   /**
    * Fetch all images
@@ -73,15 +96,16 @@ export class MoviesListService {
     }
 
   /**
-   * récupérer les films tendances
-   * @param time_window day | week
-   * @param langue fr-FR
-   * @param pageNumber number
+   * Fetch all trending
+   * Get Method
+   * @Param time_window
+   * @Param language
+   * @return Observable<Movies>
+   * URL => https://api.themoviedb.org/3/trending/all/:{{time_window}}?language=en-US
    */
+  public  getTrendingAll(time_window:TimeWindowEnum, language:string):Observable<Movies>{
+    return this.httpClient
+      .get<Movies>(`${this.Host}/trending/all/${time_window}?language=${language}`);
+  }
 
-    getTrendingMovies(time_window:TimeWindowEnum,langue:Langue |string,pageNumber:number):Observable<Movies>{
-      return this.httpClient.get<Movies>(
-        `https://api.themoviedb.org/3/trending/movie/${time_window}?language=${langue}&page=${pageNumber} `
-      );
-    }
 }

@@ -23,6 +23,7 @@
           <div class="relative mx-auto " (click)="navigateToDetailsPage(movie.id)">
             <figure>
               <img  alt="https://placehold.co/600x400"
+                    [style.view-transition-name]="movie.poster_path"
                     [style.max-height.px]="height()"
                     [title]="movie.title"
                     [src]="showPosterPath()?

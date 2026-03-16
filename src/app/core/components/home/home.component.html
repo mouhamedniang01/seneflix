@@ -1,68 +1,75 @@
-@if (discoveryMoviesRessource.isLoading()){
-  <app-loading-spinner/>
-} @else if (discoveryMoviesRessource.hasValue()){
-  @if (discoveryMovies() ; as discovery){
-    <div class="carousel-container">
-      <!--discovery carrousel-->
-      <section class="hero-section">
-        <app-movie-carousel
-          [imageSize]="original"
-          [movies]="discovery"
-          [showNavigation]="true"
-          [showIndicators]="true"
-          [showPosterPath]="false" [visibleAndScrollNumber]="1"/>
-      </section>
-      <div id="grid-container" style="margin-bottom: 5rem;">
+@defer (){
+  @if (discoveryMoviesRessource.isLoading()){
+    <app-loading-spinner/>
+  } @else if (discoveryMoviesRessource.hasValue()){
+    @if (discoveryMovies() ; as discovery){
+      <div class="carousel-container">
+        <!--discovery carrousel-->
+        <section class="hero-section">
+          <app-movie-carousel class="movie"
+            [imageSize]="original"
+            [movies]="discovery"
+            [showNavigation]="true"
+            [showIndicators]="true"
+            [showPosterPath]="false" [visibleAndScrollNumber]="1"/>
+        </section>
+        <div id="grid-container" style="margin-bottom: 5rem;">
 
+          <div class="mb-2"></div>
+          <!-- upcoming movies -->
+          @if ( upcomingMovies();as  upcoming){
+            <div class="p-3">
+              <app-movie-carousel
+                class="movie"
+                appTendances
+                [sectionTitle]="'Upcoming Movies'"
+                [imageSize]="x_small"
+                [movies]="upcoming"
+                [height]="300"
+                [showIndicators]="false"
+                [showNavigation]="false"
+                [showPosterPath]="true"
+                [visibleAndScrollNumber]="5"/>
+            </div>
+
+          }
+        </div>
+        <!-- end upcoming movies -->
+
+        <!--select button time window -->
+        <div class="is-centered align-items-center justify-center">
+          <p-selectbutton
+            [options]="stateOptions()"
+            [(ngModel)]="currentTimeWindow"
+            (click)="change()"
+            optionLabel="label"
+            optionValue="value" >
+          </p-selectbutton>
+        </div>
         <div class="mb-2"></div>
-        <!-- upcoming movies -->
-        @if ( upcomingMovies();as  upcoming){
+
+
+        @if (trending()){
           <div class="p-3">
+
             <app-movie-carousel
+              class="movie"
               appTendances
-              [sectionTitle]="'Upcoming Movies'"
+              [sectionTitle]="'Trending'"
               [imageSize]="x_small"
-              [movies]="upcoming"
-              [height]="300"
+              [movies]="trending()"
               [showIndicators]="false"
               [showNavigation]="false"
               [showPosterPath]="true"
-              [visibleAndScrollNumber]="5"/>
+              [viewAllRouteLink]="'movies/trending'"
+              [visibleAndScrollNumber]="4"/>
           </div>
-
         }
+
       </div>
-      <!-- end upcoming movies -->
-
-      <!--select button time window -->
-      <div class="is-centered align-items-center justify-center">
-        <p-selectbutton
-          [options]="stateOptions()"
-          [(ngModel)]="currentTimeWindow"
-          (click)="change()"
-          optionLabel="label"
-          optionValue="value" >
-        </p-selectbutton>
-      </div>
-      <div class="mb-2"></div>
-
-
-      @if (trending()){
-        <div class="p-3">
-
-          <app-movie-carousel
-            appTendances
-            [sectionTitle]="'Trending'"
-            [imageSize]="x_small"
-            [movies]="trending()"
-            [showIndicators]="false"
-            [showNavigation]="false"
-            [showPosterPath]="true"
-            [viewAllRouteLink]="'movies/trending'"
-            [visibleAndScrollNumber]="4"/>
-        </div>
-      }
-
-    </div>
+    }
   }
+
+} @loading (after 300ms;minimum  1s){
+  <app-loading-spinner/>
 }

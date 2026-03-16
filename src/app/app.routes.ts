@@ -14,6 +14,13 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{preloadingStrategy:PreloadingStrategy})],
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      {
+        preloadingStrategy:PreloadingStrategy,
+        enableViewTransitions: true
+      }
+  )],
 })
 export class AppRoutingModule { }

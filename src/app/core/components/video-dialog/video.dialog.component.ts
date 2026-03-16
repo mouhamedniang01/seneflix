@@ -3,7 +3,7 @@ import {AvatarModule} from 'primeng/avatar';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {Dialog} from 'primeng/dialog';
-import {Video} from '../../movie/models/video';
+import {Video} from '../../../movie/models/video';
 import {YouTubePlayer} from '@angular/youtube-player';
 
 @Component({

@@ -1,0 +1,37 @@
+@if (moviesbyPersonIdResources.hasValue()) {
+  @if ( moviesbyPersonIdResources!.value()!.cast; as casts) {
+    @for (movie of casts;track  movie.id){
+      <app-movie-card
+        [name]="movie.name"
+        [poster_path]="movie.backdrop_path"
+        [movieId]="movie.id"
+        [synopsis]="movie.overview"
+        [popularity]="movie.popularity"
+        [rating]="movie.vote_average"
+        [realese_date]="movie!.first_air_date"
+      ></app-movie-card>
+    }
+  } @else if (moviesbyPersonIdResources!.value()!.crew;as crews){
+    @for (movie of crews;track  movie.id){
+      <app-movie-card
+        [name]="movie.name"
+        [poster_path]="movie.backdrop_path"
+        [movieId]="movie.id"
+        [synopsis]="movie.overview"
+        [popularity]="movie.popularity"
+        [rating]="movie.vote_average"
+        [realese_date]="movie!.first_air_date"
+      ></app-movie-card>
+    }
+  }
+
+  <!--paginator
+     <p-paginator
+
+    (onPageChange)="onPageChange($event)"
+    [first]="first()"
+    [rows]="rows()"
+    [totalRecords]="movies.total_results"  />
+   -->
+
+}

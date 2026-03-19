@@ -1,20 +1,16 @@
 import {Component, computed, inject, signal, Signal, WritableSignal} from '@angular/core';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
-import {Movies} from '../../models/movies';
+import {Movies, Result} from '../../models/movies';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
-import {combineLatest, map, switchMap} from 'rxjs';
+import {combineLatest, switchMap} from 'rxjs';
 import {TimeWindowEnum} from '../../../core/enums/time-window.enum';
 import {MovieCardComponent} from '../movie-card/movie-card.component';
 import {MoviesListService} from '../../services/movie-list/movies-list.service';
 import {Paginator, PaginatorState} from 'primeng/paginator';
 import {LoadingSpinnerComponent} from '../../../share-ui/loading-spinner/loading-spinner.component';
-import {GenreService} from '../../../core/services/genre/genre.service';
 import {Genre} from '../../models/movie-detail';
 import {FormsModule} from '@angular/forms';
-import {SelectButton} from 'primeng/selectbutton';
-import {GenreOptions} from '../../../core/models/genre';
-import {JsonPipe} from '@angular/common';
-import {Listbox} from 'primeng/listbox';
+import {GenreAutocompleteComponent} from '../../../share-ui/genre.autocomplete/genre.autocomplete.component';
 
 @Component({
   selector: 'app-movies-list',
@@ -23,8 +19,7 @@ import {Listbox} from 'primeng/listbox';
     Paginator,
     LoadingSpinnerComponent,
     FormsModule,
-    Listbox,
-    // JsonPipe
+    GenreAutocompleteComponent,
   ],
   templateUrl: './trending-movies.component.html',
   styleUrl: './trending-movies.component.css',
@@ -36,19 +31,10 @@ export class TrendingMoviesComponent {
   languageSignal : Signal<string> = this.localStorage.getLanguage();
   pageIndex :WritableSignal<number> = signal(1);
   currentTimeWindow :WritableSignal<TimeWindowEnum> = signal(TimeWindowEnum.DAY);
-
-  genreService :GenreService= inject(GenreService);
-  type:string = 'movie';
-
-
-  x_small :string = 'w300';
-  small:string ='w500';
-  medium:string ='w780';
-  protected original: string = 'original';
-
+  selectedGenre : WritableSignal<Genre[]> = signal([]);
 
   //get all information on trending
-  trendingMovies: Signal<Movies | undefined> = toSignal(
+  trendingMoviesSignal: Signal<Movies | undefined> = toSignal(
     combineLatest([
       toObservable(this.languageSignal),
       toObservable(this.currentTimeWindow),
@@ -61,9 +47,27 @@ export class TrendingMoviesComponent {
     { initialValue: undefined }
   );
 
+  type: WritableSignal<string>  =signal('movie');
+
+
+
+  trendingMovies: Signal<Result[] | undefined> = computed(
+    ()=> this.filterMoviesByGenre(this.trendingMoviesSignal()?.results)
+  );
+
+  private filterMoviesByGenre(results: Result[] | undefined): Result[] | undefined {
+    const genres = this.selectedGenre();
+    if (!genres.length || !genres) return results;
+    return results?.filter(movie =>
+      movie.genre_ids.some(id => genres.some(g => g.id === id))
+    );
+  }
+
   //paginator parameters
   first: WritableSignal<number> = signal(1);
   rows:WritableSignal <number> = signal(10);
+  total_results:Signal <number | undefined> = computed(():number | undefined => this.trendingMoviesSignal()?.total_results);
+
 
   //change page parameters
   onPageChange(event: PaginatorState) {
@@ -72,24 +76,11 @@ export class TrendingMoviesComponent {
       this.pageIndex.set(page) ;
   }
 
-  //genre options filter
-  genreOptions: Signal<GenreOptions | undefined> =  toSignal(
-    toObservable(this.languageSignal)
-      .pipe(
-        switchMap((lang) =>
-          this.genreService.fetchGenres(this.type, lang)
-        ))
-  );
-  paymentOptions: any[]=[4,5,15]
-  //value: WritableSignal<string> = signal('');
-  filterOptions:any = computed(() => this.genreOptions()?.genres ??
-    [{ name: 'Visa', id: 1 },
-    { name: 'MasterCard', id: 2 },
-    { name: 'Paypal', id: 3 }]);
-  //value: Signal<number[]> = computed(():number[]=>this.genreOptions()?.genre.map(i=>i.id) ?? []);
-  onGenreChange($event:Genre){
-  }
 
-  value: number[] = [];
+  //change genre on auto complete
+  protected handleGenreChange($event: Genre[]) {
+    this.selectedGenre.set($event);
+    console.log($event)
+  }
 
 }

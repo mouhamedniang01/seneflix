@@ -1,17 +1,13 @@
-@if (genreOptions() ;as options) {
-
-  <p-listbox style="max-width: 110px; "
-    [options]="filterOptions()"
-    [(ngModel)]="value"
-    [multiple]="true"
-    optionLabel="name"
-    optionValue="id">
-  </p-listbox>
-}
 
 @defer (hydrate on viewport){
+  <div  class="flex justify-center  pt-3 gap-3">
+    <app-genre-autocomplete
+      [language]="languageSignal()" 
+      (onSelectedGenre)="handleGenreChange($event)"
+      [type]="type()"/>
+  </div>
   @if (trendingMovies();as trendings) {
-    @for (movie of trendings.results;track  movie.id){
+    @for (movie of trendings;track  movie.id){
       <app-movie-card
         [name]="movie.title"
         [poster_path]="movie.backdrop_path"
@@ -28,7 +24,7 @@
       (onPageChange)="onPageChange($event)"
       [first]="first()"
       [rows]="rows()"
-      [totalRecords]="trendings.total_results"  />
+      [totalRecords]="total_results()"  />
   }
 
 } @loading (minimum 1s;after 100ms){

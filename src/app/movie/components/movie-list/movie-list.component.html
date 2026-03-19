@@ -1,0 +1,23 @@
+
+@if (moviesInputSignal();as movies) {
+
+    @for (movie of movies;track  movie.id){
+      <app-movie-card
+        [name]="movie.title"
+        [poster_path]="movie.backdrop_path"
+        [movieId]="movie.id"
+        [synopsis]="movie.overview"
+        [popularity]="movie.popularity"
+        [rating]="movie.vote_average"
+        [realese_date]="movie.release_date"
+
+      ></app-movie-card>
+    }
+    <!--paginator -->
+    <p-paginator
+
+      (onPageChange)="onPageChange($event)"
+      [first]="first()"
+      [rows]="rows()"
+      [totalRecords]="totalResults()"  />
+  }

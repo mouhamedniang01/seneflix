@@ -4,15 +4,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {MovieDetailsComponent} from './components/movie-details/movie-details.component';
 import {CreditComponent} from './components/credit/credit.component';
 import {TrendingMoviesComponent} from './components/trending-movies/trending-movies.component';
-import {PopularMovieComponent} from './components/popular-movie/popular-movie.component';
-import {UpcomingMoviesComponent} from './components/upcoming-movies/upcoming-movies.component';
+import {MoviesCatalogueComponent} from './components/movies-catalogue/movies-catalogue.component';
 import {MovieByCastingComponent} from './components/movie-by-casting/movie.by.casting.component';
 
 
 export const routes: Routes = [
   {path:'trending', component:TrendingMoviesComponent,title:'trending movies'},
-  {path:'popular',component:PopularMovieComponent, title:'Popular movies'},
-  {path:'upcoming',component:UpcomingMoviesComponent,title:'Upcoming movies'},
+  {path:'top-movies',component:MoviesCatalogueComponent, title:'Popular movies'},
   //placer tous les routes ajoutées au dessus
   {
     path:':id',

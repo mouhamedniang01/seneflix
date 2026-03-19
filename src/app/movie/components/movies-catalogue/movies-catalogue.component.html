@@ -1,0 +1,59 @@
+@defer {
+  <!-- filter for genre's movie type-->
+  <div  class="flex justify-center  pt-3 gap-3">
+  <app-genre-autocomplete
+    [language]="langueSignal()"
+    (onSelectedGenre)="handleGenreChange($event)"
+    [type]="type()"/>
+     <!-- <p-autocomplete
+        [(ngModel)]="selectedGenreModel"
+        [suggestions]="filteredGenres"
+        (completeMethod)="filterGenre($event)"
+        [dropdown]="true"
+        [multiple]="true"
+        optionLabel="name">
+        <ng-template let-genre #item>
+          <div class="flex items-center gap-2">
+            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" style="width: 18px" />
+            <div>{{ genre.name }}</div>
+          </div>
+        </ng-template>
+        <ng-template #header>
+          <div class="font-medium px-3 py-2">Available Genre</div>
+        </ng-template>
+      </p-autocomplete>
+-->
+
+    <!-- movies type Popular || Upcoming -->
+      <p-selectbutton class="ml-5"
+                      severity="secondary"
+                      [options]="moviesOptions"
+                      [(ngModel)]="selectedMovieType"
+                      optionLabel="label"
+                      optionValue="value"
+                      aria-labelledby="basic">
+      </p-selectbutton>
+  </div>
+
+
+
+    @if (selectedMovieType === MovieTypeEnum.POPULAR){
+      @if (populars();as  popular){
+        <app-movie-list aria-label=" Popular Movies"
+                        [moviesInputSignal]="popular"
+                        (onPageUpdate)="handlePageChange($event)"
+                        [totalResults]="popularTotalResults()"
+        ></app-movie-list>
+      }
+    } @else {
+      @if (upcomingMovies();as  movies){
+        <app-movie-list aria-label="Upcoming Movies"
+                        [moviesInputSignal]="movies"
+                        (onPageUpdate)="handlePageChange($event)"
+                        [totalResults]="upcomingTotalResults()"></app-movie-list>
+      }
+    }
+
+} @loading (minimum 100ms; after  1s){
+  <app-loading-spinner/>
+}

@@ -1,0 +1,18 @@
+<p-autocomplete
+  [(ngModel)]="selectedGenreModel"
+  [suggestions]="filteredGenres"
+  (ngModelChange)="onChangeGenres()"
+  (completeMethod)="filterGenre($event)"
+  [dropdown]="true"
+  [multiple]="true"
+  placeholder="Filter by genre ..."
+  optionLabel="name">
+  <ng-template let-genre #item>
+    <div class="flex items-center gap-2">
+      <div>{{ genre.name }}</div>
+    </div>
+  </ng-template>
+  <ng-template #header>
+    <div class="font-medium px-3 py-2">Available Genre</div>
+  </ng-template>
+</p-autocomplete>

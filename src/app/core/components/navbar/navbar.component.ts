@@ -45,20 +45,14 @@ export class NavbarComponent implements OnInit{
         icon: 'pi pi-video',
         items: [
           {
-            label: 'Popular',
+            label: 'Top movies',
             icon: 'pi pi-angle-double-up',
-            routerLink:'movies/popular'
+            routerLink:'movies/top-movies'
           },
           {
             label: 'Trending',
             icon: 'pi pi-chart-line',
             routerLink:'movies/trending'
-          },
-          {
-            label: 'Upcoming',
-            icon: 'pi pi-hourglass',
-            shortcut: '⌘+B',
-            routerLink:'/movies/upcoming'
           },
           {
             separator: true,

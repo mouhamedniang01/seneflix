@@ -1,21 +1,18 @@
 import {Component, computed, inject, OnInit, Signal, signal, WritableSignal} from '@angular/core';
 import {MovieListComponent} from '../movie-list/movie-list.component';
 import {LoadingSpinnerComponent} from '../../../share-ui/loading-spinner/loading-spinner.component';
-import {MovieService} from '../../services/movie/movie.service';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
-import {combineLatest, combineLatestAll, map, Observable, switchMap} from 'rxjs';
+import {combineLatest, Observable, switchMap} from 'rxjs';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
 import {Movies, Result} from '../../models/movies';
 import {MoviesListService} from '../../services/movie-list/movies-list.service';
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
 import {MovieTypeEnum} from '../../enums/MovieTypeEnum';
-import {AutoComplete, AutoCompleteCompleteEvent, AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule} from 'primeng/autocomplete';
 import {GenreService} from '../../../core/services/genre/genre.service';
 import {GenreOptions} from '../../../core/models/genre';
 import {Genre} from '../../models/movie-detail';
-import {Button} from 'primeng/button';
-import {JsonPipe} from '@angular/common';
 import {GenreAutocompleteComponent} from '../../../share-ui/genre.autocomplete/genre.autocomplete.component';
 
 @Component({

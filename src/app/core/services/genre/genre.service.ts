@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Genre, GenreOptions} from '../../models/genre';
+import { GenreOptions} from '../../models/genre';
 import {Observable} from 'rxjs';
 
 @Injectable({

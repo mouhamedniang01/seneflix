@@ -1,6 +1,6 @@
 import {inject, Injectable, InputSignal, ResourceRef, WritableSignal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {EMPTY, Observable, of} from 'rxjs';
+import { Observable, of} from 'rxjs';
 import {Person} from '../models/person';
 import {rxResource} from '@angular/core/rxjs-interop';
 

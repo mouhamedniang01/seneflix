@@ -1,6 +1,5 @@
 import {
   Component,
-  computed,
   inject,
   input,
   output,
@@ -10,8 +9,6 @@ import {
   WritableSignal
 } from '@angular/core';
 import {AutoComplete, AutoCompleteCompleteEvent} from "primeng/autocomplete";
-import {Result} from '../../movie/models/movies';
-import {PaginatorState} from 'primeng/paginator';
 import {Genre, GenreOptions} from '../../core/models/genre';
 import {GenreService} from '../../core/services/genre/genre.service';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';

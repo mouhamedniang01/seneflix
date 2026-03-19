@@ -1,4 +1,4 @@
-import {Component, inject, Input, input, InputSignal, output, OutputEmitterRef, signal} from '@angular/core';
+import {Component, inject, input, InputSignal, output, OutputEmitterRef} from '@angular/core';
 import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
 import {Image} from 'primeng/image';

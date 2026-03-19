@@ -1,6 +1,6 @@
 import {Component, input, InputSignal, output, OutputEmitterRef, signal, WritableSignal} from '@angular/core';
 import {Paginator, PaginatorState} from 'primeng/paginator';
-import {Movies, Result} from '../../models/movies';
+import { Result} from '../../models/movies';
 import {MovieCardComponent} from '../movie-card/movie-card.component';
 import {FormsModule} from '@angular/forms';
 @Component({

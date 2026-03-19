@@ -1,12 +1,8 @@
 import {Component, effect, inject, Signal, signal, WritableSignal} from '@angular/core';
-import {DetailsPageComponent} from '../../../share-ui/details-page/details-page.component';
 import {CastMovieService} from '../../../people/service/cast-movie/cast.movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
-import {MovieListComponent} from '../movie-list/movie-list.component';
 import {MovieCardComponent} from '../movie-card/movie-card.component';
-import {Paginator} from 'primeng/paginator';
-import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-movie.by.casting',

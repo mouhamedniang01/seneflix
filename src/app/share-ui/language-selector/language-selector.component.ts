@@ -12,7 +12,7 @@ import {SelectModule} from 'primeng/select';
 
 import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
 import {Language} from '../../core/enums/language.enum';
-import {form} from '@angular/forms/signals';
+import {FieldTree, form} from '@angular/forms/signals';
 
 @Component({
   selector: 'app-language-selector',
@@ -24,17 +24,11 @@ import {form} from '@angular/forms/signals';
 
 export class LanguageSelectorComponent {
 
-
-
-  localStorageService: LocalStorageService = inject(LocalStorageService);
-  selectedLanguage!: WritableSignal<Langue>;
-
-
   onLanguageUpdate: OutputEmitterRef<Langue> = output<Langue>();
 
 
 
-  languagies = signal<Langue[]>([
+  languagies:WritableSignal<Langue[]> = signal<Langue[]>([
     { name: 'Français', code: 'fr-FR', content: Language.FRENCH },
     { name: 'English', code: 'en-UK', content: Language.ENGLISH },
   ]);
@@ -45,7 +39,7 @@ export class LanguageSelectorComponent {
     content: Language.FRENCH
   });
 
-  languageForm = form(this.languageModel);
+  languageForm:FieldTree<Langue| string> = form(this.languageModel);
 
   updateLanguage(langue: Langue) {
     this.languageForm().value.set(langue);

@@ -1,5 +1,5 @@
 import { ApplicationConfig, isDevMode } from '@angular/core';
-import { provideRouter, withViewTransitions } from '@angular/router';
+import {provideRouter, withRouterConfig, withViewTransitions} from '@angular/router';
 import { providePrimeNG } from 'primeng/config'; // prime ng
 import Nora from '@primeng/themes/nora';
 import { routes } from './app.routes';
@@ -12,6 +12,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       routes,
+      withRouterConfig({canceledNavigationResolution:'computed',onSameUrlNavigation:'reload'}),
       withViewTransitions()// Enable view transitions
     ),
     provideHttpClient(

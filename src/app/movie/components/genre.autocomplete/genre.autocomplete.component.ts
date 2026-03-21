@@ -9,8 +9,8 @@ import {
   WritableSignal
 } from '@angular/core';
 import {AutoComplete, AutoCompleteCompleteEvent} from "primeng/autocomplete";
-import {Genre, GenreOptions} from '../../core/models/genre';
-import {GenreService} from '../../core/services/genre/genre.service';
+import {Genre, GenreOptions} from '../../../core/models/genre';
+import {GenreService} from '../../../core/services/genre/genre.service';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
 import {combineLatest, switchMap} from 'rxjs';
 import {FormsModule} from '@angular/forms';

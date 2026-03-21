@@ -15,7 +15,7 @@
       </div>
     </ng-template>
     <div class="flex items-center is-center">
-      <youtube-player videoId="{{video.results[0].key}}"
+      <youtube-player videoId="{{video.results[0]?.key}}"
         [width]="750"  [title]="title()"
       />
     </div>

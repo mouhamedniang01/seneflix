@@ -13,7 +13,7 @@ import { AutoCompleteModule} from 'primeng/autocomplete';
 import {GenreService} from '../../../core/services/genre/genre.service';
 import {GenreOptions} from '../../../core/models/genre';
 import {Genre} from '../../models/movie-detail';
-import {GenreAutocompleteComponent} from '../../../share-ui/genre.autocomplete/genre.autocomplete.component';
+import {GenreAutocompleteComponent} from '../genre.autocomplete/genre.autocomplete.component';
 
 @Component({
   selector: 'app-popular-movie',

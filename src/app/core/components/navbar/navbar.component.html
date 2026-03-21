@@ -1,32 +1,29 @@
-<!--
-<ng-template #item let-item let-root="root">
-  <a pRipple class="flex items-center p-menubar-item-link" routerLink="{{item?.routerLink}}">
-    <span>{{ item.label }}</span>
-    @if (item.badge) {
-      <p-badge [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge"></p-badge>
-    }
-    @if (item.shortcut) {
-      <span class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-    }
-    @if (item.items) {
-      <i [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
-    }
-  </a>
-</ng-template>
--->
-
 <p-menubar [model]="items" class="mb-2 nav">
-  <ng-template #end class="m-2">
-    <ng-template #start>
-      <h3 #title class="prime" >Prime </h3>
-      <h3 class="ml-2">Wideo</h3>
+  <ng-template #start>
+    <h3 #title class="prime" >Prime </h3>
+    <h3 class="ml-2">Wideo</h3>
 
-      <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path  fill="var(--primary-color)"  d=""/>
-      </svg>
+    <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path  fill="var(--primary-color)"  d=""/>
+    </svg>
+
   </ng-template>
-    <app-language-selector
-      (onLanguageUpdate)="handleLanguageUpdate($event)"
-    ></app-language-selector>
+  <ng-template #end aria-label="search & lang">
+    <div class="flex items-center gap-2">
+      <app-autocomplete
+        (selected)="onSelectMovie($event)"
+        (search)="handleSearch($event)"
+        [value]="keyword()"
+        (cleared)="clearSearchInput()"
+        [suggestions]="resultSearchMovies()!"
+        [delay]="300"
+        [isFluid]="true"
+      />
+      <app-language-selector
+        (onLanguageUpdate)="handleLanguageUpdate($event)"
+      ></app-language-selector>
+
+    </div>
+
   </ng-template>
 </p-menubar>

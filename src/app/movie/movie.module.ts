@@ -15,7 +15,10 @@ export const routes: Routes = [
   {
     path:':id',
     children:[
-      {path:'details', component: MovieDetailsComponent,title:'details'},
+      {
+
+        path:'details', component: MovieDetailsComponent,title:'details'
+      },
       {path:'credits',component:CreditComponent,title:'credits'},
       {path:'cast',component:MovieByCastingComponent,title:'casting'}
     ]

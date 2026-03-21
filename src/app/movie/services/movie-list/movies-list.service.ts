@@ -1,11 +1,12 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ResourceRef, WritableSignal} from '@angular/core';
 import {HttpClient, } from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Movies} from '../../models/movies';
 import {Images} from '../../models/images';
 import {TimeWindowEnum} from '../../../core/enums/time-window.enum';
 import {environment} from '../../../../environments/environment';
 import {Langue} from '../../../share-ui/language-selector/language-selector.component';
+import {rxResource} from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +48,7 @@ export class MoviesListService {
    * @param region string =>ex :ISO-3166-1 code
    */
 
-  getPopularMovies(langue:string,pageNumber:number,region:string){
+  getPopularMovies(langue:string,pageNumber:number,region:string):Observable<Movies>{
     return this.httpClient.
     get<Movies>(`${this.Host}/movie/popular?language=${langue}&page=${pageNumber}&region=${region}`)
   }
@@ -108,4 +109,25 @@ export class MoviesListService {
       .get<Movies>(`${this.Host}/trending/all/${time_window}?language=${language}`);
   }
 
+
+  /**
+   * Search movies by keyword
+   * @param keyword string
+   * return List of Movies
+   */
+  searchMovieByKeyword(keyword: string | undefined):Observable<Movies>{
+    return this.httpClient.get<Movies>(`https://api.themoviedb.org/3/search/movie?query=${keyword}`)
+  }
+
+  loadMoviesByKeyword(keyword:WritableSignal<string |undefined>):ResourceRef<Movies | undefined>{
+    return rxResource({
+      params:()=>({keyword}),
+      stream:({params})=>{
+        if (params.keyword === undefined){
+          return of(undefined);
+        }
+        return this.searchMovieByKeyword(params.keyword());
+      }
+    })
+  }
 }

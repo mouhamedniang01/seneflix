@@ -10,7 +10,7 @@ import {Paginator, PaginatorState} from 'primeng/paginator';
 import {LoadingSpinnerComponent} from '../../../share-ui/loading-spinner/loading-spinner.component';
 import {Genre} from '../../models/movie-detail';
 import {FormsModule} from '@angular/forms';
-import {GenreAutocompleteComponent} from '../../../share-ui/genre.autocomplete/genre.autocomplete.component';
+import {GenreAutocompleteComponent} from '../genre.autocomplete/genre.autocomplete.component';
 
 @Component({
   selector: 'app-movies-list',

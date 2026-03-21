@@ -1,6 +1,5 @@
 import {
   Component,
-  inject,
   output,
   OutputEmitterRef,
   signal,
@@ -10,7 +9,6 @@ import {InputTextModule} from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SelectModule} from 'primeng/select';
 
-import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
 import {Language} from '../../core/enums/language.enum';
 import {FieldTree, form} from '@angular/forms/signals';
 

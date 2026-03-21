@@ -3,9 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed, DestroyRef,
-  effect,
   inject,
-  OnInit, ResourceRef, Signal,
+  OnInit, Signal,
   signal,
   WritableSignal
 } from '@angular/core';
@@ -135,7 +134,6 @@ export class NavbarComponent implements OnInit{
   }
 
   protected readonly TOAST_SEVERITY_ERROR:string = TOAST_SEVERITY_ERROR;
-  private readonly isStringEmpty = isStringEmpty;
   //set menu item
   protected readonly keywordForSearching :WritableSignal<string>= signal<string>('');
   setItems(){

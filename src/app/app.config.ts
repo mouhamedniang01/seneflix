@@ -1,13 +1,10 @@
-import { ApplicationConfig, isDevMode } from '@angular/core';
+import { ApplicationConfig, } from '@angular/core';
 import {provideRouter, withRouterConfig, withViewTransitions} from '@angular/router';
 import { providePrimeNG } from 'primeng/config'; // prime ng
 import Nora from '@primeng/themes/nora';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import { TokenInterceptorProvider } from './core/interceptors/logging.interceptor';
-//import { provideServiceWorker } from '@angular/service-worker';
-
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(

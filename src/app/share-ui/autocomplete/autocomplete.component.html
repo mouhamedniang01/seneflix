@@ -1,0 +1,35 @@
+<!--<p-autocomplete
+  [(ngModel)]="result"
+  [suggestions]="items()"
+  (completeMethod)="search($event)" >
+  @if (items()){
+    <ng-template let-item #item>
+
+      <div class="flex items-center gap-2">
+        <img src="{{images()}}"  style="width: 18px"  alt="..."/>
+        <div>{{ item.name }}</div>
+      </div>
+    </ng-template>
+  }@else{
+    <h2>{{notFoundMessage()}}</h2>
+  }
+
+
+</p-autocomplete>-->
+
+<p-autoComplete
+  [(ngModel)]="value"
+  [suggestions]="suggestions()"
+  [translate]="isTranslate()"
+  [name]="name()"
+  [placeholder]="placeholder()"
+  [multiple]="multiple()"
+  [dropdown]="dropdown()"
+  [delay]="delay()"
+  [disabled]="disabled()"
+  (completeMethod)="onSearch($event)"
+  (onSelect)="onSelect($event)"
+  (onClear)="onClear()"
+  [showClear]="true"
+  [fluid]="isFluid()"
+/>

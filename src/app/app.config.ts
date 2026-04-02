@@ -1,4 +1,4 @@
-import { ApplicationConfig, } from '@angular/core';
+import { ApplicationConfig, provideZonelessChangeDetection, } from '@angular/core';
 import {provideRouter, withRouterConfig, withViewTransitions} from '@angular/router';
 import { providePrimeNG } from 'primeng/config'; // prime ng
 import Nora from '@primeng/themes/nora';
@@ -12,6 +12,7 @@ export const appConfig: ApplicationConfig = {
       withRouterConfig({canceledNavigationResolution:'computed',onSameUrlNavigation:'reload'}),
       withViewTransitions()// Enable view transitions
     ),
+    provideZonelessChangeDetection(), // enable zoneless
     provideHttpClient(
       // DI-based interceptors must be explicitly enabled.
       withInterceptorsFromDi(),
@@ -30,9 +31,6 @@ export const appConfig: ApplicationConfig = {
           }
         },
 
-    })/* provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          })*/
+    }) 
   ]
 };

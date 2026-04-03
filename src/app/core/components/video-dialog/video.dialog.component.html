@@ -6,19 +6,30 @@
             [style]="{ width: '50rem',height:'40rem' }"
             [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
             [draggable]="false" [resizable]="true"
-    (keyup.escape)="onClose()" (keydown.escape)="onClose()" (keydown.enter)="onClose()"
+            (keyup.escape)="onClose()" (keydown.escape)="onClose()" (keydown.enter)="onClose()"
   >
     <ng-template #header>
-      <div class="inline-flex items-center justify-center gap-8">
-        <span class="font-bold whitespace-nowrap">{{video.results[0].name}}</span>
+      <div [class]="video.results[0]?'inline-flex items-center justify-center gap-8':'hidden'">
+        <span [class]="
+        video.results[0]?'font-bold whitespace-nowrap':'hidden'"
+        >{{video.results[0]?.name}}</span>
 
       </div>
     </ng-template>
     <div class="flex items-center is-center">
-      <youtube-player videoId="{{video.results[0]?.key}}"
-        [width]="750"  [title]="title()"
-      />
+      @if (video.results[0]?.key != undefined){
+        <figure>
+          <youtube-player
+            videoId="{{video.results[0]?.key}}"
+            [width]="750"  [title]="title()"
+          />
+        </figure>
+
+      }
     </div>
+    <h2 [class]="video.results[0].key?'hidden':'flex'">
+      <i class="pi pi-comments" style="width: 4.5rem;"></i>
+      No video found</h2>
     <ng-template #footer>
       <p-button label="Cancel" icon="pi pi-times-circle"  severity="danger" (click)="onClose()" />
     </ng-template>

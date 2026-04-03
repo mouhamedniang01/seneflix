@@ -17,11 +17,11 @@ import {Movies, Result} from '../../../movie/models/movies';
 import {MoviesListService} from '../../../movie/services/movie-list/movies-list.service';
 import {isStringEmpty, TOAST_SEVERITY_ERROR} from '../../utils';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [MenubarModule, LanguageSelectorComponent, AutocompleteComponent, ],
+  imports: [MenubarModule, LanguageSelectorComponent, AutocompleteComponent, RouterLink,],
   standalone:true,
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',

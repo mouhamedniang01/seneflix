@@ -1,7 +1,7 @@
 <p-menubar [model]="items" class="mb-2 nav">
   <ng-template #start>
-    <h3 #title class="prime" >Prime </h3>
-    <h3 class="ml-2">Wideo</h3>
+    <h3 #title class="prime" [routerLink]="'/home'" >Prime </h3>
+    <h3 class="ml-2" routerLink="/home">Wideo</h3>
 
     <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path  fill="var(--primary-color)"  d=""/>

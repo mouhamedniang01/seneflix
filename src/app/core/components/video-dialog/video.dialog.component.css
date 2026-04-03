@@ -15,3 +15,20 @@ p-dialog{
   color: #FFFFff;
   background-color: #FFFFff;
 }
+figure {
+display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+/*
+Source - https://stackoverflow.com/a/71804458
+Posted by Chris, modified by community. See post 'Timeline' for change history
+Retrieved 2026-03-21, License - CC BY-SA 4.0
+*/
+
+div > youtube-player > iframe {
+  display: block;
+  width: 100%;
+}

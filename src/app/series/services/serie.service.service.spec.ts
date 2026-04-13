@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { SerieServiceService } from './serie.service.service';
 import { provideZonelessChangeDetection } from '@angular/core';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('SerieServiceService', () => {
   let service: SerieServiceService;

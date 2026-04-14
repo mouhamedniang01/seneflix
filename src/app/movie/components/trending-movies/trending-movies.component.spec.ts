@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TrendingMoviesComponent } from './trending-movies.component';
-
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 describe('TrendingMoviesComponent', () => {
   let component: TrendingMoviesComponent;
   let fixture: ComponentFixture<TrendingMoviesComponent>;

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { DetailsPageComponent } from './details-page.component';
+import testProviders from '../../../test-providers';
 
 describe('DetailsPageComponent', () => {
   let component: DetailsPageComponent;
@@ -8,7 +9,8 @@ describe('DetailsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DetailsPageComponent]
+      imports: [DetailsPageComponent],
+      providers:[testProviders]
     })
     .compileComponents();
 

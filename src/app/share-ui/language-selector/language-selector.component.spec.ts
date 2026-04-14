@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LanguageSelectorComponent } from './language-selector.component';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import testProviders from '../../../test-providers';
+
 
 describe('LanguageSelectorComponent', () => {
   let component: LanguageSelectorComponent;
@@ -8,7 +11,8 @@ describe('LanguageSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LanguageSelectorComponent]
+      imports: [LanguageSelectorComponent],
+      providers:[testProviders]
     })
     .compileComponents();
 

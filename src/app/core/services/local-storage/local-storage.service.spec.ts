@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { LocalStorageService } from './local-storage.service';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('LocalStorageService', () => {
   let service: LocalStorageService;

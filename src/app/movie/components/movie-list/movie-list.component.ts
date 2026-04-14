@@ -13,8 +13,8 @@ import {FormsModule} from '@angular/forms';
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.css',
 })
-export class MovieListComponent {
-  moviesInputSignal :InputSignal<Result[]> = input.required<Result[]>();
+export class MovieListComponent { 
+  moviesInputSignal :InputSignal<Result[] | undefined> = input.required<Result[] | undefined>();
   totalResults:InputSignal<number | undefined> = input();
 
 

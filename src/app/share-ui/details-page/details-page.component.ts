@@ -1,6 +1,8 @@
 import {
+  afterRenderEffect,
   Component,
   computed, effect,
+   untracked,
   inject,
   input,
   InputSignal,
@@ -14,13 +16,13 @@ import {Image} from 'primeng/image';
 import {Tag} from 'primeng/tag';
 import {Button} from 'primeng/button';
 import {Result} from '../../movie/models/movies';
-import {Router, UrlTree} from '@angular/router';
+import {Router} from '@angular/router';
 import {VideoDialogComponent} from '../../core/components/video-dialog/video.dialog.component';
 import {Video} from '../../movie/models/video';
 import {ModalComponent} from '../modal/modal.component';
 import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
-import {PeopleService} from '../../people/service/people.service';
-import {HttpResourceRef} from '@angular/common/http';
+import { PeopleService } from '../../people/service/people.service';
+
 import {Person} from '../../people/models/person';
 import { MessageService } from 'primeng/api';
 import {LoadingSpinnerComponent} from '../loading-spinner/loading-spinner.component';
@@ -42,10 +44,10 @@ import {Cast} from '../../people/models/cast';
   styleUrl: './details-page.component.css',
 })
 export class DetailsPageComponent {
-  title:InputSignal<string |undefined> =input<string>();
-  synopsys:InputSignal<string |undefined> =input<string>();
-  ratings:InputSignal<number |undefined> =input<number>();
-  release_date:InputSignal<string |undefined> =input<string>();
+  title:InputSignal<string |undefined> =input<string  |undefined>();
+  synopsys:InputSignal<string |undefined> =input<string  |undefined>();
+  ratings:InputSignal<number |undefined> =input<number  |undefined>();
+  release_date:InputSignal<string |undefined> =input<string  |undefined>();
   poster_path:InputSignal<string |undefined> =input<string|undefined>();
   genres:InputSignal<string[] |undefined> =input<string[]|undefined>();
   countries: InputSignal<string[] |undefined> =input<string[]|undefined>();
@@ -65,7 +67,7 @@ export class DetailsPageComponent {
 
  private readonly peopleService:PeopleService = inject(PeopleService);
   defaultPlaceholder: string = 'https://placehold.co/700x700';
-  displayTitle: Signal<string> = computed(():string=> this.similars()!.length > 0 ? 'flex':'none');
+  displayTitle: Signal<string> = computed((): string =>(this.similars()?.length ?? 0) > 0 ? 'flex' : 'none');
 
   personId : WritableSignal<number | null > = signal(null)  ;
   langue:WritableSignal<string |undefined> = signal(  this.langueSignal());
@@ -75,18 +77,26 @@ export class DetailsPageComponent {
   );
 
   constructor() {
-    effect(() => {
-      // Se déclenche automatiquement dès que la valeur est chargée
-      const  person:Person | undefined = this.personResource.value();
-      if (person) {
-        console.log('Personne chargée :', person);
-        this.isPersonModalVisible.set(true); //  Ouvre le modal seulement quand les données sont prêtes
-      }
+    afterRenderEffect(() => {
+      effect(() => {
+        // Se déclenche automatiquement dès que la valeur est chargée
+        const person: Person | undefined = this.personResource.value(); //tracké — déclenche l'effect
+        const error = this.personResource.error();   //  tracké
+        
+        untracked(() => {                            //  les set() ne déclenchent pas de nouveau cycle
+  
+          if (person) {
+            console.log('Personne chargée :', person);
+            this.isPersonModalVisible.set(true); //  Ouvre le modal seulement quand les données sont prêtes
+          }
 
-      //Ne se déclenche plus au démarrage car EMPTY ne produit pas d'erreur
-      const message:string | undefined = (this.personResource.error()as Error)?.message;
-      if (message) this.showToastMessage('error',message,'error');
-    });
+          //Ne se déclenche plus au démarrage car EMPTY ne produit pas d'erreur
+          const message: string | undefined = (this.personResource.error() as Error)?.message;
+          if (message) this.showToastMessage('error', message, 'error');
+        });
+      }); 
+    })
+    
   }
 
   //naviger vers la page film | série détaillée avec rafraichissement

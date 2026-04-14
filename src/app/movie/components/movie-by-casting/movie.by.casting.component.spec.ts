@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MovieByCastingComponent } from './movie.by.casting.component';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('MovieByCastingComponent', () => {
   let component: MovieByCastingComponent;

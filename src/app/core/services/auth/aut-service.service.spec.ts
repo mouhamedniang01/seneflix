@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
-
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 describe('AutServiceService', () => {
   let service: AuthService;
 

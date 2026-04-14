@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GaleriaImageComponent } from './galeria-image.component';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import testProviders from '../../../test-providers';
+
 
 describe('GaleriaImageComponent', () => {
   let component: GaleriaImageComponent;
@@ -8,7 +11,8 @@ describe('GaleriaImageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GaleriaImageComponent]
+      imports: [GaleriaImageComponent],
+      providers:[testProviders]
     })
     .compileComponents();
 

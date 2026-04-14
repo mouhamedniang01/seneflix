@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 import { PeopleService } from './people.service';
 

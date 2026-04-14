@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GenreAutocompleteComponent } from './genre.autocomplete.component';
-
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 describe('GenreAutocompleteComponent', () => {
   let component: GenreAutocompleteComponent;
   let fixture: ComponentFixture<GenreAutocompleteComponent>;

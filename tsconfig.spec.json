@@ -1,18 +1,16 @@
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+// tsconfig.spec.json — remplace complètement le fichier
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": [
-     
-    ],
-    "module": "CommonJS",
-    "moduleResolution": "node"
-
+    "types": ["vitest/globals"],
+    "module": "ES2022",
+    "moduleResolution": "bundler"
   },
   "include": [
     "src/**/*.spec.ts",
     "src/**/*.d.ts",
-     "setup-jest.ts"
+    "src/test-setup.ts",
+    "src/test-providers.ts"
   ]
 }

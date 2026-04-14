@@ -10,6 +10,13 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "providersFile": "src/test-providers.ts",
+             "runnerConfig": true
+          }
+        },
         "build": {
           "builder": "@angular/build:application",
           "options": {

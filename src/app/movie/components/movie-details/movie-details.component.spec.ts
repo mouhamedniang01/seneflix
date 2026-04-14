@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MovieDetailsComponent } from './movie-details.component';
-
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 describe('MovieDetailsComponent', () => {
   let component: MovieDetailsComponent;
   let fixture: ComponentFixture<MovieDetailsComponent>;

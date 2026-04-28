@@ -1,31 +1,30 @@
-<!-- <p-card appTendances >
-        <ng-template #content>
-            <img alt="Card" class="w-full" (click)="goToDetailPage(movieId())"
-            src="https://image.tmdb.org/t/p/{{poster_width()}}{{poster_path()}}" />
-        </ng-template>
-</p-card>-->
-
 <!--
- <p-card >
-        <ng-template #content>
-            <img (click)=" goToDetailPage(movie.id)"
-            alt="Card" class="w-full" src="https://image.tmdb.org/t/p/w300{{movie.poster_path}}" />
-        </ng-template>
-    </p-card>
+ * @last modification : 16-04-2026 
+ *  remove dead code
 -->
-
 <div class="movie-card"
      [style.background-repeat]="'no-repeat'"
      [style.background-size]="'cover'"
      [style.background]="'url(https://image.tmdb.org/t/p/w780'+poster_path()+')'">
-  <h1>{{name()}}</h1>
 
-  <span>Popularity : {{popularity() | number:'1.0-1'}} <i class="pi pi-chart-line"></i></span>
+    @if(name();as name){
+     <h1>{{name}}</h1>
+    }
 
-  <span>{{rating() | number : '1.0-1'}} <i class="pi pi-star-fill"></i></span>
+  @if (popularity();as popularity) {
+    <span>Popularity : {{popularity | number:'1.0-1'}} <i class="pi pi-chart-line"></i></span>
+  }
 
-  <p class="synopsis mt-1">{{synopsis()}}</p>
+  @if (rating();as rating) {
+      <span>{{rating | number : '1.0-1'}} <i class="pi pi-star-fill"></i></span>
+  }
 
-  <button class="watch" (click)="goToDetailPage(movieId())">SHOW MOVIE</button>
+  @if (synopsis();as synopsis) {
+  <p class="synopsis mt-1">{{synopsis}}</p>
+  }
+
+  @if (movieId();as movieId) {
+    <button class="watch" (click)="goToDetailPage(movieId)">SHOW MOVIE</button>
+  }
 
 </div>

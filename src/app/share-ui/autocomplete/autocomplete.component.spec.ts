@@ -3,11 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AutocompleteComponent } from './autocomplete.component';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import testProviders from '../../../test-providers';
+import { NavbarComponent } from '../../core/components/navbar/navbar.component';
 
-/*
+ 
 describe('AutocompleteComponent', () => {
-  let component: AutocompleteComponent ;
-  let fixture: ComponentFixture<AutocompleteComponent>;
+  let component: AutocompleteComponent<string[]>;
+  let fixture: ComponentFixture<AutocompleteComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -25,4 +26,3 @@ describe('AutocompleteComponent', () => {
     expect(component).toBeTruthy();
   });
 });
-*/

@@ -17,7 +17,7 @@ describe('MovieListComponent', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
+  it('should create movie-list.component', () => {
     expect(component).toBeTruthy();
   });
 });

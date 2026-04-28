@@ -1,4 +1,8 @@
-import {Component, computed, inject, signal, Signal, WritableSignal} from '@angular/core';
+/**
+ * @last modification: 16-04-2026
+ * 
+ */
+import { Component, computed, inject, signal, Signal, WritableSignal } from '@angular/core';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
 import {Movies, Result} from '../../models/movies';
 import {toObservable, toSignal} from '@angular/core/rxjs-interop';
@@ -59,7 +63,7 @@ export class TrendingMoviesComponent {
     const genres = this.selectedGenre();
     if (!genres.length || !genres) return results;
     return results?.filter(movie =>
-      movie.genre_ids.some(id => genres.some(g => g.id === id))
+      movie.genre_ids?.some(id => genres.some(g => g.id === id))
     );
   }
 

@@ -1,4 +1,4 @@
-<p-menubar [model]="items" class="mb-2 nav">
+<p-menubar [model]="items()" class="mb-2 nav">
   <ng-template #start>
     <h3 #title class="prime" [routerLink]="'/home'" >Prime </h3>
     <h3 class="ml-2" routerLink="/home">Wideo</h3>
@@ -16,14 +16,11 @@
         [value]="keyword()"
         (cleared)="clearSearchInput()"
         [suggestions]="resultSearchMovies()!"
-        [delay]="300"
-        [isFluid]="true"
+        [delay]="300" 
       />
       <app-language-selector
         (onLanguageUpdate)="handleLanguageUpdate($event)"
       ></app-language-selector>
-
     </div>
-
   </ng-template>
 </p-menubar>

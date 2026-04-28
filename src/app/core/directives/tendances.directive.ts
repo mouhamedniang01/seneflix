@@ -1,20 +1,24 @@
-import {Directive, ElementRef, inject, OnInit} from '@angular/core';
+import {Directive, ElementRef, inject, input, OnInit} from '@angular/core';
 
 @Directive({
-    selector: '[appTendances]'
+  selector: '[appTendances]',
+  host: {
+    '[style.maxHeight]': 'maxHeight() || defaultMaxHeight',
+    '[style.boxShadow]': 'boxShadow() || defaultBoxShadow ',
+    '[style.overflow]': 'overflow() || defaultOverflow',
+    '[style.borderRadius]': 'borderRadius() || defaultBorderRadius',
+  },
 })
-export class TendancesDirective implements OnInit {
-  private el = inject(ElementRef<HTMLElement>);
+export class TendancesDirective {
+  //defaults css values
+  readonly defaultMaxHeight = '80%';
+  readonly defaultBoxShadow = '0 20px 30px rgb(0 0 0 / 0.9)';
+  readonly defaultOverflow = 'hidden';
+  readonly defaultBorderRadius = '12px';
 
-  constructor() {
-    const element = this.el.nativeElement;
-    element.style.maxHeight = '80%';
-   // element.style.boxShadow = '0 20px 30px rgb(0 0 0 / 0.9)';
-    element.style.borderRadius = '12px';
-    element.style.overflow = 'hidden';
-    element.style.margin = '0 auto';
-  }
-  ngOnInit() {
-
-  }
+  //inputs parameters
+  maxHeight = input<string>('');
+  boxShadow = input<string>('');
+  overflow = input<string>('');
+  borderRadius = input<string>('');
 }

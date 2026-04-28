@@ -2,8 +2,7 @@
   <div class="main">
     <div class="flex-start  gap-2 space-between">
       <div class="grid">
-        <p-image class="poster-path" 
-                 [style]="posterPathStyle()"
+        <p-image class="poster-path"  
                  src ="https://image.tmdb.org/t/p/w500{{poster_path()}}"
         ></p-image>
         <!--show modal trailer-->
@@ -82,10 +81,7 @@
             :'https://image.tmdb.org/t/p/w300'+item.poster_path">
           </p-image>
         }
-      </div>
-      <ng-content>
-
-      </ng-content>
+      </div> 
     }
   </div>
 </main>

@@ -1,4 +1,5 @@
-@if (video(); as video){
+@defer (hydrate on timer(500ms)) {
+  @if (video(); as video){
   <p-dialog [visible]="visible()"
             (onHide)="onClose()"
             (visibleChange)="onClose()"
@@ -39,4 +40,8 @@
     <i class="pi pi-compass" style="width: 2.5rem;color: #0f172a;"></i>
     No trailer were found
   </h1>
+}
+
+}@loading {
+  <app-loading-spinner/>
 }

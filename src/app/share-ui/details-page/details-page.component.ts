@@ -1,3 +1,7 @@
+/**
+ * @last modification: 16-04-2026
+ * Modification : refactor release date from string to Date
+ */
 import {
   afterRenderEffect,
   Component,
@@ -9,7 +13,10 @@ import {
   ResourceRef,
   Signal,
   signal,
-  WritableSignal
+  WritableSignal,
+  OnInit,
+  ChangeDetectionStrategy,
+  AfterViewInit
 } from '@angular/core';
 import {DatePipe, DecimalPipe} from '@angular/common';
 import {Image} from 'primeng/image';
@@ -18,7 +25,7 @@ import {Button} from 'primeng/button';
 import {Result} from '../../movie/models/movies';
 import {Router} from '@angular/router';
 import {VideoDialogComponent} from '../../core/components/video-dialog/video.dialog.component';
-import {Video} from '../../movie/models/video';
+import {Video} from '../../videos/models/video';
 import {ModalComponent} from '../modal/modal.component';
 import {LocalStorageService} from '../../core/services/local-storage/local-storage.service';
 import { PeopleService } from '../../people/service/people.service';
@@ -42,20 +49,21 @@ import {Cast} from '../../people/models/cast';
   providers:[MessageService],
   templateUrl: './details-page.component.html',
   styleUrl: './details-page.component.css',
+  changeDetection:ChangeDetectionStrategy.OnPush
 })
 export class DetailsPageComponent {
-  title:InputSignal<string |undefined> =input<string  |undefined>();
-  synopsys:InputSignal<string |undefined> =input<string  |undefined>();
-  ratings:InputSignal<number |undefined> =input<number  |undefined>();
-  release_date:InputSignal<string |undefined> =input<string  |undefined>();
+  title:InputSignal<string |undefined> =input<string  |undefined>( undefined);
+  synopsys:InputSignal<string |undefined> =input<string  |undefined>( undefined);
+  ratings:InputSignal<number |undefined> =input<number  |undefined>( undefined);
+  release_date:InputSignal<Date |undefined> =input<Date  |undefined>( undefined);
   poster_path:InputSignal<string |undefined> =input<string|undefined>();
   genres:InputSignal<string[] |undefined> =input<string[]|undefined>();
   countries: InputSignal<string[] |undefined> =input<string[]|undefined>();
   production_compagnies: InputSignal<string[] |undefined> =input<string[]|undefined>();
-  cast_rounded_images :  InputSignal<Cast[] |undefined> =input<Cast[] |undefined>();
-  similars:  InputSignal<Result[] |undefined> =input<Result[] |undefined>();
-  endpoint:InputSignal<string |undefined> =input<string>();
-  id:InputSignal<number |undefined> =input<number>();
+  cast_rounded_images :  InputSignal<Cast[] |undefined> =input<Cast[] |undefined>( undefined);
+  similars:  InputSignal<Result[] |undefined> =input<Result[] |undefined>( undefined);
+  endpoint:InputSignal<string |undefined> =input<string  |undefined>( undefined);
+  id:InputSignal<number |undefined> =input<number  |undefined>( undefined);
   router : Router = inject(Router);
   messageService:MessageService = inject(MessageService);
 
@@ -76,8 +84,7 @@ export class DetailsPageComponent {
     this.personId,this.langue,this.append_response
   );
 
-  constructor() {
-    afterRenderEffect(() => {
+  constructor() { 
       effect(() => {
         // Se déclenche automatiquement dès que la valeur est chargée
         const person: Person | undefined = this.personResource.value(); //tracké — déclenche l'effect
@@ -87,7 +94,11 @@ export class DetailsPageComponent {
   
           if (person) {
             console.log('Personne chargée :', person);
-            this.isPersonModalVisible.set(true); //  Ouvre le modal seulement quand les données sont prêtes
+            
+            //  Ouvre le modal seulement quand les données sont prêtes
+            Promise.resolve().then(
+             ()=> this.isPersonModalVisible.set(true) 
+            );
           }
 
           //Ne se déclenche plus au démarrage car EMPTY ne produit pas d'erreur
@@ -95,9 +106,8 @@ export class DetailsPageComponent {
           if (message) this.showToastMessage('error', message, 'error');
         });
       }); 
-    })
-    
   }
+ 
 
   //naviger vers la page film | série détaillée avec rafraichissement
   goToDetailsView(id:number) {
@@ -109,7 +119,7 @@ export class DetailsPageComponent {
 
 
   //show trailer video modal on youtube
-  video : InputSignal<Video|undefined> = input<Video |undefined>();
+  video : InputSignal<Video|undefined> = input<Video |undefined>( undefined);
   showYoutubeVideoModal() {
     this.visible.set(true);
   }
@@ -121,9 +131,9 @@ export class DetailsPageComponent {
 
 
   //show actor details on modal
-  showPeopleDetailModal(person_id: number): void {
+  showPeopleDetailModal(person_id: number | undefined): void {
     //  Déclenche le chargement — effect() gère le reste
-    this.personId.set(person_id);
+    if(person_id) this.personId.set(person_id);
   }
 
   //show toast alert message
@@ -142,17 +152,7 @@ export class DetailsPageComponent {
   }
   peopleImageId:WritableSignal<number> = signal(this.getRandomInt(5));
 
-  posterPathStyle(){
-    return ".poster-path {\n" +
-      "  max-width: 350px;\n" +
-      "  width: 100%;\n" +
-      "  cursor: pointer;\n" +
-      "}\n" +
-      ".poster-path:hover{\n" +
-      "  opacity: 0.8;\n" +
-      "  transition: 20s opacity;\n" +
-      "}";
-  }
+
 
   //show person informations on madal
   protected maximizablePeopleModale: boolean = true;

@@ -14,14 +14,14 @@ import {DecimalPipe} from '@angular/common';
 })
 export class MovieCardComponent {
   // movies params
-  name:InputSignal<string |undefined> = input<string|undefined>();
+  name:InputSignal<string |undefined> = input<string|undefined>(undefined);
   rating:InputSignal<number> = input(0) ;
-  realese_date :InputSignal<Date | undefined> = input<Date | undefined>();
-  poster_path: InputSignal<string|undefined> = input<string|undefined>();
+  realese_date :InputSignal<Date | undefined> = input<Date | undefined>(undefined);
+  poster_path: InputSignal<string|undefined> = input<string|undefined>(undefined);
   //poster_width:InputSignal<string> = input.required<string>();
-  movieId : InputSignal<number> = input.required<number>();
+  movieId : InputSignal<number |undefined> = input<number |undefined>(undefined);
   popularity : InputSignal<number|undefined> = input<number| undefined>();
-  synopsis :InputSignal<string> = input.required<string>();
+  synopsis :InputSignal<string |undefined> = input<string |undefined>();
   constructor(private readonly router: Router) { }
 
 

@@ -1,10 +1,12 @@
 <form class="card flex justify-center">
   <p-select
+    #langueForm
     [options]="languagies()"
     [ngModel]="languageModel()"
     (ngModelChange)="updateLanguage($event)"
     optionLabel="name"
     placeholder="Select a language"
+    name="language"
     class="w-full md:w-56">
   </p-select>
 </form>

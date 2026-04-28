@@ -23,14 +23,6 @@ export class AppComponent implements  OnInit{
   }
 
   ngOnInit(): void {
-    setTimeout(()=>this.showFooter(),13000)
+    setTimeout(() => this.showFooter(), 13000)
   }
-
-
-
-
-
-
-
-
 }

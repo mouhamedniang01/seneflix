@@ -1,4 +1,4 @@
-import {Injectable, signal} from '@angular/core';
+import {Injectable, Signal, signal} from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
@@ -7,11 +7,11 @@ export class LocalStorageService {
     localStorage.getItem('language') ?? 'fr-FR'
   );
 
-  getLanguage() {
+  getLanguage(): Signal<string> {
     return this.languageSignal.asReadonly();
   }
 
-  setLanguage(lang: string) {
+  setLanguage(lang: string):void {
     localStorage.setItem('language', lang);
     this.languageSignal.set(lang);
   }

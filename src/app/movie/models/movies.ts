@@ -1,3 +1,6 @@
+/**
+ * @last Modification : 16-04-2026
+ */
 export interface Movies {
   dates?: Dates
   page: number
@@ -15,14 +18,14 @@ export interface Dates {
 export interface Result {
   adult: boolean
   backdrop_path: string
-  genre_ids: number[]
+  genre_ids?: number[]
   id: number
   original_language: string
   original_title: string
   overview: string
   popularity: number
   poster_path: string
-  release_date: Date
+  release_date: Date 
   title: string
   video: boolean
   vote_average: number

@@ -1,13 +1,17 @@
-import {Component, inject, input, InputSignal, output, OutputEmitterRef} from '@angular/core';
+/**
+ * @last modification: 21-04-2026
+ * description: Generic Modal  
+ */
+import { Component, inject, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 import {DialogModule} from 'primeng/dialog';
 import {ButtonModule} from 'primeng/button';
-import {Image} from 'primeng/image';
+import {ImageModule} from 'primeng/image';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-modal',
-  imports: [DialogModule, ButtonModule, Image, DatePipe],
+  imports: [DialogModule, ButtonModule, ImageModule, DatePipe],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.css',
 })

@@ -1,8 +1,12 @@
+/**
+ * @last modification : 16-04-2026 
+ *  modification: remove recommendations movies
+ */
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
+  inject, 
   Signal,
   signal,
   WritableSignal,
@@ -12,7 +16,7 @@ import {CardModule} from 'primeng/card';
 import {combineLatest,  map,  Observable, switchMap} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {GalleriaModule} from 'primeng/galleria';
-import {Video} from '../../models/video';
+import {Video} from '../../../videos/models/video';
 import { FormsModule} from '@angular/forms';
 import {  Credits} from '../../models/credits';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
@@ -27,9 +31,11 @@ import {Review} from '../../../reviews/models/review';
 import {MovieDetail} from '../../models/movie-detail';
 import {MoviesListService} from '../../services/movie-list/movies-list.service';
 import {LoadingSpinnerComponent} from '../../../share-ui/loading-spinner/loading-spinner.component';
-import {ModalComponent} from '../../../share-ui/modal/modal.component';
 import {Cast} from '../../../people/models/cast';
-import {ReviewService} from '../../services/reviews/review.service';
+import { ReviewService } from '../../services/reviews/review.service';
+import { VideoService } from '../../../videos/services/video.service';
+import { CreditService } from '../../services/credit.service';
+
 @Component({
   selector: 'app-movie-details',
   imports: [CardModule, CardModule, AnimateOnScrollModule,
@@ -47,6 +53,8 @@ export class MovieDetailsComponent{
   private    movieListService:MoviesListService = inject(MoviesListService);
   private  movieService: MovieService = inject(MovieService);
   private   localStorage:LocalStorageService = inject(LocalStorageService);
+  private videoService: VideoService = inject(VideoService);
+  private creditService: CreditService = inject(CreditService);
 
   //parameters
   endpoint :string = 'movies';
@@ -65,7 +73,7 @@ export class MovieDetailsComponent{
      credits:Signal<Cast[]|undefined> = toSignal(
         toObservable(this.language).pipe(
         switchMap(lang =>
-          this.movieService.fetchMovieCredit(this.movieId(), lang!)
+          this.creditService.fetchMovieCredit(this.movieId(), lang!)
             .pipe(
               map(
                 (data: Credits):Cast[] => {
@@ -95,7 +103,7 @@ export class MovieDetailsComponent{
   videos:Signal<Video|undefined> =  toSignal(
       toObservable(this.language).pipe(
         switchMap(lang =>
-          this.movieService.fetchVideoInfos(this.movieId(),lang!)
+          this.videoService.fetchVideoInfos(this.movieId(),lang!)
         )
       )
   );
@@ -107,11 +115,7 @@ export class MovieDetailsComponent{
       .pipe(map((m)=> m?.results.slice(0,4)))
   );
 
-  //get recommandation's movie
-  recommendedMovies:Signal<Movies |undefined> = toSignal(
-    this.movieListService.fetchRecommendedationsMovie(this.movieId(),this.language()??'en-US',this.pageNumber())
-  );
-
+ 
 
   //inject reviews service
   reviewService:ReviewService = inject(ReviewService);

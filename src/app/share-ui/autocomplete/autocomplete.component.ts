@@ -37,19 +37,14 @@ export class AutocompleteComponent <T> implements ControlValueAccessor{
 
   //INPUTS
   suggestions: InputSignal<T[]> = input<T[]>([]); // données filtrées du parent
-  name: InputSignal<string>  = input<string>('Label'); // propriété à afficher (ex: 'name')
+  name: InputSignal<string>  = input<string>('Label'); // propriété à afficher 
   placeholder:  InputSignal<string>  = input<string>('Search ....'); // texte placeholder
   multiple: InputSignal<boolean> = input<boolean>(false); // mode multi-sélection
   dropdown: InputSignal<boolean> = input<boolean>(false);  // affiche le bouton dropdown
-  delay:  InputSignal<number>  = input.required<number>();// délai debounce en ms
-  readonly isTranslate: InputSignal<boolean> = input<boolean>(false);
-  readonly isFluid: InputSignal<boolean> = input<boolean>(false);
+  delay:  InputSignal<number>  = input<number>(300);// délai debounce en ms
+  isTranslate: InputSignal<boolean> = input<boolean>(false);
+  isFluid: InputSignal<boolean> = input<boolean>(false);
   inputStyleClass:InputSignal<string>  = input<string>('w-80') ;
-
-
- // items: InputSignal<any[]> = input<any[]>([]);
- // result: OutputEmitterRef<any> = output<any>();
- // notFoundMessage: InputSignal<string> = input<string>('No item were found');
 
   //Output
    search:OutputEmitterRef<string> = output<string>();
@@ -58,7 +53,7 @@ export class AutocompleteComponent <T> implements ControlValueAccessor{
 
   //  État interne
   //value: T | T[] | null = null;
-  value: ModelSignal<T | T[] | undefined> = model<T | T[] | undefined>();
+  value: ModelSignal<T | T[] | undefined> = model<T | T[] | undefined>(undefined);
   disabled:WritableSignal<boolean | string> = signal(false);
 
   // Callbacks enregistrés par Angular

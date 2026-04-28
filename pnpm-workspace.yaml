@@ -4,3 +4,8 @@ packages:
   - 'packages/**'
   # if required, exclude directories
   - '!**/test/**'
+allowBuilds:
+  '@parcel/watcher': false
+  esbuild: false
+  lmdb: false
+  msgpackr-extract: false

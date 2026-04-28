@@ -5,12 +5,16 @@ import Nora from '@primeng/themes/nora';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import { TokenInterceptorProvider } from './core/interceptors/logging.interceptor';
+import { provideClientHydration, withIncrementalHydration } from '@angular/platform-browser';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
       routes,
-      withRouterConfig({canceledNavigationResolution:'computed',onSameUrlNavigation:'reload'}),
-      withViewTransitions()// Enable view transitions
+      withRouterConfig({
+        canceledNavigationResolution: 'computed',
+        onSameUrlNavigation: 'reload',
+      }),
+      withViewTransitions(), // Enable view transitions
     ),
     provideZonelessChangeDetection(), // enable zoneless
     provideHttpClient(
@@ -19,18 +23,18 @@ export const appConfig: ApplicationConfig = {
     ),
     // inject the logging interceptor
     TokenInterceptorProvider,
+    provideClientHydration(),
     //prime ng added
     providePrimeNG({
-        theme: {
-          preset: Nora,
-          options: {
-            cssLayer: {
-              name: 'primeng',
-              order: 'theme, base, primeng'
-            }
-          }
+      theme: {
+        preset: Nora,
+        options: {
+          cssLayer: {
+            name: 'primeng',
+            order: 'theme, base, primeng',
+          },
         },
-
-    }) 
-  ]
+      },
+    }),
+  ],
 };

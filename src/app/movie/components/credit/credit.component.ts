@@ -1,3 +1,7 @@
+/**
+ * @last modification : 17-04-2026
+ * Modification: clean
+ */
 import {
   ChangeDetectionStrategy,
   Component, inject,
@@ -18,7 +22,7 @@ import {Cast} from '../../../people/models/cast';
 })
 export class CreditComponent {
 
-  actors:InputSignal<Cast[]> = input.required<Cast[]>();
+  actors:InputSignal<Cast[]| []> = input<Cast[]| []>([]);
 
   selectedActor: Cast | null = null;
    @ViewChild('op') private op!: CreditComponent;
@@ -31,15 +35,6 @@ export class CreditComponent {
     this.selectedActor = actor;
    this.op.hide();
   }
-
-  members = [
-    { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
-    { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
-    { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
-  ];
-
-
-
 
   toggle($event: MouseEvent) {
     this.op.toggle($event);

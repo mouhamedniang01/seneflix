@@ -1,12 +1,12 @@
 @defer{
-  @if (movieDetails()!; as movie){
+  @if (movieDetails(); as movie){
     <app-details-page
       [id]="movie.id"
       [title]="movie.title"
       [genres]="genres()"
       [poster_path]="movie.poster_path"
       [ratings]="movie.vote_average"
-      [release_date]="movie.release_date"
+      [release_date]="movie?.release_date"
       [synopsys]="movie.overview"
       [countries]="movie.origin_country"
       [production_compagnies]="productions_compagnies()"

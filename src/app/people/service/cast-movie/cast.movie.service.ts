@@ -39,7 +39,6 @@ export class CastMovieService {
           params.langue
         );
       }
-
     })
   }
 }

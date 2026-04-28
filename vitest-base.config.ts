@@ -16,7 +16,6 @@ export default defineConfig({
     globals: true,           // permet d'utiliser describe/it/expect sans import
     environment: 'jsdom',    // simule le DOM du navigateur
     setupFiles: ['src/test-providers.ts'], // fichier d'initialisation
-    include: ['src/**/*.spec.ts'],     // où chercher les tests
     exclude: ['node_modules/**'],
     server: {
       deps: {

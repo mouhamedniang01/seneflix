@@ -22,11 +22,11 @@ import {DecimalPipe, NgStyle} from '@angular/common';
 })
 export class MovieCarouselComponent {
 
-  showPosterPath:InputSignal<boolean> = input.required<boolean>();
-  movies:InputSignal<Movies| undefined>= input.required<Movies | undefined>();
-  showNavigation:InputSignal<boolean| undefined> = input<boolean>();
-  showIndicators :InputSignal<boolean | undefined>= input<boolean>();
-  visibleAndScrollNumber:InputSignal<number>= input.required<number>();
+  showPosterPath:InputSignal<boolean> = input<boolean>(false);
+  movies:InputSignal<Movies| undefined>= input<Movies | undefined>(undefined);
+  showNavigation:InputSignal<boolean> = input<boolean>(false);
+  showIndicators :InputSignal<boolean>= input<boolean>(false);
+  visibleAndScrollNumber:InputSignal<number>= input<number>(1);
 
 
   autoplayInterval  : number = 3000; // in seconds

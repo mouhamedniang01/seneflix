@@ -24,114 +24,117 @@ import {GenreAutocompleteComponent} from '../genre.autocomplete/genre.autocomple
     FormsModule,
     AutoCompleteModule,
     GenreAutocompleteComponent,
-  ],
+  ], 
   templateUrl: './movies-catalogue.component.html',
   styleUrl: './movies-catalogue.component.css',
 })
-export class MoviesCatalogueComponent implements OnInit{
+export class MoviesCatalogueComponent implements OnInit {
+  private movieService: MoviesListService = inject(MoviesListService);
+  private localStorage: LocalStorageService = inject(LocalStorageService);
+  private readonly moviesListService: MoviesListService =
+    inject(MoviesListService);
+  private readonly genreService: GenreService = inject(GenreService);
 
-  private movieService :MoviesListService = inject(MoviesListService);
-  private localStorage:LocalStorageService = inject(LocalStorageService);
-  private readonly moviesListService:MoviesListService= inject(MoviesListService);
-  private readonly genreService:GenreService  = inject(GenreService);
-
-  langueSignal:Signal<string> = this.localStorage.getLanguage();
-  pageNumber:WritableSignal<number> = signal(1);
-  region :WritableSignal<string> = signal('ISO-3166-1 code');
+  langueSignal: Signal<string> = this.localStorage.getLanguage();
+  pageNumber: WritableSignal<number> = signal(1);
+  region: WritableSignal<string> = signal('ISO-3166-1 code');
 
   //movies type selector
   moviesOptions = [
-    {label:'Popular',value:'popular'},
-    {label:'Upcoming',value:'upcoming'}
+    { label: 'Popular', value: 'popular' },
+    { label: 'Upcoming', value: 'upcoming' },
   ];
   selectedMovieType: string = 'popular';
 
-  protected readonly MovieTypeEnum:typeof  MovieTypeEnum= MovieTypeEnum;
+  protected readonly MovieTypeEnum: typeof MovieTypeEnum = MovieTypeEnum;
 
-  type: WritableSignal<string>  =signal('movie');
+  type: WritableSignal<string> = signal('movie');
 
   //movies genre filter
   genreOptions: Signal<GenreOptions | undefined> = toSignal(
     combineLatest(
-      toObservable(
-        this.langueSignal
+      toObservable(this.langueSignal),
+      toObservable(this.type),
+    ).pipe(
+      switchMap(([langue, type]) =>
+        this.genreService.fetchGenres(type, langue),
       ),
-      toObservable(
-        this.type
-      ),
-    )
-      .pipe(
-        switchMap(([langue,type])=>
-          this.genreService.fetchGenres(type,langue)
-        )
-      )
+    ),
   );
 
-
-
   selectedGenre: WritableSignal<Genre[]> = signal([]);
-  filteredGenres!:Genre[] ;
+  filteredGenres!: Genre[];
 
   ngOnInit(): void {
-    this.filteredGenres = this.genreOptions()?.genres  as any[];
+    this.filteredGenres = this.genreOptions()?.genres as any[];
   }
 
-  popularMoviesSignal:Signal<Movies | undefined> = toSignal(
+  popularMoviesSignal: Signal<Movies | undefined> = toSignal(
     combineLatest([
       toObservable(this.langueSignal),
       toObservable(this.pageNumber),
-      toObservable(this.region)
+      toObservable(this.region),
     ]).pipe(
       switchMap(
-        ([langue,index,region]:[string,number,string])
-          :Observable<Movies> => this.movieService.getPopularMovies(langue,index,region)
-      )
-    )
+        ([langue, index, region]: [
+          string,
+          number,
+          string,
+        ]): Observable<Movies> =>
+          this.movieService.getPopularMovies(langue, index, region),
+      ),
+    ),
   );
 
   // Mettre à jour le computed de populars pour lire le signal
   populars: Signal<Result[] | undefined> = computed(() =>
-    this.filterMoviesByGenre(this.popularMoviesSignal()?.results));
-
-  popularTotalResults:Signal<number | undefined> = computed(():number | undefined => this.popularMoviesSignal()?.total_results);
-
-  upcomingTotalResults:Signal<number | undefined> = computed(():number | undefined => this.upcomingMoviesSignal()?.total_results);
-
-  upcomingMovies :Signal<Result[]| undefined> = computed(
-    ()=> this.filterMoviesByGenre(this.upcomingMoviesSignal()?.results)
+    this.filterMoviesByGenre(this.popularMoviesSignal()?.results),
   );
 
+  popularTotalResults: Signal<number | undefined> = computed(
+    (): number | undefined => this.popularMoviesSignal()?.total_results,
+  );
+
+  upcomingTotalResults: Signal<number | undefined> = computed(
+    (): number | undefined => this.upcomingMoviesSignal()?.total_results,
+  );
+
+  upcomingMovies: Signal<Result[] | undefined> = computed(() =>
+    this.filterMoviesByGenre(this.upcomingMoviesSignal()?.results),
+  );
 
   //change genre on auto complete
   protected handleGenreChange($event: Genre[]) {
     this.selectedGenre.set($event);
-    console.log($event)
+    console.log($event);
   }
 
   //get all information on upcoming movies
   upcomingMoviesSignal: Signal<Movies | undefined> = toSignal(
     combineLatest([
       toObservable(this.langueSignal),
-      toObservable(this.pageNumber)
+      toObservable(this.pageNumber),
     ]).pipe(
       switchMap(
-        (
-          [language, index]:[string,number]):Observable<Movies> => this.moviesListService.getUpcomingMovies(language,index)
-      )
+        ([language, index]: [string, number]): Observable<Movies> =>
+          this.moviesListService.getUpcomingMovies(language, index),
+      ),
     ),
-    { initialValue: undefined }
+    { initialValue: undefined },
   );
 
-  protected handlePageChange($event: number) : void {
+  protected handlePageChange($event: number): void {
     this.pageNumber.set($event);
   }
 
   //filter par genre
-  private filterMoviesByGenre(results: Result[] | undefined): Result[] | undefined {
+  private filterMoviesByGenre(
+    results: Result[] | undefined,
+  ): Result[] | undefined {
     const genres = this.selectedGenre();
     if (!genres.length || !genres) return results;
-    return results?.filter(movie =>
-      movie.genre_ids.some(id => genres.some(g => g.id === id))
+    return results?.filter((movie) =>
+      movie.genre_ids?.some((id) => genres.some((g) => g.id === id)),
     );
   }
 }

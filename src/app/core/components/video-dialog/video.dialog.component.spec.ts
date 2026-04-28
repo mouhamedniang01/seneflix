@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VideoDialogComponent } from './video.dialog.component';
+import { describe, beforeEach, it, expect } from 'vitest';
 
 describe('VideoDialogComponent', () => {
   let component: VideoDialogComponent;

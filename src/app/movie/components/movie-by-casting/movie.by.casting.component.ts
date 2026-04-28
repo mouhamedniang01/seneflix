@@ -3,11 +3,13 @@ import {CastMovieService} from '../../../people/service/cast-movie/cast.movie.se
 import {ActivatedRoute} from '@angular/router';
 import {LocalStorageService} from '../../../core/services/local-storage/local-storage.service';
 import {MovieCardComponent} from '../movie-card/movie-card.component';
+import { LoadingSpinnerComponent } from '../../../share-ui/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-movie.by.casting',
   imports: [
     MovieCardComponent,
+    LoadingSpinnerComponent
   ],
   templateUrl: './movie.by.casting.component.html',
   styleUrl: './movie.by.casting.component.css',

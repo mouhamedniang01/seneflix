@@ -1,7 +1,11 @@
+/**
+ * @last modification : 16-04-2026 
+ *  change release_date type from string to Date 
+ */
 export interface MovieDetail {
   adult: boolean
   backdrop_path: string
-  belongs_to_collection: BelongsToCollection
+  belongs_to_collection?: BelongsToCollection | null
   budget: number
   genres: Genre[]
   homepage: string
@@ -15,7 +19,7 @@ export interface MovieDetail {
   poster_path: string
   production_companies: ProductionCompany[]
   production_countries: ProductionCountry[]
-  release_date: string
+  release_date: Date
   revenue: number
   runtime: number
   spoken_languages: SpokenLanguage[]

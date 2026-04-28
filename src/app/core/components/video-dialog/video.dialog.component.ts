@@ -3,13 +3,14 @@ import {AvatarModule} from 'primeng/avatar';
 import {InputTextModule} from 'primeng/inputtext';
 import {ButtonModule} from 'primeng/button';
 import {Dialog} from 'primeng/dialog';
-import {Video} from '../../../movie/models/video';
+import {Video} from '../../../videos/models/video';
 import {YouTubePlayer} from '@angular/youtube-player';
+import { LoadingSpinnerComponent } from '../../../share-ui/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-video-dialog',
   standalone: true,
-  imports: [Dialog, ButtonModule, InputTextModule, AvatarModule,  YouTubePlayer],
+  imports: [Dialog, ButtonModule, InputTextModule,LoadingSpinnerComponent, AvatarModule,  YouTubePlayer],
   templateUrl: './video.dialog.component.html',
   styleUrl: './video.dialog.component.css'
 })
